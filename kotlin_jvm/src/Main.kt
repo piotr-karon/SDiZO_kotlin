@@ -25,5 +25,11 @@ package sample.helloworld
 
 
         myTable.addFirst(5)
-        myTable.addRandom(22)
+        myTable.addAtRandomPosition(22)
+
+        val str = myTable.toPrettyString()
+
+        println(str)
+
+
     }
