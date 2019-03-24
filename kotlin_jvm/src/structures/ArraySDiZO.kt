@@ -1,4 +1,4 @@
-package sample.helloworld
+package sample.helloworld.structures
 
 import kotlin.random.Random
 

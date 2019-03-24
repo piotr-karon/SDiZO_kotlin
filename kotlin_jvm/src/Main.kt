@@ -1,6 +1,8 @@
 package sample.helloworld
 
-    fun main(){
+import sample.helloworld.structures.ArraySDiZO
+
+fun main(){
         val myTable = ArraySDiZO()
         myTable.addLast(2)
         myTable.addLast(3)
