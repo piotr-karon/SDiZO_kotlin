@@ -1,15 +1,15 @@
 package sample.helloworld.test
 
 import org.junit.Test
-import sample.helloworld.MyTable
+import sample.helloworld.ArraySDiZO
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
-class MyTableTest{
+class ArraySDiZOTest{
 
     @Test
     fun addTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.add(2)
 
         assert(table.contains(2))
@@ -17,7 +17,7 @@ class MyTableTest{
 
     @Test
     fun addFirstTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addFirst(2)
         table.addFirst(3)
         assert( table.elemAt(0) == 3)
@@ -26,7 +26,7 @@ class MyTableTest{
 
     @Test
     fun addLastTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(2)
         table.addLast(3)
         assert( table.elemAt(0) == 2)
@@ -35,7 +35,7 @@ class MyTableTest{
 
     @Test
     fun addAtTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(3)
         table.addLast(3)
 
@@ -48,7 +48,7 @@ class MyTableTest{
 
     @Test
     fun forceAddAtTest() {
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(3)
         table.addLast(3)
 
@@ -59,28 +59,57 @@ class MyTableTest{
     }
 
     @Test
-    fun deleteTest(){
-        fail()
+    fun deleteElemTest(){
+        val table = ArraySDiZO()
+        table.add(2)
+
+        assert(table.delete(2))
+        assertEquals(0,table.getSize())
     }
 
     @Test
     fun deleteFirstTest(){
-        fail()
+        val table = ArraySDiZO()
+        table.add(2)
+        table.add(3)
+
+        assert(table.deleteLast())
+        assertEquals(1,table.getSize())
+        assertEquals(2,table.elemAt(0))
     }
 
     @Test
     fun deleteLast(){
-        fail()
+        val table = ArraySDiZO()
+        table.add(2)
+        table.add(3)
+
+        assert(table.deleteFirst())
+        assertEquals(1,table.getSize())
+        assertEquals(3,table.elemAt(0))
     }
 
     @Test
     fun deleteAtTest(){
-        fail()
+        val table = ArraySDiZO()
+        table.add(1)
+        table.add(2)
+        table.add(3)
+        table.add(4)
+        table.add(5)
+
+        table.deleteAt(2)
+
+        assertEquals(table.getSize(), 4)
+        assertEquals(1,table.elemAt(0))
+        assertEquals(2,table.elemAt(1))
+        assertEquals(4,table.elemAt(2))
+        assertEquals(5,table.elemAt(3))
     }
 
     @Test
     fun containsTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(2)
 
         assert(table.contains(2))
@@ -88,7 +117,7 @@ class MyTableTest{
 
     @Test
     fun containsNotTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(2)
 
         assert(!table.contains(3))
@@ -97,7 +126,7 @@ class MyTableTest{
 
     @Test
     fun containsNotWhileEmptyArrayTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
 
         assert(!table.contains(3))
     }
@@ -114,7 +143,7 @@ class MyTableTest{
 
     @Test
     fun getSizeTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.add(2)
 
         assertEquals(table.getSize(), 1)
@@ -122,7 +151,7 @@ class MyTableTest{
 
     @Test
     fun getIndexOfTest(){
-        val table = MyTable()
+        val table = ArraySDiZO()
         table.addLast(2)
         table.addLast(3)
 

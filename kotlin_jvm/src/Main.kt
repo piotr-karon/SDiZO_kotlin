@@ -1,7 +1,7 @@
 package sample.helloworld
 
     fun main(){
-        val myTable = MyTable()
+        val myTable = ArraySDiZO()
         myTable.addLast(2)
         myTable.addLast(3)
         myTable.addLast(2)
