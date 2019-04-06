@@ -1,6 +1,5 @@
 package sample.helloworld.test
 
-import org.junit.Test
 import sample.helloworld.MyTable
 import kotlin.test.Test
 
