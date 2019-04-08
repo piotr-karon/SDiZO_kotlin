@@ -1,0 +1,137 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage{a4wide}
+\usepackage[latin2]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,polish]{babel}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\widowpenalty=10000
+\clubpenalty=10000
+
+\begin{document}
+
+\thispagestyle{empty}
+\noindent
+Piotr Karoñ, 241 626 \hfill Wroc³aw, dn. 03.04.2019\\
+
+\hfill
+
+\vspace{1cm}
+\begin{center}
+	
+  \begin{Large}
+    \emph{Zadanie projektowe 1.}\\
+  \end{Large}
+Badanie efektywno¶ci operacji dodawania, usuwania oraz\\ wyszukiwania elementów w ró¿nych strukturach danych.
+\end{center}
+
+\vspace{0.2ex}
+\begin{flushright}
+\begin{minipage}[t]{0.4\columnwidth}
+\noindent
+PROWADZ¡CY:\\
+dr Jaros³aw Mierzwa
+\end{minipage}
+\end{flushright}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Za³o¿enia projektowe}
+
+\subsection{Cel}
+\label{sec:cel}
+Celem projektu jest zbadanie efektywno¶ci operacji dodawania, usuwania i wyszukiwania elementów~w
+strukturach danych takich jak:
+\begin{itemize}
+	\item tablica
+	\item lista dwukierunkowa
+	\item kopiec binarny (maksymalny)
+	\item drzewo BST
+	\item drzewo AVL
+	\item drzewo czerwono-czarne
+\end{itemize}
+
+\subsection{Technologie}
+\label{sec:technologie}
+Do implementacji wymienionych struktur u¿yto jêzyka \textbf{\textit{Kotlin}} w wersji \textbf{\textit{Native}},
+która jest kompilowana do kodu maszynowego danej platformy.
+
+Wszystkie struktury zosta³y zaimplementowane samodzielnie, bez u¿ycia gotowych rozwiañ~z biblioteki standardowej. Nale¿y jednak zwróciæ uwagê, ¿e \textbf{Kotlin} nie pozwala na bezpo¶rednie utworzenie tablicy. W zamian udostêpnia klasê parametryzowan± \textit{Array}. Zosta³a wiêc ona wykorzystana jako podstawa implementacji. Jedynymi u¿ytymi metodami tej klasy s± \textit{set} oraz \textit{get} odpowiadaj±ce operatorowi \textit{[]}.
+
+\subsection{Przebieg eksperymentu}
+\label{sec:przebieg}
+
+Ka¿da ze struktur zostanie wype³niona elementami w ilo¶ciach 10, 100, 500, 2000, 5000, 8000, 10 000, 15 000, 30 000.\\
+Nastêpnie, po wype³nieniu zostan± wykonane operacje dodawania, usuwania i wyszukiwania elementu. Dla ka¿dej ilo¶ci testy zostan± przeprowadzone kilkadziesiat razy dla ró¿nych rozmiarów elementów, a otrzymany wynik zostanie u¶redniony. Czas nie bêdzie liczony dla generowania/wczytywania danych.
+
+\section{Krótki opis struktur} 
+\label{sec:ops_struktur}
+
+Przy tworzeniu poni¿szych opisów korzystano z \texttt{Wprowadzenia do algorytmów} autorstwa T. Cormen, C. Leiserson, R. Rivest \cite{cormen} oraz materia³ów udostêpnionych na stronie dr Tomasza Kap³ona \cite{kaplon}.
+
+\subsection{Tablica}
+\label{subsec:tablica}
+Tablic± nazywamy ci±g³y blok pamiêci, gdzie ka¿da komórka przechowuje informacjê jednego typu. Do ka¿dej z nich mamy bezpo¶redni dostêp poprzez indeks. \\
+Dostêp do okre¶lonego elementu jest natychmiastowy w³a¶nie dziêki indeksacji. Z³o¿ono¶æ czasowa wynosi \textbf{O(1)}.\\
+Wyszukanie elementu o zadanej warto¶ci w najgorszym przypadku bêdzie wymaga³o przej¶cia przez ca³± strukturê -- \textbf{O(n)}. \\
+Wstawienie elementu na koniec jest proste i tanie (nie licz±c ewentualnej potrzeby realokacji tablicy) -- sprowadza siê do zwiêkszenia rozmiaru i wstawienia elementu -- \textbf{O(1)}\\
+Wstawienie wewn±trz wymaga przesuniêcia elementów za wskazanym indeksem -- w najgorszym wypadku wstawienie na 1. pozycjê skutkuje z³o¿ono¶ci± rzêdu \textbf{O(n)}.
+Usuwanie jest analogiczne do wstawiania -- usuwanie z koñca ma z³o¿ono¶æ \textbf{O(1)}, a usuwanie z wewn±trz tak¿e wymaga przesuniêcia elementów -- \textbf{O(n)}.
+
+\subsection{Lista}
+\label{subsec:lista}
+Lista jest struktur±, która zawiera elementy sk³adaj±ce siê~z: pola danych oraz wska¼nika na element nastêpny (ewentualnie tak¿e poprzedni w li¶cie dwukierunkowej). Dodatkowo lista musi mieæ pole zawieraj±ce referencjê do pierwszego elementu list - \textit{g³owy} (oraz \textit{ogona} w wariancie dwukierunkowym). Zalet± tej struktury jest brak konieczno¶ci zapewnienia ci±g³o¶ci w pamiêci -- mo¿e ona byæ w ró¿nych miejscach. \\
+Brak indeksacji powoduje, ¿e dostêp i wyszukiwanie ma z³o¿ono¶æ czasow± rzêdu \textbf{O(n)}, gdy¿ trzeba przechodziæ przez kolejne elementy.\\
+Wstawienie sprowadza siê do utworzenia nowego elementu i "pod³±czenia" go do odpowiednich wska¼ników -- koszt \textbf{O(1)}.\\
+Samo usuniêcie elementu to \textbf{O(1)}, ale trzeba ten element najpierw znale¼æ -- koszt ro¶nie wiêc do \textbf{O(n)}.
+
+\subsection{Kopiec binarny (maksymalny)}
+\label{sec:kopiec}
+Jest to drzewo binarne (prawie) pe³ne, w którym warto¶æ rodzica jest zawsze nie mniejsza od obu potomków. Dziêki temu mamy zapewnienie, ¿e w korzeniu znajduje siê element maksymalny. Ta struktura mo¿e zostaæ zaimplementowana jako tablica lub lista.\\
+Dostêp istnieje jedynie do elementu w korzeniu.\\
+Po ka¿dej operacji usuniêcia i wstawienia elementu konieczne jest wywo³anie procedury przywracaj±cej w³asno¶æ kopca -- z³o¿ono¶æ obliczeniowa wynosi \textbf{O($log_2n$)}, gdzie $log_2n$ to wysoko¶æ drzewa.
+
+
+\subsection{Drzewo BST}
+Aby drzewo by³o BST musi dla ka¿dego wêz³a \textit{x} spe³niaæ warunek, ¿e warto¶æ ka¿dego elementu lez±cego w lewym poddrzewie wêz³a \textit{x} jest nie wiêksza ni¿ warto¶æ wêz³a \textit{x}, natomiast warto¶æ ka¿dego elementu le¿±cego w prawym poddrzewie wêz³a \textit{x} jest nie mniejsza ni¿ warto¶æ tego wêz³a.  Drzewo BST nie musi byæ pe³ne, wiêc jego wysoko¶æ \textit{k} mo¿e byæ wiêksza ni¿ $log_2n$ -- w najgorszym wypadku drzewo mo¿e siê zdegenerowaæ do listy liniowej -- ale mo¿na wykazaæ, ¿e ¶rednia warto¶æ k dla losowo zbudowanego drzewa wynosi \textbf{O($log_2n$)}. W celu zrównowa¿enia drzewa stosuje siê algorytm \textit{DSW} lub implementuje drzewa czerwono-czarne albo AVL.\\
+Wyszukanie elementu mo¿na wykonaæ w czasie \textbf{O(k)}. Na tê operacje sk³ada siê ze schodzenia po drzewie i sprawdzaniu czy szukany klucz jest mniejszy czy wiêkszy od aktualnie sprawdzanego wêz³a. \\
+Wstawienie i usuniêcie wêz³a tak¿e ma z³o¿ono¶æ \textbf{O(k)}
+
+
+\subsection{Drzewo czerwono-czarne}
+Dziêki w³asno¶ci czerwono-czarnym \cite{cormen-black-red} to drzewo jest w przybli¿eniu zrównowa¿one.\\
+Wstawienie nowego wêz³a do drzewa czerwono-czarnego o $n$ wêz³ach mo¿na wykonaæ w czasie \textbf{O($log_2n$)}. Najpierw wstawiamy wêze³ \textit{x} do drzewa, a nastêpnie nale¿y naprawiæ powsta³e drzewo.\\
+Usuwanie wêz³a równie¿ odbywa siê w czasie \textbf{O($log_2n$)}.\\
+Wyszukiwanie analogicznie do BST.
+
+\subsection{Drzewo AVL}
+Drzewo binarne jest drzewem AVL, je¶li dla ka¿dego wêz³a ró¿nica wysoko¶ci dwóch jego poddrzew wynosi co najwy¿ej 1. W³asno¶ci drzew AVL gwarantuj±, ¿e nawet w najgorszym przypadku wysoko¶æ drzewa wyniesie $1.44×log(n+2)$.\\
+Koszt operacji wyszukiwania, dodawania, usuwania jest analogiczny jak w drzewie BST.
+
+
+
+\newpage
+%##############################################################
+%##############################################################
+\begin{thebibliography}{99}
+	\addcontentsline{toc}{section}{Bibliografia}
+	\bibitem{cormen} T. Cormen, C. Leiserson, R. Rivest \emph{Wprowadzenie do algorytmów}, Wydawnictwa Naukowo-Techniczne Warszawa, Wyd. IV, 2004
+	\bibitem{cormen-black-red} \cite{cormen} str.  304.
+	\bibitem{kaplon} \texttt{tomasz.kaplon.staff.iiar.pwr.wroc.pl/}, strona dr Tomasza Kap³ona
+	\bibitem{kotlin} \texttt{kotlinlang.org/docs/reference/native-overview.html}, dokumentacja jêzyka Kotlin/Native
+	\bibitem{ilotarnow} \texttt{eduinf.waw.pl}, materia³y na stronie I LO w Tarnowie
+	
+	
+\end{thebibliography}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "sprawozdanie"
+%%% End: 
