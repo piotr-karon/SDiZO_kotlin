@@ -4,3 +4,8 @@ out/
 *.swp
 .gradle/
 build/
+
+*.log
+*.aux
+*.synctex.gz
+*.toc

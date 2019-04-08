@@ -3,6 +3,7 @@ package sample.helloworld.structures.heap
 class HeapSDiZO {
 
     private val items: MutableList<Int?> = mutableListOf()
+
     var size: Int = 0
         private set
 
