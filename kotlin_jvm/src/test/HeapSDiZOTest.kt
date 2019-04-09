@@ -2,18 +2,26 @@ package sample.helloworld.test
 
 import org.junit.Test
 import sample.helloworld.structures.heap.HeapSDiZO
-import kotlin.test.assertEquals
 
 class HeapSDiZOTest{
 
     @Test
-    fun heapQuickTest(){
-        val heap = HeapSDiZO()
+    fun heapTest(){
+        val heap = HeapSDiZO(10,10, IntRange(0,10))
 
-        heap.push(1)
-        heap.push(2)
+        heap.arr.forEach { print("$it ") }
+        println()
+        heap.build()
+        heap.arr.forEach { print("$it ") }
+        println()
 
-        assertEquals(2, heap.pop())
-        assertEquals(1, heap.pop())
+        heap.insert(99)
+        heap.insert(22)
+        heap.arr.forEach { print("$it ") }
+        println()
+
     }
+
 }
+
+
