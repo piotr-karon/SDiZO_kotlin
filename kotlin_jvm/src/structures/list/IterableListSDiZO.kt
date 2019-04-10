@@ -1,9 +1,9 @@
 package structures.list
 
-interface IterableListSDiZO{
+interface IterableListSDiZO {
 
     fun frontIterator(): IteratorListSDiZO
 
-    fun backIterator() : IteratorListSDiZO
+    fun backIterator(): IteratorListSDiZO
 
 }

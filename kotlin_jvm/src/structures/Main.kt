@@ -3,16 +3,16 @@ package sample.helloworld.structures
 import java.io.File
 import kotlin.random.Random
 
-fun main(){
+fun main() {
 
-   // print()
+    // print()
 
     val f = File("hello.txt")
     f.delete()
     f.createNewFile()
 
-    for(i in 0..50){
-        f.appendText("${Random.nextInt(0,50)}\n")
+    for (i in 0..50) {
+        f.appendText("${Random.nextInt(0, 50)}\n")
     }
 //
 //    val bst = FileLoader.bstOf(f)
@@ -22,7 +22,7 @@ fun main(){
 //    val avl = FileLoader.avlOf(f)
 //    val arr = FileLoader.arrayOf(f)
 //    val list = FileLoader.listOf(f)
-    val heap = FileLoader.heapOf(f,100)
+    val heap = FileLoader.heapOf(f, 100)
 //
 //    avl.printTree()
 //    println()
@@ -30,7 +30,7 @@ fun main(){
 //    println(list.toString())
     println(heap.toString())
 
-heap.printTree()
+    heap.printTree()
 //    val bst2 = BST()
 //
 //    for(i in 0..100){

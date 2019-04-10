@@ -2,22 +2,23 @@ package sample.helloworld.structures
 
 import sample.helloworld.structures.BST.BST
 import sample.helloworld.structures.heap.HeapSDiZO
+import structures.avl.AVLTree
 import structures.list.ListSDiZO
 import java.io.File
 import java.util.*
 
-class FileLoader{
+class FileLoader {
 
     companion object {
 
-        fun bstOf(file : File) : BST{
+        fun bstOf(file: File): BST {
             val bst = BST()
             val scan = Scanner(file)
 
             val size = scan.nextLine()
 
-            while (scan.hasNextLine()){
-              //  bst.insert(scan.nextLine().toInt())
+            while (scan.hasNextLine()) {
+                //  bst.insert(scan.nextLine().toInt())
                 bst.insertAndFix(scan.nextLine().toInt())
             }
 
@@ -25,54 +26,54 @@ class FileLoader{
             return bst
         }
 
-        fun avlOf(file : File) : AVLTree{
+        fun avlOf(file: File): AVLTree {
             val avl = AVLTree()
             val scan = Scanner(file)
 
             val size = scan.nextLine()
 
-            while (scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 avl.insert(scan.nextLine().toInt())
             }
 
             return avl
         }
 
-        fun arrayOf(file : File) : ArraySDiZO{
+        fun arrayOf(file: File): ArraySDiZO {
             val arr = ArraySDiZO()
 
             val scan = Scanner(file)
 
             val size = scan.nextLine().toString()
 
-            while (scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 arr.add(scan.nextLine().toInt())
             }
 
             return arr
         }
 
-        fun listOf(file : File) : ListSDiZO {
+        fun listOf(file: File): ListSDiZO {
 
 
             val scan = Scanner(file)
 
             val size = scan.nextLine().toString()
             val list = ListSDiZO(scan.nextLine().toInt())
-            while (scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 list.add(scan.nextLine().toInt())
             }
 
             return list
         }
 
-        fun heapOf(file : File, additional: Int) : HeapSDiZO {
+        fun heapOf(file: File, additional: Int): HeapSDiZO {
             val scan = Scanner(file)
             val size = scan.nextLine().toInt()
 
-            val heap = HeapSDiZO(0,size + additional)
+            val heap = HeapSDiZO(0, size + additional)
 
-            while (scan.hasNext()){
+            while (scan.hasNext()) {
                 heap.insert(scan.nextLine().toInt())
             }
 
@@ -80,13 +81,13 @@ class FileLoader{
         }
 
         // Rozmiarem jest rozmiar tablicy. Pierwsza liczba z pliku pomijana.
-        fun kotlinList(file : File) : MutableList<Int>{
+        fun kotlinList(file: File): MutableList<Int> {
             val scan = Scanner(file)
             val size = scan.nextLine().toInt()
 
-            val intArr : MutableList<Int> = mutableListOf()
+            val intArr: MutableList<Int> = mutableListOf()
 
-            while(scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 intArr.add(scan.nextLine().toInt())
             }
 

@@ -3,8 +3,6 @@ package structures.list
 import sample.helloworld.structures.list.ListAbstractElement
 import sample.helloworld.structures.list.ListElement
 import sample.helloworld.structures.list.Nil
-import java.lang.StringBuilder
-import java.text.FieldPosition
 
 /*
 * Konstruktor wymaga podania pierwszej wartości liczby.
@@ -13,31 +11,31 @@ import java.text.FieldPosition
 */
 
 class ListSDiZO(value: Int) : IterableListSDiZO {
-    var head : ListAbstractElement = Nil
+    var head: ListAbstractElement = Nil
 
-    var tail : ListAbstractElement = Nil
+    var tail: ListAbstractElement = Nil
 
     init {
         add(value)
     }
 
-    fun add(value : Int){
-        when(tail is Nil){
+    fun add(value: Int) {
+        when (tail is Nil) {
             true -> {
                 head = ListElement(value, Nil, Nil)
                 tail = head
             }
 
             false -> {
-                tail.successor = ListElement(value, tail,Nil)
+                tail.successor = ListElement(value, tail, Nil)
                 this.tail = tail.successor
             }
         }
 
     }
 
-    fun addFirst(value: Int){
-        when(head is Nil){
+    fun addFirst(value: Int) {
+        when (head is Nil) {
             true -> add(value)
 
             false -> {
@@ -47,19 +45,19 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         }
     }
 
-    fun addLast(value: Int){
+    fun addLast(value: Int) {
         add(value)
     }
 
-    fun addAt(value: Int, position: Int) : Boolean{
+    fun addAt(value: Int, position: Int): Boolean {
 
-        if (position==0) addFirst(value)
+        if (position == 0) addFirst(value)
 
         val itr = frontIterator()
         var i = 0
         var element = head
 
-        while (itr.hasNext() && i < position){
+        while (itr.hasNext() && i < position) {
             element = itr.next()
             i--
         }
@@ -72,39 +70,39 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         return true
     }
 
-    fun deleteFirst(){
-        if(head is Nil) return
+    fun deleteFirst() {
+        if (head is Nil) return
 
         // Przypadek listy jednoelementowej
-        if(head==tail){
+        if (head == tail) {
             val nil = Nil
             head = nil
             tail = nil
             return
-        }else{
+        } else {
             head.successor.predecessor = Nil
             this.head = head.successor
         }
     }
 
-    fun deleteLast(){
-        if(tail is Nil) return
+    fun deleteLast() {
+        if (tail is Nil) return
 
         // Przypadek listy jednoelementowej
-        if(head==tail){
+        if (head == tail) {
             deleteFirst()
-        }else{
+        } else {
             tail.predecessor.successor = Nil
             this.tail = tail.predecessor
         }
     }
 
-    fun deleteValue(value: Int) : Boolean {
+    fun deleteValue(value: Int): Boolean {
 
         val it = frontIterator()
         var elem = head
 
-        while(it.hasNext() && elem.value != value){
+        while (it.hasNext() && elem.value != value) {
             elem = it.next()
         }
 
@@ -116,9 +114,9 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         return true
     }
 
-    fun contains(value: Int) : Boolean {
+    fun contains(value: Int): Boolean {
         val itr = frontIterator()
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             if (itr.next().value == value) return true
         }
 
@@ -135,11 +133,11 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
     }
 
     private class IteratorSDiZO(
-        var current : ListAbstractElement
+        var current: ListAbstractElement
     ) : IteratorListSDiZO {
 
         override fun next(): ListAbstractElement {
-           val ret = current
+            val ret = current
             when {
                 hasNext() -> {
                     current = current.successor
@@ -174,9 +172,9 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
 
     override fun toString(): String {
         val builder = StringBuilder("")
-        val itr = frontIterator();
+        val itr = frontIterator()
 
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             builder.append(" ${itr.next().value}")
         }
 

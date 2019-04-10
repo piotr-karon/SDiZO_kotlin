@@ -104,8 +104,8 @@ class BSTTest {
         val bst = BST()
 
         with(bst) {
-            for(i in 0 .. 100)
-                insert(Random.nextInt(0,100))
+            for (i in 0..100)
+                insert(Random.nextInt(0, 100))
 
             balanceDSW()
             printTree()
@@ -114,12 +114,12 @@ class BSTTest {
     }
 
     @Test
-    fun rotateLeftTest(){
+    fun rotateLeftTest() {
         val bst = BST()
 
-        val node1 = Node(1,Nil, Nil, Nil)
-        val node2 = Node(2,  node1, Nil, Nil)
-        val node3 = Node(3,  node2, Nil, Nil)
+        val node1 = Node(1, Nil, Nil, Nil)
+        val node2 = Node(2, node1, Nil, Nil)
+        val node3 = Node(3, node2, Nil, Nil)
 
         node1.rightChild = node2
         node2.rightChild = node3
@@ -130,7 +130,7 @@ class BSTTest {
         bst.rotateLeft(node2)
         bst.printTree()
 
-        with(bst){
+        with(bst) {
             assertEquals(root, node1)
             assertEquals(root.rightChild, node3)
             assertEquals(root.rightChild.leftChild, node2)

@@ -1,10 +1,13 @@
-package sample.helloworld.structures
+package structures.avl
+
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class AVLTree {
 
     var root: AbstractAVLNode = NilAVL
 
-    fun insert(key: Int) : AbstractAVLNode{
+    fun insert(key: Int): AbstractAVLNode {
 
         var p: AbstractAVLNode = NilAVL
         var x: AbstractAVLNode = root
@@ -31,7 +34,7 @@ class AVLTree {
         return w
     }
 
-    private fun balanceTree(w : AbstractAVLNode){
+    private fun balanceTree(w: AbstractAVLNode) {
 
         var p = w.parent
 
@@ -44,39 +47,39 @@ class AVLTree {
 
         var r = p.parent //r - ojciec, p - syn
 
-        while(r !is NilAVL){
+        while (r !is NilAVL) {
 
-            if(r.bf !=0){
+            if (r.bf != 0) {
 
-                if(r.bf == -1){
-                    if(r.leftChild == p){
+                if (r.bf == -1) {
+                    if (r.leftChild == p) {
                         r.bf = 0
                         return
                     }
-                    if(p.bf == 1){
+                    if (p.bf == 1) {
                         rotateRL(r)
-                    }else{
+                    } else {
                         rotateRR(r)
                     }
 
                 }
 
-                if(r.rightChild == p){
+                if (r.rightChild == p) {
                     r.bf = 0
                     return
                 }
 
-                if(p.bf==-1){
+                if (p.bf == -1) {
                     rotateLR(r)
-                }else{
+                } else {
                     rotateLL(r)
                 }
 
             }
 
-            if(r.leftChild == p){
+            if (r.leftChild == p) {
                 r.bf = 1
-            }else{
+            } else {
                 r.bf = -1
             }
 
@@ -129,17 +132,17 @@ class AVLTree {
         return y
     }
 
-    fun predecessor(AVLNode: AbstractAVLNode) :AbstractAVLNode{
+    fun predecessor(AVLNode: AbstractAVLNode): AbstractAVLNode {
 
         var node = AVLNode
 
-        if(node is NilAVL) return node
+        if (node is NilAVL) return node
 
-        if(node.leftChild !is NilAVL) return treeMaximum(node.leftChild)
+        if (node.leftChild !is NilAVL) return treeMaximum(node.leftChild)
 
         var r = node.parent
 
-        while(r !is NilAVL && node == r.leftChild){
+        while (r !is NilAVL && node == r.leftChild) {
             node = r
             r = r.parent
         }
@@ -167,7 +170,7 @@ class AVLTree {
         if (parentA is NilAVL) {
             root = nodeB
 
-        }else{
+        } else {
             if (parentA.leftChild == nodeA) parentA.leftChild = nodeB
             else parentA.rightChild = nodeB
         }
@@ -196,7 +199,7 @@ class AVLTree {
 
         if (parentA is NilAVL) {
             root = nodeB
-        }else{
+        } else {
             if (parentA.rightChild == nodeA) parentA.rightChild = nodeB
             else parentA.leftChild = nodeB
         }
@@ -212,7 +215,7 @@ class AVLTree {
     }
 
     fun rotateRL(nodeA: AbstractAVLNode) {
-        if(nodeA.rightChild is NilAVL || nodeA.rightChild.leftChild is NilAVL) return
+        if (nodeA.rightChild is NilAVL || nodeA.rightChild.leftChild is NilAVL) return
 
         val nodeB = nodeA.rightChild
         val nodeC = nodeB.leftChild
@@ -243,7 +246,7 @@ class AVLTree {
     }
 
     fun rotateLR(nodeA: AbstractAVLNode) {
-        if(nodeA.leftChild is NilAVL || nodeA.leftChild.rightChild is NilAVL) return
+        if (nodeA.leftChild is NilAVL || nodeA.leftChild.rightChild is NilAVL) return
 
         val nodeB = nodeA.leftChild
         val nodeC = nodeB.rightChild
@@ -354,6 +357,18 @@ class AVLTree {
             inOrder(AVLNode.leftChild, list)
             list.add(AVLNode.key)
             inOrder(AVLNode.rightChild, list)
+        }
+    }
+
+    companion object {
+        fun generateRandom(count: Int, range: IntRange): AVLTree {
+            val avlTree = AVLTree()
+
+            for (i in 1..count) {
+                avlTree.insert(Random.nextInt(range))
+            }
+
+            return avlTree
         }
     }
 }

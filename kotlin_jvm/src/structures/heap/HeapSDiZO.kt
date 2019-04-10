@@ -1,61 +1,60 @@
 package sample.helloworld.structures.heap
 
-import java.lang.StringBuilder
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class HeapSDiZO{
+class HeapSDiZO {
 
     var size = 0
-    var arr: Array<Int> = Array(size + 10) {0}
+    var arr: Array<Int> = Array(size + 10) { 0 }
 
-    constructor(size: Int, additional: Int){
-        arr = Array(size + additional) {0}
+    constructor(size: Int, additional: Int) {
+        arr = Array(size + additional) { 0 }
     }
 
-    constructor(size: Int,additional: Int, range: IntRange){
-        arr = Array(size + additional) {0}
+    constructor(size: Int, additional: Int, range: IntRange) {
+        arr = Array(size + additional) { 0 }
 
-        for (i in 0 .. size)
-            arr[i] =  Random.nextInt(range)
+        for (i in 0..size)
+            arr[i] = Random.nextInt(range)
     }
 
-    constructor(array: Array<Int>){
+    constructor(array: Array<Int>) {
         this.arr = array
         size = array.size
     }
 
-    fun heapify(ind : Int){
+    fun heapify(ind: Int) {
         val left = left(ind)
         val right = right(ind)
         var largest = 0
 
-        largest = if( left < arr.size && arr[left] > arr[ind]) {
+        largest = if (left < arr.size && arr[left] > arr[ind]) {
             left
-        }else{
+        } else {
             ind
         }
 
-        if( right < arr.size && arr[right] > arr[largest]){
+        if (right < arr.size && arr[right] > arr[largest]) {
             largest = right
         }
 
-        if (largest != ind){
+        if (largest != ind) {
             swap(ind, largest)
             heapify(largest)
         }
 
     }
 
-    fun build(){
-        for( i in arr.size/2 downTo 0)
+    fun build() {
+        for (i in arr.size / 2 downTo 0)
             heapify(i)
     }
 
-    fun insert(key : Int){
+    fun insert(key: Int) {
         var i = ++size
 
-        while (i>0 && arr[parent(i)] < key){
+        while (i > 0 && arr[parent(i)] < key) {
             arr[i] = arr[parent(i)]
             i = parent(i)
         }
@@ -63,27 +62,27 @@ class HeapSDiZO{
         arr[i] = key
     }
 
-    private fun swap(ind1 : Int, ind2 : Int){
+    private fun swap(ind1: Int, ind2: Int) {
         val l1 = arr[ind1]
         arr[ind1] = arr[ind2]
         arr[ind2] = l1
     }
 
-    fun extractMax() : Int{
+    fun extractMax(): Int {
         val max = arr[0]
 
-        arr[0] = arr[arr.size-1]
+        arr[0] = arr[arr.size - 1]
 
         heapify(0)
 
         return max
     }
 
-    fun printTree(){
-        printTree(0,0)
+    fun printTree() {
+        printTree(0, 0)
     }
 
-    private fun printTree(ind : Int, level: Int) {
+    private fun printTree(ind: Int, level: Int) {
         if (ind >= size)
             return
 
@@ -99,13 +98,24 @@ class HeapSDiZO{
     }
 
     override fun toString(): String {
-        val builder  = StringBuilder()
+        val builder = StringBuilder()
         arr.forEach { builder.append(" $it") }
         return builder.toString()
     }
 
-    private fun left(i : Int) = i * 2 + 1
-    private fun right(i : Int) =  i * 2 + 2
-    private fun parent(i : Int) = (i - 1) / 2
+    companion object {
+        fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
+            val heap = HeapSDiZO(0, count)
+
+            for (i in 1..count)
+                heap.insert(Random.nextInt(range))
+
+            return heap
+        }
+    }
+
+    private fun left(i: Int) = i * 2 + 1
+    private fun right(i: Int) = i * 2 + 2
+    private fun parent(i: Int) = (i - 1) / 2
 
 }

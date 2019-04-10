@@ -2,7 +2,8 @@ package sample.helloworld.structures.BST
 
 import kotlin.math.floor
 import kotlin.math.log2
-import kotlin.math.pow
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class BST {
 
@@ -37,54 +38,54 @@ class BST {
 
     }
 
-    fun find(key: Int) : AbstractNode{
+    fun find(key: Int): AbstractNode {
         return find(root, key)
     }
 
-    fun extract(key: Int) : AbstractNode{
-       val nodeDel = find(key)
+    fun extract(key: Int): AbstractNode {
+        val nodeDel = find(key)
 
-        val y : AbstractNode
+        val y: AbstractNode
 
-        y = if(nodeDel.leftChild is Nil || nodeDel.rightChild is Nil){
+        y = if (nodeDel.leftChild is Nil || nodeDel.rightChild is Nil) {
             nodeDel
-        }else{
+        } else {
             treeSuccessor(nodeDel)
         }
 
-        val x = if(y.leftChild !is Nil){
+        val x = if (y.leftChild !is Nil) {
             y.leftChild
-        }else{
+        } else {
             y.rightChild
         }
 
-        if(x !is Nil) x.parent = y.parent
+        if (x !is Nil) x.parent = y.parent
 
-        if(y.parent is Nil){
+        if (y.parent is Nil) {
             root = x
-        }else if( y == y.parent.leftChild){
+        } else if (y == y.parent.leftChild) {
             y.parent.leftChild = x
-        }else{
+        } else {
             y.parent.rightChild = x
         }
 
-        if(y != nodeDel)
+        if (y != nodeDel)
             nodeDel.value = y.value
 
         return y
     }
 
-    fun insertAndFix(key: Int){
+    fun insertAndFix(key: Int) {
         insert(key)
         balanceDSW()
     }
 
-    fun deleteAndFix(key: Int){
+    fun deleteAndFix(key: Int) {
         extract(key)
         balanceDSW()
     }
 
-    fun treeMinimum(node:AbstractNode) : AbstractNode{
+    fun treeMinimum(node: AbstractNode): AbstractNode {
         var node = node
 
         while (node !is Nil)
@@ -93,7 +94,7 @@ class BST {
         return node
     }
 
-    fun treeMaximum() : AbstractNode{
+    fun treeMaximum(): AbstractNode {
         var node = root
 
         while (node !is Nil)
@@ -102,74 +103,74 @@ class BST {
         return node
     }
 
-    fun treeSuccessor(node: AbstractNode) : AbstractNode{
+    fun treeSuccessor(node: AbstractNode): AbstractNode {
         var node = node
-        if(node.rightChild !is Nil)
+        if (node.rightChild !is Nil)
             return treeMinimum(node.rightChild)
 
         var y = node.parent
 
-        while (y !is Nil && node == y.rightChild){
+        while (y !is Nil && node == y.rightChild) {
             node = y
             y = y.parent
         }
         return y
     }
 
-    fun balanceDSW(){
+    fun balanceDSW() {
         backbone()
 
         val count = inOrder().size
-     //   var s = count + 1 - log2(count + 1.0)
+        //   var s = count + 1 - log2(count + 1.0)
         var p = root
 
-        var s = floor(log2(count+0.0)+1) - count
+        var s = floor(log2(count + 0.0) + 1) - count
 
-        for(i in 0 until s.toInt()){
+        for (i in 0 until s.toInt()) {
             rotateLeft(p)
             p = p.parent.rightChild
         }
 
         s = count.toDouble()
 
-        while(s > 1){
-            s/=2
+        while (s > 1) {
+            s /= 2
             p = root
-            for(i in 0 until s.toInt()){
+            for (i in 0 until s.toInt()) {
                 rotateLeft(p)
                 p = p.parent.rightChild
             }
         }
     }
 
-    fun printTree(){
+    fun printTree() {
         println(" \n----------------\n ")
         printBinaryTree(root, 0)
     }
 
-    fun rotateLeft(nodeA: AbstractNode){
+    fun rotateLeft(nodeA: AbstractNode) {
         if (nodeA is Nil || nodeA.rightChild is Nil) return
 
         val nodeB = nodeA.rightChild
         val parentA = nodeA.parent
 
         nodeA.rightChild = nodeB.leftChild
-        if(nodeA.rightChild !is Nil) nodeA.rightChild.parent = nodeA
+        if (nodeA.rightChild !is Nil) nodeA.rightChild.parent = nodeA
         nodeB.leftChild = nodeA
         nodeB.parent = parentA
         nodeA.parent = nodeB
 
-        if(parentA is Nil){
+        if (parentA is Nil) {
             root = nodeB
             return
         }
 
-        if(parentA.leftChild == nodeA) parentA.leftChild = nodeB
+        if (parentA.leftChild == nodeA) parentA.leftChild = nodeB
         else parentA.rightChild = nodeB
 
     }
 
-    fun rotateRight(nodeA: AbstractNode){
+    fun rotateRight(nodeA: AbstractNode) {
         if (nodeA is Nil || nodeA.leftChild is Nil) return
 
         //nodeA as AVLNodeAVL
@@ -178,17 +179,17 @@ class BST {
         val parentA = nodeA.parent
 
         nodeA.leftChild = nodeB.rightChild
-        if(nodeA.leftChild !is Nil) nodeA.leftChild.parent = nodeA
+        if (nodeA.leftChild !is Nil) nodeA.leftChild.parent = nodeA
         nodeB.rightChild = nodeA
         nodeB.parent = parentA
         nodeA.parent = nodeB
 
-        if(parentA is Nil){
+        if (parentA is Nil) {
             root = nodeB
             return
         }
 
-        if(parentA.rightChild == nodeA) parentA.rightChild = nodeB
+        if (parentA.rightChild == nodeA) parentA.rightChild = nodeB
         else parentA.leftChild = nodeB
 
     }
@@ -199,19 +200,19 @@ class BST {
         return ret
     }
 
-    fun inOrderNodes() : MutableList<Node>{
+    fun inOrderNodes(): MutableList<Node> {
         val list = mutableListOf<Node>()
         inOrderNodesFrom(root, list)
         return list
     }
 
-    fun preOrder() : MutableList<Int> {
+    fun preOrder(): MutableList<Int> {
         val ret = mutableListOf<Int>()
         preOrder(root, ret)
         return ret
     }
 
-    private fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>){
+    private fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>) {
         if (node !is Nil) {
             inOrderNodesFrom(node.leftChild, list)
             list.add(node as Node)
@@ -241,26 +242,26 @@ class BST {
         printBinaryTree(root.leftChild, level + 1)
     }
 
-    private fun backbone(){
+    private fun backbone() {
         var temp = root
 
-        while (temp !is Nil){
-            temp = if (temp.leftChild !is Nil){
+        while (temp !is Nil) {
+            temp = if (temp.leftChild !is Nil) {
                 rotateRight(temp)
                 temp.parent
-            }else{
+            } else {
                 temp.rightChild
             }
         }
     }
 
-    private fun find(node: AbstractNode, key: Int) : AbstractNode{
+    private fun find(node: AbstractNode, key: Int): AbstractNode {
         var x = node
 
-        while( x !is Nil && key != x.value){
-            x = if (key < x.value){
+        while (x !is Nil && key != x.value) {
+            x = if (key < x.value) {
                 x.leftChild
-            }else{
+            } else {
                 x.rightChild
             }
         }
@@ -274,6 +275,18 @@ class BST {
             inOrder(node.leftChild, list)
             list.add(node.value)
             inOrder(node.rightChild, list)
+        }
+    }
+
+    companion object {
+        fun generateRandom(count: Int, range: IntRange): BST {
+            val tree = BST()
+
+            for (i in 1..count) {
+                tree.insert(Random.nextInt(range))
+            }
+
+            return tree
         }
     }
 }
@@ -290,7 +303,7 @@ data class Node(
     override var parent: AbstractNode,
     override var leftChild: AbstractNode,
     override var rightChild: AbstractNode
-) : AbstractNode(){
+) : AbstractNode() {
 
     override fun toString(): String {
         return "V: ${this.value}"

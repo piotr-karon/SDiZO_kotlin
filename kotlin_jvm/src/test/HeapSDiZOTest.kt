@@ -3,11 +3,11 @@ package sample.helloworld.test
 import org.junit.Test
 import sample.helloworld.structures.heap.HeapSDiZO
 
-class HeapSDiZOTest{
+class HeapSDiZOTest {
 
     @Test
-    fun heapTest(){
-        val heap = HeapSDiZO(10,10, IntRange(0,10))
+    fun heapTest() {
+        val heap = HeapSDiZO(10, 10, IntRange(0, 10))
 
         heap.arr.forEach { print("$it ") }
         println()

@@ -2,9 +2,11 @@ package sample.helloworld.test
 
 import org.junit.Test
 import sample.helloworld.structures.list.Nil
-import structures.list.IteratorListSDiZO
 import structures.list.ListSDiZO
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 class ListSDiZOTest {
 
@@ -13,8 +15,8 @@ class ListSDiZOTest {
         val list = ListSDiZO(2)
         list.add(3)
 
-        assertEquals(2,list.head.value)
-        assertEquals(3,list.tail.value)
+        assertEquals(2, list.head.value)
+        assertEquals(3, list.tail.value)
 
     }
 
@@ -23,8 +25,8 @@ class ListSDiZOTest {
         val list = ListSDiZO(2)
         list.addFirst(3)
 
-        assertEquals(3,list.head.value)
-        assertEquals(2,list.tail.value)
+        assertEquals(3, list.head.value)
+        assertEquals(2, list.tail.value)
 
     }
 
@@ -33,8 +35,8 @@ class ListSDiZOTest {
         val list = ListSDiZO(2)
         list.addLast(3)
 
-        assertEquals(2,list.head.value)
-        assertEquals(3,list.tail.value)
+        assertEquals(2, list.head.value)
+        assertEquals(3, list.tail.value)
 
     }
 
@@ -45,12 +47,12 @@ class ListSDiZOTest {
         list.add(2)
         list.add(3)
 
-        list.addAt(5,3)
+        list.addAt(5, 3)
 
-        assertEquals(0,list.head.value)
-        assertEquals(1,list.head.successor.value)
-        assertEquals(2,list.head.successor.successor.value)
-        assertEquals(5,list.head.successor.successor.successor.value)
+        assertEquals(0, list.head.value)
+        assertEquals(1, list.head.successor.value)
+        assertEquals(2, list.head.successor.successor.value)
+        assertEquals(5, list.head.successor.successor.successor.value)
     }
 
     @Test
@@ -119,7 +121,7 @@ class ListSDiZOTest {
         list.add(3)
 
         assertTrue { list.contains(2) }
-        assertFalse{ list.contains(11) }
+        assertFalse { list.contains(11) }
     }
 
     @Test
@@ -133,7 +135,7 @@ class ListSDiZOTest {
     }
 
     @Test
-    fun frontIteratorTest(){
+    fun frontIteratorTest() {
         val list = ListSDiZO(12)
         list.add(22)
 
@@ -144,7 +146,7 @@ class ListSDiZOTest {
     }
 
     @Test
-    fun backIteratorTest(){
+    fun backIteratorTest() {
         val list = ListSDiZO(12)
         list.add(22)
 
@@ -155,7 +157,7 @@ class ListSDiZOTest {
     }
 
     @Test
-    fun toStringTest(){
+    fun toStringTest() {
         val list = ListSDiZO(0)
         list.addLast(1)
         list.add(2)
