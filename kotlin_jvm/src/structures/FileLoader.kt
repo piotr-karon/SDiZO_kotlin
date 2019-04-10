@@ -32,7 +32,7 @@ class FileLoader{
             val size = scan.nextLine()
 
             while (scan.hasNextLine()){
-                avl.insert(scan.nextInt())
+                avl.insert(scan.nextLine().toInt())
             }
 
             return avl
@@ -46,7 +46,7 @@ class FileLoader{
             val size = scan.nextLine().toString()
 
             while (scan.hasNextLine()){
-                arr.add(scan.nextInt())
+                arr.add(scan.nextLine().toInt())
             }
 
             return arr
@@ -58,25 +58,39 @@ class FileLoader{
             val scan = Scanner(file)
 
             val size = scan.nextLine().toString()
-            val list = ListSDiZO(scan.nextInt())
+            val list = ListSDiZO(scan.nextLine().toInt())
             while (scan.hasNextLine()){
-                list.add(scan.nextInt())
+                list.add(scan.nextLine().toInt())
             }
 
             return list
         }
 
-        fun heapOf(file : File) : HeapSDiZO {
+        fun heapOf(file : File, additional: Int) : HeapSDiZO {
             val scan = Scanner(file)
-            val size = scan.nextInt()
+            val size = scan.nextLine().toInt()
 
-            val heap = HeapSDiZO(0,size)
+            val heap = HeapSDiZO(0,size + additional)
 
             while (scan.hasNext()){
-                heap.insert(scan.nextInt())
+                heap.insert(scan.nextLine().toInt())
             }
 
             return heap
+        }
+
+        // Rozmiarem jest rozmiar tablicy. Pierwsza liczba z pliku pomijana.
+        fun kotlinList(file : File) : MutableList<Int>{
+            val scan = Scanner(file)
+            val size = scan.nextLine().toInt()
+
+            val intArr : MutableList<Int> = mutableListOf()
+
+            while(scan.hasNextLine()){
+                intArr.add(scan.nextLine().toInt())
+            }
+
+            return intArr
         }
     }
 

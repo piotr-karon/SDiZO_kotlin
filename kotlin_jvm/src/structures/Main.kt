@@ -1,36 +1,42 @@
 package sample.helloworld.structures
 
-import sample.helloworld.structures.BST.BST
 import java.io.File
 import kotlin.random.Random
 
 fun main(){
 
-//    val f = File("hello.txt")
-//
-//    f.createNewFile()
-//
-//    for(i in 0..100){
-//        f.appendText("${Random.nextInt(0,1000)}\n")
-//    }
+   // print()
+
+    val f = File("hello.txt")
+    f.delete()
+    f.createNewFile()
+
+    for(i in 0..50){
+        f.appendText("${Random.nextInt(0,50)}\n")
+    }
 //
 //    val bst = FileLoader.bstOf(f)
 //
-//    bst.printTree()
+// //   bst.printTree()
+//
+//    val avl = FileLoader.avlOf(f)
+//    val arr = FileLoader.arrayOf(f)
+//    val list = FileLoader.listOf(f)
+    val heap = FileLoader.heapOf(f,100)
+//
+//    avl.printTree()
+//    println()
+//    println(arr.toPrettyString())
+//    println(list.toString())
+    println(heap.toString())
 
-
-    val bst2 = BST()
-
-    bst2.insert(Random.nextInt(1,1000))
-    bst2.insert(Random.nextInt(1,1000))
-    bst2.insert(Random.nextInt(1,1000))
-    bst2.insert(Random.nextInt(1,1000))
-
-
-    for(i in 0..100){
-        bst2.insert(Random.nextInt(1,1000))
-        bst2.balanceDSW()
-    }
-
-    bst2.printTree()
+heap.printTree()
+//    val bst2 = BST()
+//
+//    for(i in 0..100){
+//        bst2.insert(Random.nextInt(1,1000))
+//        bst2.balanceDSW()
+//    }
+//
+//    bst2.printTree()
 }

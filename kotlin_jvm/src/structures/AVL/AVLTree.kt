@@ -152,87 +152,89 @@ class AVLTree {
         printBinaryTree(root, 0)
     }
 
-    fun rotateRR(AVLNodeA: AbstractAVLNode) {
-        if (AVLNodeA is NilAVL || AVLNodeA.rightChild is NilAVL) return
+    fun rotateRR(nodeA: AbstractAVLNode) {
+        if (nodeA is NilAVL || nodeA.rightChild is NilAVL) return
 
-        val nodeB = AVLNodeA.rightChild
-        val parentA = AVLNodeA.parent
+        val nodeB = nodeA.rightChild
+        val parentA = nodeA.parent
 
-        AVLNodeA.rightChild = nodeB.leftChild
-        if (AVLNodeA.rightChild !is NilAVL) AVLNodeA.rightChild.parent = AVLNodeA
-        nodeB.leftChild = AVLNodeA
+        nodeA.rightChild = nodeB.leftChild
+        if (nodeA.rightChild !is NilAVL) nodeA.rightChild.parent = nodeA
+        nodeB.leftChild = nodeA
         nodeB.parent = parentA
-        AVLNodeA.parent = nodeB
+        nodeA.parent = nodeB
 
         if (parentA is NilAVL) {
             root = nodeB
 
         }else{
-            if (parentA.leftChild == AVLNodeA) parentA.leftChild = nodeB
+            if (parentA.leftChild == nodeA) parentA.leftChild = nodeB
             else parentA.rightChild = nodeB
         }
 
         if (nodeB.bf == -1) {
-            AVLNodeA.bf = 0
+            nodeA.bf = 0
             nodeB.bf = 0
         } else {
-            AVLNodeA.bf = -1
+            nodeA.bf = -1
             nodeB.bf = 1
         }
 
     }
 
-    fun rotateLL(AVLNodeA: AbstractAVLNode) {
-        if (AVLNodeA is NilAVL || AVLNodeA.leftChild is NilAVL) return
+    fun rotateLL(nodeA: AbstractAVLNode) {
+        if (nodeA is NilAVL || nodeA.leftChild is NilAVL) return
 
-        val nodeB = AVLNodeA.leftChild
-        val parentA = AVLNodeA.parent
+        val nodeB = nodeA.leftChild
+        val parentA = nodeA.parent
 
-        AVLNodeA.leftChild = nodeB.rightChild
-        if (AVLNodeA.leftChild !is NilAVL) AVLNodeA.leftChild.parent = AVLNodeA
-        nodeB.rightChild = AVLNodeA
+        nodeA.leftChild = nodeB.rightChild
+        if (nodeA.leftChild !is NilAVL) nodeA.leftChild.parent = nodeA
+        nodeB.rightChild = nodeA
         nodeB.parent = parentA
-        AVLNodeA.parent = nodeB
+        nodeA.parent = nodeB
 
         if (parentA is NilAVL) {
             root = nodeB
         }else{
-            if (parentA.rightChild == AVLNodeA) parentA.rightChild = nodeB
+            if (parentA.rightChild == nodeA) parentA.rightChild = nodeB
             else parentA.leftChild = nodeB
         }
 
         if (nodeB.bf == 1) {
-            AVLNodeA.bf = 0
+            nodeA.bf = 0
             nodeB.bf = 0
         } else {
-            AVLNodeA.bf = 1
+            nodeA.bf = 1
             nodeB.bf = -1
         }
 
     }
 
-    fun rotateRL(AVLNodeA: AbstractAVLNode) {
-        val nodeB = AVLNodeA.rightChild
+    fun rotateRL(nodeA: AbstractAVLNode) {
+        if(nodeA.rightChild is NilAVL || nodeA.rightChild.leftChild is NilAVL) return
+
+        val nodeB = nodeA.rightChild
         val nodeC = nodeB.leftChild
-        val par = AVLNodeA.parent
+        val par = nodeA.parent
 
         nodeB.leftChild = nodeC.rightChild
         if (nodeB.leftChild !is NilAVL) nodeB.leftChild.parent = nodeB
-        AVLNodeA.rightChild = nodeC.leftChild
-        if (AVLNodeA.rightChild !is NilAVL) AVLNodeA.rightChild.parent = AVLNodeA
+        nodeA.rightChild = nodeC.leftChild
+        if (nodeA.rightChild !is NilAVL) nodeA.rightChild.parent = nodeA
 
-        nodeC.leftChild = AVLNodeA
+        nodeC.leftChild = nodeA
         nodeC.rightChild = nodeB
-        AVLNodeA.parent = nodeC
+        nodeA.parent = nodeC
         nodeB.parent = nodeC
         nodeC.parent = par
 
         // ##TO-DO## check conditions
         if (par is NilAVL) root = nodeC
-        else if (par.leftChild == AVLNodeA) par.leftChild = nodeC
+        else if (par.leftChild == nodeA) par.leftChild = nodeC
         else par.rightChild = nodeC
 
-        if (nodeC.bf == -1) AVLNodeA.bf = 1 else AVLNodeA.bf = 0
+        if (nodeC.bf == -1) nodeA.bf = 1 else nodeA.bf = 0
 
         if (nodeC.bf == 1) nodeB.bf = -1 else nodeB.bf = 0
 
@@ -240,28 +242,30 @@ class AVLTree {
 
     }
 
-    fun rotateLR(AVLNodeA: AbstractAVLNode) {
-        val nodeB = AVLNodeA.leftChild
+    fun rotateLR(nodeA: AbstractAVLNode) {
+        if(nodeA.leftChild is NilAVL || nodeA.leftChild.rightChild is NilAVL) return
+
+        val nodeB = nodeA.leftChild
         val nodeC = nodeB.rightChild
-        val par = AVLNodeA.parent
+        val par = nodeA.parent
 
         nodeB.rightChild = nodeC.leftChild
         if (nodeB.rightChild !is NilAVL) nodeB.rightChild.parent = nodeB
-        AVLNodeA.leftChild = nodeC.rightChild
-        if (AVLNodeA.leftChild !is NilAVL) AVLNodeA.leftChild.parent = AVLNodeA
+        nodeA.leftChild = nodeC.rightChild
+        if (nodeA.leftChild !is NilAVL) nodeA.leftChild.parent = nodeA
 
-        nodeC.rightChild = AVLNodeA
+        nodeC.rightChild = nodeA
         nodeC.leftChild = nodeB
-        AVLNodeA.parent = nodeC
+        nodeA.parent = nodeC
         nodeB.parent = nodeC
         nodeC.parent = par
 
         // ##TO-DO## check conditions
         if (par is NilAVL) root = nodeC
-        else if (par.rightChild == AVLNodeA) par.rightChild = nodeC
+        else if (par.rightChild == nodeA) par.rightChild = nodeC
         else par.leftChild = nodeC
 
-        if (nodeC.bf == 1) AVLNodeA.bf = -1 else AVLNodeA.bf = 0
+        if (nodeC.bf == 1) nodeA.bf = -1 else nodeA.bf = 0
 
         if (nodeC.bf == -1) nodeB.bf = 1 else nodeB.bf = 0
 

@@ -1,5 +1,6 @@
 package sample.helloworld.structures.heap
 
+import java.lang.StringBuilder
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -78,10 +79,29 @@ class HeapSDiZO{
         return max
     }
 
+    fun printTree(){
+        printTree(0,0)
+    }
+
+    private fun printTree(ind : Int, level: Int) {
+        if (ind >= size)
+            return
+
+        printTree(right(ind), level + 1)
+        if (level != 0) {
+            for (i in 0 until level - 1)
+                print("|\t")
+
+            println("|---" + arr[ind])
+        } else
+            println(arr[ind])
+        printTree(left(ind), level + 1)
+    }
+
     override fun toString(): String {
-        val str = " "
-        arr.forEach { str + it }
-        return str
+        val builder  = StringBuilder()
+        arr.forEach { builder.append(" $it") }
+        return builder.toString()
     }
 
     private fun left(i : Int) = i * 2 + 1
