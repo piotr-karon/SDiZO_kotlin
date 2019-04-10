@@ -97,6 +97,35 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         }
     }
 
+    fun deleteAt(ind: Int){
+        if(head is Nil) return
+
+        if(ind == 0) {
+            deleteFirst()
+            return
+        }
+
+        val itr = frontIterator()
+        var i = 0
+        while (i < ind && itr.hasNext()){
+            itr.next()
+            i++
+        }
+
+        if(i>0){
+            val delElement = itr.next()
+            val predDel = delElement.predecessor
+            val succDel = delElement.successor
+
+            predDel.successor = succDel
+            if(succDel !is Nil) {
+                succDel.predecessor = predDel
+            }
+        }
+
+
+    }
+
     fun deleteValue(value: Int): Boolean {
 
         val it = frontIterator()

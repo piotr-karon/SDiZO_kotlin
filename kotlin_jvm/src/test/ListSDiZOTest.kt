@@ -75,6 +75,66 @@ class ListSDiZOTest {
     }
 
     @Test
+    fun deleteAtValueTest() {
+        val list = ListSDiZO(0)
+        list.addLast(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+
+        list.deleteAt(1)
+
+
+        val itr = list.frontIterator()
+
+        assertEquals(0, itr.next().value)
+        assertEquals(2, itr.next().value)
+        assertEquals(3, itr.next().value)
+        assertEquals(4, itr.next().value)
+
+    }
+
+    @Test
+    fun deleteAtFirstValueTest() {
+        val list = ListSDiZO(0)
+        list.addLast(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+
+        list.deleteAt(0)
+
+
+        val itr = list.frontIterator()
+
+        assertEquals(1, itr.next().value)
+        assertEquals(2, itr.next().value)
+        assertEquals(3, itr.next().value)
+        assertEquals(4, itr.next().value)
+
+    }
+
+    @Test
+    fun deleteAtLastValueTest() {
+        val list = ListSDiZO(0)
+        list.addLast(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+
+        list.deleteAt(4)
+
+
+        val itr = list.frontIterator()
+
+        assertEquals(0, itr.next().value)
+        assertEquals(1, itr.next().value)
+        assertEquals(2, itr.next().value)
+        assertEquals(3, itr.next().value)
+        assertFalse(itr.hasNext())
+    }
+
+    @Test
     fun deleteFirstTest() {
         val list = ListSDiZO(12)
 
