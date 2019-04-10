@@ -72,6 +72,16 @@ class BST {
         return y
     }
 
+    fun insertAndFix(key: Int){
+        insert(key)
+        balanceDSW()
+    }
+
+    fun deleteAndFix(key: Int){
+        extract(key)
+        balanceDSW()
+    }
+
     fun treeMinimum(node:AbstractNode) : AbstractNode{
         var node = node
 

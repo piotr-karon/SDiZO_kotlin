@@ -20,7 +20,7 @@ data class ListElement(
 object Nil : ListAbstractElement(){
     override var value: Int
         get() {
-            throw NoSuchElementException(" no value. End of list.")
+            throw NoSuchElementException(" no key. End of list.")
         }
         set(x){
             throw NoSuchElementException(" Cannot do this on NIL")

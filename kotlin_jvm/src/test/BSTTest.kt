@@ -3,6 +3,7 @@ package sample.helloworld.test
 import org.junit.Test
 import sample.helloworld.structures.BST.BST
 import sample.helloworld.structures.BST.Nil
+import sample.helloworld.structures.BST.Node
 import kotlin.test.assertEquals
 
 class BSTTest {
@@ -95,5 +96,29 @@ class BSTTest {
             assertEquals(9, root.leftChild.rightChild.value)
         }
 
+    }
+
+    @Test
+    fun rotateLeftTest(){
+        val bst = BST()
+
+        val node1 = Node(1,Nil, Nil, Nil)
+        val node2 = Node(2,  node1, Nil, Nil)
+        val node3 = Node(3,  node2, Nil, Nil)
+
+        node1.rightChild = node2
+        node2.rightChild = node3
+        bst.root = node1
+
+        bst.printTree()
+        println("\n--------\n")
+        bst.rotateLeft(node2)
+        bst.printTree()
+
+        with(bst){
+            assertEquals(root, node1)
+            assertEquals(root.rightChild, node3)
+            assertEquals(root.rightChild.leftChild, node2)
+        }
     }
 }
