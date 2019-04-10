@@ -62,12 +62,6 @@ class HeapSDiZO {
         arr[i] = key
     }
 
-    private fun swap(ind1: Int, ind2: Int) {
-        val l1 = arr[ind1]
-        arr[ind1] = arr[ind2]
-        arr[ind2] = l1
-    }
-
     fun extractMax(): Int {
         val max = arr[0]
 
@@ -82,6 +76,28 @@ class HeapSDiZO {
         printTree(0, 0)
     }
 
+    fun contains(key: Int): Boolean{
+        return arr.contains(key)
+    }
+
+    override fun toString(): String {
+        val builder = StringBuilder()
+        arr.forEach { builder.append(" $it") }
+        return builder.toString()
+    }
+
+    companion object {
+
+        fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
+            val heap = HeapSDiZO(0, count)
+
+            for (i in 1..count)
+                heap.insert(Random.nextInt(range))
+
+            return heap
+        }
+
+    }
     private fun printTree(ind: Int, level: Int) {
         if (ind >= size)
             return
@@ -97,23 +113,11 @@ class HeapSDiZO {
         printTree(left(ind), level + 1)
     }
 
-    override fun toString(): String {
-        val builder = StringBuilder()
-        arr.forEach { builder.append(" $it") }
-        return builder.toString()
+    private fun swap(ind1: Int, ind2: Int) {
+        val l1 = arr[ind1]
+        arr[ind1] = arr[ind2]
+        arr[ind2] = l1
     }
-
-    companion object {
-        fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
-            val heap = HeapSDiZO(0, count)
-
-            for (i in 1..count)
-                heap.insert(Random.nextInt(range))
-
-            return heap
-        }
-    }
-
     private fun left(i: Int) = i * 2 + 1
     private fun right(i: Int) = i * 2 + 2
     private fun parent(i: Int) = (i - 1) / 2

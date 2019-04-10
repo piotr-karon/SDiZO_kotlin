@@ -3,6 +3,8 @@ package structures.list
 import sample.helloworld.structures.list.ListAbstractElement
 import sample.helloworld.structures.list.ListElement
 import sample.helloworld.structures.list.Nil
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 /*
 * Konstruktor wymaga podania pierwszej wartości liczby.
@@ -210,4 +212,14 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         return builder.toString()
     }
 
+    companion object {
+        fun generateRandom(count: Int, range: IntRange): ListSDiZO {
+            val list = ListSDiZO(Random.nextInt(range))
+
+            for (i in 1 until count)
+                list.add(Random.nextInt(range))
+            return list
+
+        }
+    }
 }

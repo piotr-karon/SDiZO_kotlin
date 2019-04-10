@@ -90,12 +90,14 @@ class AVLTree {
 
     }
 
-    fun find(key: Int): AbstractAVLNode {
+    fun find(key: Int): AbstractAVLNode? {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractAVLNode {
+    fun extract(key: Int): AbstractAVLNode? {
         val x = find(key)
+
+        // #TO-DO
 
         return x
     }
@@ -337,7 +339,7 @@ class AVLTree {
         }
     }
 
-    private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode {
+    private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode? {
         var x = AVLNode
 
         while (x !is NilAVL && key != x.key) {
@@ -348,7 +350,7 @@ class AVLTree {
             }
         }
 
-        return x
+        return if(x==AVLNode) null else x
 
     }
 

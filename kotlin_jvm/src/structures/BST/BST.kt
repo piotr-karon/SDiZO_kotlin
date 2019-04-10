@@ -38,12 +38,12 @@ class BST {
 
     }
 
-    fun find(key: Int): AbstractNode {
+    fun find(key: Int): AbstractNode? {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractNode {
-        val nodeDel = find(key)
+    fun extract(key: Int): AbstractNode? {
+        val nodeDel = find(key) ?: return null
 
         val y: AbstractNode
 
@@ -255,7 +255,7 @@ class BST {
         }
     }
 
-    private fun find(node: AbstractNode, key: Int): AbstractNode {
+    private fun find(node: AbstractNode, key: Int): AbstractNode? {
         var x = node
 
         while (x !is Nil && key != x.value) {
@@ -266,7 +266,7 @@ class BST {
             }
         }
 
-        return x
+        return if(x==node) null else x
 
     }
 
