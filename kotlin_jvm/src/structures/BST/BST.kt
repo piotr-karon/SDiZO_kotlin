@@ -1,6 +1,8 @@
 package sample.helloworld.structures.BST
 
+import kotlin.math.floor
 import kotlin.math.log2
+import kotlin.math.pow
 
 class BST {
 
@@ -118,15 +120,17 @@ class BST {
         backbone()
 
         val count = inOrder().size
-        var s = count + 1 - log2(count + 1.0)
+     //   var s = count + 1 - log2(count + 1.0)
         var p = root
+
+        var s = floor(log2(count+0.0)+1) - count
 
         for(i in 0 until s.toInt()){
             rotateLeft(p)
             p = p.parent.rightChild
         }
 
-        s = count - s
+        s = count.toDouble()
 
         while(s > 1){
             s/=2
@@ -168,7 +172,7 @@ class BST {
     fun rotateRight(nodeA: AbstractNode){
         if (nodeA is Nil || nodeA.leftChild is Nil) return
 
-        //nodeA as Node
+        //nodeA as AVLNodeAVL
 
         val nodeB = nodeA.leftChild
         val parentA = nodeA.parent

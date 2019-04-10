@@ -2,15 +2,15 @@ package sample.helloworld.structures
 
 class AVLTree {
 
-    var root: AbstractNode = Nil
+    var root: AbstractAVLNode = NilAVL
 
-    fun insert(key: Int) : AbstractNode{
+    fun insert(key: Int) : AbstractAVLNode{
 
-        var p: AbstractNode = Nil
-        var x: AbstractNode = root
-        val w = Node(key, 0, Nil, Nil, Nil)
+        var p: AbstractAVLNode = NilAVL
+        var x: AbstractAVLNode = root
+        val w = AVLNodeAVL(key, 0, NilAVL, NilAVL, NilAVL)
 
-        while (x !is Nil) {
+        while (x !is NilAVL) {
             p = x
             x = if (w.key < x.key) x.leftChild
             else x.rightChild
@@ -18,7 +18,7 @@ class AVLTree {
 
         w.parent = p
 
-        if (p is Nil) {
+        if (p is NilAVL) {
             root = w
             return w
         } else {
@@ -31,7 +31,7 @@ class AVLTree {
         return w
     }
 
-    private fun balanceTree(w : AbstractNode){
+    private fun balanceTree(w : AbstractAVLNode){
 
         var p = w.parent
 
@@ -44,7 +44,7 @@ class AVLTree {
 
         var r = p.parent //r - ojciec, p - syn
 
-        while(r !is Nil){
+        while(r !is NilAVL){
 
             if(r.bf !=0){
 
@@ -87,73 +87,64 @@ class AVLTree {
 
     }
 
-    fun find(key: Int): AbstractNode {
+    fun find(key: Int): AbstractAVLNode {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractNode {
-        val nodeDel = find(key)
+    fun extract(key: Int): AbstractAVLNode {
+        val x = find(key)
 
-        val y: AbstractNode
-
-        y = if (nodeDel.leftChild is Nil || nodeDel.rightChild is Nil) {
-            nodeDel
-        } else {
-            treeSuccessor(nodeDel)
-        }
-
-        val x = if (y.leftChild !is Nil) {
-            y.leftChild
-        } else {
-            y.rightChild
-        }
-
-        if (x !is Nil) x.parent = y.parent
-
-        if (y.parent is Nil) {
-            root = x
-        } else if (y == y.parent.leftChild) {
-            y.parent.leftChild = x
-        } else {
-            y.parent.rightChild = x
-        }
-
-        if (y != nodeDel)
-            nodeDel.key = y.key
-
-        return y
+        return x
     }
 
-    fun treeMinimum(node: AbstractNode): AbstractNode {
-        var node = node
+    fun treeMinimum(AVLNode: AbstractAVLNode): AbstractAVLNode {
+        var node = AVLNode
 
-        while (node !is Nil)
+        while (node !is NilAVL)
             node = node.leftChild
 
         return node
     }
 
-    fun treeMaximum(): AbstractNode {
-        var node = root
+    fun treeMaximum(AVLNode: AbstractAVLNode): AbstractAVLNode {
+        var node = AVLNode
 
-        while (node !is Nil)
+        while (node !is NilAVL)
             node = node.rightChild
 
         return node
     }
 
-    fun treeSuccessor(node: AbstractNode): AbstractNode {
-        var node = node
-        if (node.rightChild !is Nil)
+    fun successor(AVLNode: AbstractAVLNode): AbstractAVLNode {
+        var node = AVLNode
+        if (node.rightChild !is NilAVL)
             return treeMinimum(node.rightChild)
 
         var y = node.parent
 
-        while (y !is Nil && node == y.rightChild) {
+        while (y !is NilAVL && node == y.rightChild) {
             node = y
             y = y.parent
         }
         return y
+    }
+
+    fun predecessor(AVLNode: AbstractAVLNode) :AbstractAVLNode{
+
+        var node = AVLNode
+
+        if(node is NilAVL) return node
+
+        if(node.leftChild !is NilAVL) return treeMaximum(node.leftChild)
+
+        var r = node.parent
+
+        while(r !is NilAVL && node == r.leftChild){
+            node = r
+            r = r.parent
+        }
+
+        return r
     }
 
     fun printTree() {
@@ -161,87 +152,87 @@ class AVLTree {
         printBinaryTree(root, 0)
     }
 
-    fun rotateRR(nodeA: AbstractNode) {
-        if (nodeA is Nil || nodeA.rightChild is Nil) return
+    fun rotateRR(AVLNodeA: AbstractAVLNode) {
+        if (AVLNodeA is NilAVL || AVLNodeA.rightChild is NilAVL) return
 
-        val nodeB = nodeA.rightChild
-        val parentA = nodeA.parent
+        val nodeB = AVLNodeA.rightChild
+        val parentA = AVLNodeA.parent
 
-        nodeA.rightChild = nodeB.leftChild
-        if (nodeA.rightChild !is Nil) nodeA.rightChild.parent = nodeA
-        nodeB.leftChild = nodeA
+        AVLNodeA.rightChild = nodeB.leftChild
+        if (AVLNodeA.rightChild !is NilAVL) AVLNodeA.rightChild.parent = AVLNodeA
+        nodeB.leftChild = AVLNodeA
         nodeB.parent = parentA
-        nodeA.parent = nodeB
+        AVLNodeA.parent = nodeB
 
-        if (parentA is Nil) {
+        if (parentA is NilAVL) {
             root = nodeB
 
         }else{
-            if (parentA.leftChild == nodeA) parentA.leftChild = nodeB
+            if (parentA.leftChild == AVLNodeA) parentA.leftChild = nodeB
             else parentA.rightChild = nodeB
         }
 
         if (nodeB.bf == -1) {
-            nodeA.bf = 0
+            AVLNodeA.bf = 0
             nodeB.bf = 0
         } else {
-            nodeA.bf = -1
+            AVLNodeA.bf = -1
             nodeB.bf = 1
         }
 
     }
 
-    fun rotateLL(nodeA: AbstractNode) {
-        if (nodeA is Nil || nodeA.leftChild is Nil) return
+    fun rotateLL(AVLNodeA: AbstractAVLNode) {
+        if (AVLNodeA is NilAVL || AVLNodeA.leftChild is NilAVL) return
 
-        val nodeB = nodeA.leftChild
-        val parentA = nodeA.parent
+        val nodeB = AVLNodeA.leftChild
+        val parentA = AVLNodeA.parent
 
-        nodeA.leftChild = nodeB.rightChild
-        if (nodeA.leftChild !is Nil) nodeA.leftChild.parent = nodeA
-        nodeB.rightChild = nodeA
+        AVLNodeA.leftChild = nodeB.rightChild
+        if (AVLNodeA.leftChild !is NilAVL) AVLNodeA.leftChild.parent = AVLNodeA
+        nodeB.rightChild = AVLNodeA
         nodeB.parent = parentA
-        nodeA.parent = nodeB
+        AVLNodeA.parent = nodeB
 
-        if (parentA is Nil) {
+        if (parentA is NilAVL) {
             root = nodeB
         }else{
-            if (parentA.rightChild == nodeA) parentA.rightChild = nodeB
+            if (parentA.rightChild == AVLNodeA) parentA.rightChild = nodeB
             else parentA.leftChild = nodeB
         }
 
         if (nodeB.bf == 1) {
-            nodeA.bf = 0
+            AVLNodeA.bf = 0
             nodeB.bf = 0
         } else {
-            nodeA.bf = 1
+            AVLNodeA.bf = 1
             nodeB.bf = -1
         }
 
     }
 
-    fun rotateRL(nodeA: AbstractNode) {
-        val nodeB = nodeA.rightChild
+    fun rotateRL(AVLNodeA: AbstractAVLNode) {
+        val nodeB = AVLNodeA.rightChild
         val nodeC = nodeB.leftChild
-        val par = nodeA.parent
+        val par = AVLNodeA.parent
 
         nodeB.leftChild = nodeC.rightChild
-        if (nodeB.leftChild !is Nil) nodeB.leftChild.parent = nodeB
-        nodeA.rightChild = nodeC.leftChild
-        if (nodeA.rightChild !is Nil) nodeA.rightChild.parent = nodeA
+        if (nodeB.leftChild !is NilAVL) nodeB.leftChild.parent = nodeB
+        AVLNodeA.rightChild = nodeC.leftChild
+        if (AVLNodeA.rightChild !is NilAVL) AVLNodeA.rightChild.parent = AVLNodeA
 
-        nodeC.leftChild = nodeA
+        nodeC.leftChild = AVLNodeA
         nodeC.rightChild = nodeB
-        nodeA.parent = nodeC
+        AVLNodeA.parent = nodeC
         nodeB.parent = nodeC
         nodeC.parent = par
 
         // ##TO-DO## check conditions
-        if (par is Nil) root = nodeC
-        else if (par.leftChild == nodeA) par.leftChild = nodeC
+        if (par is NilAVL) root = nodeC
+        else if (par.leftChild == AVLNodeA) par.leftChild = nodeC
         else par.rightChild = nodeC
 
-        if (nodeC.bf == -1) nodeA.bf = 1 else nodeA.bf = 0
+        if (nodeC.bf == -1) AVLNodeA.bf = 1 else AVLNodeA.bf = 0
 
         if (nodeC.bf == 1) nodeB.bf = -1 else nodeB.bf = 0
 
@@ -249,28 +240,28 @@ class AVLTree {
 
     }
 
-    fun rotateLR(nodeA: AbstractNode) {
-        val nodeB = nodeA.leftChild
+    fun rotateLR(AVLNodeA: AbstractAVLNode) {
+        val nodeB = AVLNodeA.leftChild
         val nodeC = nodeB.rightChild
-        val par = nodeA.parent
+        val par = AVLNodeA.parent
 
         nodeB.rightChild = nodeC.leftChild
-        if (nodeB.rightChild !is Nil) nodeB.rightChild.parent = nodeB
-        nodeA.leftChild = nodeC.rightChild
-        if (nodeA.leftChild !is Nil) nodeA.leftChild.parent = nodeA
+        if (nodeB.rightChild !is NilAVL) nodeB.rightChild.parent = nodeB
+        AVLNodeA.leftChild = nodeC.rightChild
+        if (AVLNodeA.leftChild !is NilAVL) AVLNodeA.leftChild.parent = AVLNodeA
 
-        nodeC.rightChild = nodeA
+        nodeC.rightChild = AVLNodeA
         nodeC.leftChild = nodeB
-        nodeA.parent = nodeC
+        AVLNodeA.parent = nodeC
         nodeB.parent = nodeC
         nodeC.parent = par
 
         // ##TO-DO## check conditions
-        if (par is Nil) root = nodeC
-        else if (par.rightChild == nodeA) par.rightChild = nodeC
+        if (par is NilAVL) root = nodeC
+        else if (par.rightChild == AVLNodeA) par.rightChild = nodeC
         else par.leftChild = nodeC
 
-        if (nodeC.bf == 1) nodeA.bf = -1 else nodeA.bf = 0
+        if (nodeC.bf == 1) AVLNodeA.bf = -1 else AVLNodeA.bf = 0
 
         if (nodeC.bf == -1) nodeB.bf = 1 else nodeB.bf = 0
 
@@ -284,8 +275,8 @@ class AVLTree {
         return ret
     }
 
-    fun inOrderNodes(): MutableList<Node> {
-        val list = mutableListOf<Node>()
+    fun inOrderNodes(): MutableList<AVLNodeAVL> {
+        val list = mutableListOf<AVLNodeAVL>()
         inOrderNodesFrom(root, list)
         return list
     }
@@ -296,24 +287,24 @@ class AVLTree {
         return ret
     }
 
-    private fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>) {
-        if (node !is Nil) {
-            inOrderNodesFrom(node.leftChild, list)
-            list.add(node as Node)
-            inOrderNodesFrom(node.rightChild, list)
+    private fun inOrderNodesFrom(AVLNode: AbstractAVLNode, list: MutableList<AVLNodeAVL>) {
+        if (AVLNode !is NilAVL) {
+            inOrderNodesFrom(AVLNode.leftChild, list)
+            list.add(AVLNode as AVLNodeAVL)
+            inOrderNodesFrom(AVLNode.rightChild, list)
         }
     }
 
-    private fun preOrder(node: AbstractNode, list: MutableList<Int>) {
-        if (node !is Nil) {
-            list.add(node.key)
-            inOrder(node.leftChild, list)
-            inOrder(node.rightChild, list)
+    private fun preOrder(AVLNode: AbstractAVLNode, list: MutableList<Int>) {
+        if (AVLNode !is NilAVL) {
+            list.add(AVLNode.key)
+            inOrder(AVLNode.leftChild, list)
+            inOrder(AVLNode.rightChild, list)
         }
     }
 
-    private fun printBinaryTree(root: AbstractNode, level: Int) {
-        if (root is Nil)
+    private fun printBinaryTree(root: AbstractAVLNode, level: Int) {
+        if (root is NilAVL)
             return
         printBinaryTree(root.rightChild, level + 1)
         if (level != 0) {
@@ -329,8 +320,8 @@ class AVLTree {
     private fun backbone() {
         var temp = root
 
-        while (temp !is Nil) {
-            temp = if (temp.leftChild !is Nil) {
+        while (temp !is NilAVL) {
+            temp = if (temp.leftChild !is NilAVL) {
                 rotateLL(temp)
                 temp.parent
             } else {
@@ -339,10 +330,10 @@ class AVLTree {
         }
     }
 
-    private fun find(node: AbstractNode, key: Int): AbstractNode {
-        var x = node
+    private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode {
+        var x = AVLNode
 
-        while (x !is Nil && key != x.key) {
+        while (x !is NilAVL && key != x.key) {
             x = if (key < x.key) {
                 x.leftChild
             } else {
@@ -354,50 +345,50 @@ class AVLTree {
 
     }
 
-    private fun inOrder(node: AbstractNode, list: MutableList<Int>) {
-        if (node !is Nil) {
-            inOrder(node.leftChild, list)
-            list.add(node.key)
-            inOrder(node.rightChild, list)
+    private fun inOrder(AVLNode: AbstractAVLNode, list: MutableList<Int>) {
+        if (AVLNode !is NilAVL) {
+            inOrder(AVLNode.leftChild, list)
+            list.add(AVLNode.key)
+            inOrder(AVLNode.rightChild, list)
         }
     }
 }
 
-sealed class AbstractNode {
+sealed class AbstractAVLNode {
     abstract var key: Int
     abstract var bf: Int
-    abstract var parent: AbstractNode
-    abstract var leftChild: AbstractNode
-    abstract var rightChild: AbstractNode
+    abstract var parent: AbstractAVLNode
+    abstract var leftChild: AbstractAVLNode
+    abstract var rightChild: AbstractAVLNode
 }
 
-data class Node(
+data class AVLNodeAVL(
     override var key: Int,
     override var bf: Int,
-    override var parent: AbstractNode,
-    override var leftChild: AbstractNode,
-    override var rightChild: AbstractNode
-) : AbstractNode() {
+    override var parent: AbstractAVLNode,
+    override var leftChild: AbstractAVLNode,
+    override var rightChild: AbstractAVLNode
+) : AbstractAVLNode() {
 
     override fun toString(): String {
         return "V: ${this.key} H: $bf"
     }
 }
 
-object Nil : AbstractNode() {
+object NilAVL : AbstractAVLNode() {
     override var bf: Int
-        get() = throw NoSuchElementException("Nil")
+        get() = throw NoSuchElementException("NilAVL")
         set(value) {}
-    override var parent: AbstractNode
-        get() = throw NoSuchElementException("Nil")
+    override var parent: AbstractAVLNode
+        get() = throw NoSuchElementException("NilAVL")
         set(value) {}
     override var key: Int
-        get() = throw NoSuchElementException("Nil")
+        get() = throw NoSuchElementException("NilAVL")
         set(value) {}
-    override var leftChild: AbstractNode
-        get() = throw NoSuchElementException("Nil")
+    override var leftChild: AbstractAVLNode
+        get() = throw NoSuchElementException("NilAVL")
         set(value) {}
-    override var rightChild: AbstractNode
-        get() = throw NoSuchElementException("Nil")
+    override var rightChild: AbstractAVLNode
+        get() = throw NoSuchElementException("NilAVL")
         set(value) {}
 }

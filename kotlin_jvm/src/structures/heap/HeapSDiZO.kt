@@ -8,6 +8,10 @@ class HeapSDiZO{
     var size = 0
     var arr: Array<Int> = Array(size + 10) {0}
 
+    constructor(size: Int, additional: Int){
+        arr = Array(size + additional) {0}
+    }
+
     constructor(size: Int,additional: Int, range: IntRange){
         arr = Array(size + additional) {0}
 
@@ -72,6 +76,12 @@ class HeapSDiZO{
         heapify(0)
 
         return max
+    }
+
+    override fun toString(): String {
+        val str = " "
+        arr.forEach { str + it }
+        return str
     }
 
     private fun left(i : Int) = i * 2 + 1

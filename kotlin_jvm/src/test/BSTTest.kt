@@ -4,6 +4,7 @@ import org.junit.Test
 import sample.helloworld.structures.BST.BST
 import sample.helloworld.structures.BST.Nil
 import sample.helloworld.structures.BST.Node
+import kotlin.random.Random
 import kotlin.test.assertEquals
 
 class BSTTest {
@@ -94,6 +95,20 @@ class BSTTest {
             assertEquals(15, root.rightChild.leftChild.value)
             assertEquals(5, root.leftChild.leftChild.value)
             assertEquals(9, root.leftChild.rightChild.value)
+        }
+
+    }
+
+    @Test
+    fun test2DSW() {
+        val bst = BST()
+
+        with(bst) {
+            for(i in 0 .. 100)
+                insert(Random.nextInt(0,100))
+
+            balanceDSW()
+            printTree()
         }
 
     }

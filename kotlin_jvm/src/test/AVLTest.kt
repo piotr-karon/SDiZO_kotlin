@@ -2,8 +2,8 @@ package sample.helloworld.test
 
 import org.junit.Test
 import sample.helloworld.structures.AVLTree
-import sample.helloworld.structures.Nil
-import sample.helloworld.structures.Node
+import sample.helloworld.structures.NilAVL
+import sample.helloworld.structures.AVLNodeAVL
 import kotlin.test.assertEquals
 
 class AVLTest{
@@ -41,9 +41,9 @@ class AVLTest{
     fun rrTest(){
         val tree = AVLTree()
 
-        val node1 = Node(1,-2,Nil, Nil, Nil)
-        val node2 = Node(2, -1, node1, Nil, Nil)
-        val node3 = Node(3, 0, node2, Nil, Nil)
+        val node1 = AVLNodeAVL(1,-2,NilAVL, NilAVL, NilAVL)
+        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
+        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
 
         node1.rightChild = node2
         node2.rightChild = node3
@@ -70,9 +70,9 @@ class AVLTest{
     fun llTest(){
         val tree = AVLTree()
 
-        val node1 = Node(1,2,Nil, Nil, Nil)
-        val node2 = Node(2, 1, node1, Nil, Nil)
-        val node3 = Node(3, 0, node2, Nil, Nil)
+        val node1 = AVLNodeAVL(1,2,NilAVL, NilAVL, NilAVL)
+        val node2 = AVLNodeAVL(2, 1, node1, NilAVL, NilAVL)
+        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
 
         node1.leftChild = node2
         node2.leftChild = node3
@@ -99,9 +99,9 @@ class AVLTest{
     fun rlTest(){
         val tree = AVLTree()
 
-        val node1 = Node(1,-2,Nil, Nil, Nil)
-        val node2 = Node(2, -1, node1, Nil, Nil)
-        val node3 = Node(3, 0, node2, Nil, Nil)
+        val node1 = AVLNodeAVL(1,-2,NilAVL, NilAVL, NilAVL)
+        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
+        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
 
         node1.rightChild = node2
         node2.leftChild = node3
@@ -127,9 +127,9 @@ class AVLTest{
     fun lrTest(){
         val tree = AVLTree()
 
-        val node1 = Node(1,-2,Nil, Nil, Nil)
-        val node2 = Node(2, -1, node1, Nil, Nil)
-        val node3 = Node(3, 0, node2, Nil, Nil)
+        val node1 = AVLNodeAVL(1,-2,NilAVL, NilAVL, NilAVL)
+        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
+        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
 
         node1.leftChild = node2
         node2.rightChild = node3
@@ -155,9 +155,9 @@ class AVLTest{
     fun rlBalanceFactorTest(){
         val tree = AVLTree()
 
-        val node1 = Node(1,-2,Nil, Nil, Nil)
-        val node2 = Node(2, 1, node1, Nil, Nil)
-        val node3 = Node(3, 1, node2, Nil, Nil)
+        val node1 = AVLNodeAVL(1,-2,NilAVL, NilAVL, NilAVL)
+        val node2 = AVLNodeAVL(2, 1, node1, NilAVL, NilAVL)
+        val node3 = AVLNodeAVL(3, 1, node2, NilAVL, NilAVL)
 
         node1.rightChild = node2
         node2.leftChild = node3
