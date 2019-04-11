@@ -1,16 +1,29 @@
-package structures
+package sample.helloworld
 
-import sample.helloworld.structures.FileLoader
+import platform.posix.*
+
+import structures.ArraySDiZO
+import structures.TestUnit
 import structures.bst.BST
 import structures.heap.HeapSDiZO
 import structures.avl.AVLTree
 import structures.bst.Nil
 import structures.list.ListSDiZO
 
-import java.io.File
+fun runTests(){
+    var opt: String
 
+    do{
+        val tu = initTests()
+        val num = askCount()
+        println("Start? 0 - zakończ")
+        opt = readOption()
+        tu.testAll(num)
 
-fun main2() {
+    }while(opt != "0")
+}
+
+fun main() {
 
     var opt: String
 
@@ -99,11 +112,8 @@ private fun handleList() {
             when(opt){
 
                 "1" ->{
-                    val file = askForFile()
-                    if( file != null){
-                        structure = FileLoader.listOf(file)
-                        println(structure.toString())
-                    }
+                    val list = askForFile()
+                    print(list)
                 }
                 "2" ->{
                     p("Podaj wartość do usnięcia")
@@ -161,11 +171,11 @@ private fun handleArray(){
         when(opt){
 
             "1" ->{
-                val file = askForFile()
-                if( file != null){
-                    arr = FileLoader.arrayOf(file)
-                    println(arr.toPrettyString())
-                }
+//                val file = askForFile()
+//                if( file != null){
+//                    arr = FileLoader.arrayOf(file)
+//                    println(arr.toPrettyString())
+//                }
             }
             "2" ->{
                 p("Podaj wartość do usnięcia")
@@ -218,13 +228,13 @@ private fun handleHeap(){
         when(opt){
 
             "1" ->{
-                val file = askForFile()
-                p("Podaj nadmiarową liczbę pól:")
-                val size = readOption().toInt()
-                if( file != null){
-                    structure = FileLoader.heapOf(file, size)
-                    structure.printTree()
-                }
+//                val file = askForFile()
+//                p("Podaj nadmiarową liczbę pól:")
+//                val size = readOption().toInt()
+//                if( file != null){
+//                    structure = FileLoader.heapOf(file, size)
+//                    structure.printTree()
+//                }
             }
             "2" ->{
                 p("Możliwe usunięcie tylko elem max: ${structure.extractMax()}")
@@ -272,11 +282,11 @@ private fun handleBST(){
         when(opt){
 
             "1" ->{
-                val file = askForFile()
-                if( file != null){
-                    structure = FileLoader.bstOf(file)
-                    structure.printTree()
-                }
+//                val file = askForFile()
+//                if( file != null){
+//                    structure = FileLoader.bstOf(file)
+//                    structure.printTree()
+//                }
             }
             "2" ->{
                 p("Podaj wartość do usunięcia")
@@ -338,11 +348,11 @@ private fun handleAVL(){
         when(opt){
 
             "1" ->{
-                val file = askForFile()
-                if( file != null){
-                    structure = FileLoader.avlOf(file)
-                    structure.printTree()
-                }
+//                val file = askForFile()
+//                if( file != null){
+//                    structure = FileLoader.avlOf(file)
+//                    structure.printTree()
+//                }
             }
             "2" ->{
                 p("Podaj wartość do usunięcia")
@@ -399,15 +409,29 @@ private fun p(any: Any){
     println(any)
 }
 
-private fun askForFile() : File? {
+private fun askForFile() : MutableList<Int>? {
+
+    val list = mutableListOf<Int>()
 
     do{
-        println("Podaj ścieżkę pliku:")
+        println("Podaj ścieżkę pliku (0 - powrot): ")
         val path = readLine()?.trim()
 
-        val file = File(path)
+        val file = fopen(path, "r")
+        var int = 0
+        if(file != null){
+          while(feof(file) == 0){
+              fscanf(file, "%d", int)
+              list.add(int)
+          }
 
-        if (file.exists()) return file
+            return list
+        }else{
+            p("Brak pliku")
+        }
+
+        fclose(file)
+
     }while(path != "0")
 
     return null

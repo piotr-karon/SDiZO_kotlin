@@ -12,17 +12,22 @@ kotlin {
     // For ARM, preset function should be changed to iosArm32() or iosArm64()
     // For Linux, preset function should be changed to e.g. linuxX64()
     // For MacOS, preset function should be changed to e.g. macosX64()
-    linuxX64("Main") {
+    linuxX64("HelloWorld") {
         binaries {
             // Comment the next section to generate Kotlin/Native library (KLIB) instead of executable file:
-            executable("Main") {
+            executable("HelloWorldApp") {
                 // Change to specify fully qualified name of your application's entry point:
-                entryPoint = "main"
+                entryPoint = "sample.helloworld.main"
+            }
+
+            executable("TestsAll") {
+                // Change to specify fully qualified name of your application's entry point:
+                entryPoint = "sample.helloworld.runTests"
             }
         }
     }
 }
 
 // Use the following Gradle tasks to run your application:
-// :runCSVParserAppReleaseExecutableCSVParser - without debug symbols
-// :runCSVParserAppDebugExecutableCSVParser - with debug symbols
+// :runHelloWorldAppReleaseExecutableHelloWorld - without debug symbols
+// :runHelloWorldAppDebugExecutableHelloWorld - with debug symbols

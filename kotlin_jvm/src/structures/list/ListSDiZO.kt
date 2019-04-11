@@ -215,6 +215,17 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         return builder.toString()
     }
 
+    fun toReverseString(): String {
+        val builder = StringBuilder("")
+        val itr = backIterator()
+
+        while (itr.hasPrevious()) {
+            builder.append(" ${itr.previous().value}")
+        }
+
+        return builder.toString()
+    }
+
     companion object {
         fun generateRandom(count: Int, range: IntRange): ListSDiZO {
             val list = ListSDiZO(Random.nextInt(range))

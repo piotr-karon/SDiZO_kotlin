@@ -13,6 +13,50 @@ class TestUnit(private val count: Int, private val range: IntRange) {
     private var numbers = IntArray(count) {
         Random.nextInt(range)
     }
+private fun p(msg: Any){
+    println(msg)
+}
+
+    fun testAll(num: Int){
+
+        val a1 = arrayAddTest(num)
+        println(a1)
+        val a2 = arrayFindTest(num)
+        println(a2)
+        val a3 = arrayDeleteTest(num)
+        println(a3)
+
+        val q = listAddTest(num)
+        p(q)
+        val w = listFindTest(num)
+        p(w)
+        val e = listDeleteTest(num)
+        p(e)
+
+        val r = heapAddTest(num)
+        p(r)
+        val y = heapFindTest(num)
+        p(y)
+        val t = heapExtractMaxTest(num)
+        p(t)
+
+        val z = bstDeleteTest(num)
+        p(z)
+        val x = bstAddTest(num)
+        p(x)
+        val c = bstFindTest(num)
+        p(c)
+        val v = bstAddFixTest(num)
+        p(v)
+        val b = bstDeleteFixTest(num)
+        p(b)
+        val n = bstBalanceTest(num)
+        p(n)
+        val g = avlAddTest(num)
+        p(g)
+        val h = avlFindTest(num)
+        p(h)
+    }
 
     fun arrayTest(num: Int) {
         val l1 = arrayAddTest(num)

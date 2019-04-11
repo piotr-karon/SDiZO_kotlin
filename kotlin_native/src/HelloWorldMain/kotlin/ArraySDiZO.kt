@@ -1,12 +1,14 @@
-package sample.helloworld.structures
+package structures
 
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 
 class ArraySDiZO {
 
     private var elementData: Array<Int?> = emptyArray()
     private var size = 0
+
 
     fun add(element: Int) {
         addLast(element)
@@ -67,32 +69,31 @@ class ArraySDiZO {
         return getIndexOf(element) != null
     }
 
-    fun deleteAt(index: Int?) : Boolean{
+    fun deleteAt(index: Int?): Boolean {
         if (index == null || index >= size) return false
 
         for (i in index until (--size))
-            elementData[i] = elementData[i+1]
+            elementData[i] = elementData[i + 1]
 
         elementData = elementData.copyOf(size)
 
         return true
     }
 
-    fun delete(element: Int): Boolean{
+    fun delete(element: Int): Boolean {
         return deleteAt(getIndexOf(element))
     }
 
-    fun deleteFirst() : Boolean{
+    fun deleteFirst(): Boolean {
         return deleteAt(0)
     }
 
-    fun deleteLast() : Boolean{
-        return deleteAt(size-1)
+    fun deleteLast(): Boolean {
+        return deleteAt(size - 1)
     }
 
 
-
-    fun elemAt(index: Int): Int? = if(index < size)
+    fun elemAt(index: Int): Int? = if (index < size)
         elementData[index]
     else
         null
@@ -130,6 +131,18 @@ class ArraySDiZO {
 
     fun getSize(): Int {
         return this.size
+    }
+
+    companion object {
+        fun generateRandom(count: Int, range: IntRange): ArraySDiZO {
+            val arr = ArraySDiZO()
+
+            for (i in 1..count)
+                arr.add(Random.nextInt(range))
+            return arr
+
+        }
+
     }
 
 }
