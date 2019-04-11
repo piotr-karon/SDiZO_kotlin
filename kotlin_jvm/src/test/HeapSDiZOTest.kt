@@ -1,7 +1,7 @@
 package sample.helloworld.test
 
 import org.junit.Test
-import sample.helloworld.structures.heap.HeapSDiZO
+import structures.heap.HeapSDiZO
 
 class HeapSDiZOTest {
 

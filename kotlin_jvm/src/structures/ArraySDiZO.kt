@@ -1,4 +1,4 @@
-package sample.helloworld.structures
+package structures
 
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -8,6 +8,7 @@ class ArraySDiZO {
 
     private var elementData: Array<Int?> = emptyArray()
     private var size = 0
+
 
     fun add(element: Int) {
         addLast(element)

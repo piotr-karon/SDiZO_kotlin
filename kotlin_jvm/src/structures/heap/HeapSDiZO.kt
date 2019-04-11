@@ -1,4 +1,4 @@
-package sample.helloworld.structures.heap
+package structures.heap
 
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -91,7 +91,7 @@ class HeapSDiZO {
         fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
             val heap = HeapSDiZO(0, count)
 
-            for (i in 1..count)
+            for (i in 1 until count)
                 heap.insert(Random.nextInt(range))
 
             return heap

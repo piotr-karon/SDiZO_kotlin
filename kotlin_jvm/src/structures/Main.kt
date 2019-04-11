@@ -1,22 +1,21 @@
-package sample.helloworld.structures
+package structures
 
-import org.junit.Test
-import sample.helloworld.structures.BST.BST
-import sample.helloworld.structures.heap.HeapSDiZO
+import sample.helloworld.structures.FileLoader
+import structures.bst.BST
+import structures.heap.HeapSDiZO
 import structures.avl.AVLTree
+import structures.bst.Nil
 import structures.list.ListSDiZO
-import java.io.File
 
+import java.io.File
 
 fun main() {
 
     var opt: String
 
     do{
-        printMenu("=======Menu Główne=========")
-
+        printMenu()
         opt = readOption()
-
         when(opt){
             "1" -> handleArray()
             "2" -> handleList()
@@ -24,14 +23,14 @@ fun main() {
             "4" -> handleBST()
             "5" -> handleAVL()
             "6" -> doTests()
+            "666" -> startAllTests()
         }
 
     }while(opt != "0")
 
 }
 
-private fun doTests(){
-    
+private fun initTests(): TestUnit {
     p("Podaj rozmiar:")
     val size = readOption().toInt()
     p("Podaj dolną granicę wartości:")
@@ -39,8 +38,51 @@ private fun doTests(){
     p("Podaj górną granicę wartości:")
     val up = readOption().toInt()
 
-    var tu = TestUnit(size, IntRange(up, down))
+    return TestUnit(size, IntRange(down, up))
+}
 
+private fun startAllTests() {
+    do{
+        p("+++TESTS ALL+++\n End: input 0")
+
+        val testUnit = initTests()
+        val count = askCount()
+
+        testUnit.arrayTest(count)
+        testUnit.listTest(count)
+        testUnit.heapTest(count)
+        testUnit.bstTest(count)
+        testUnit.avlTest(count)
+
+    }while (count != 0)
+}
+
+private fun doTests(){
+    var opt: String
+    var testU = initTests()
+    do{
+        p("+++TEST+++")
+        p(testsMenu())
+        p("Podaj opcję:")
+        opt = readOption()
+
+        when(opt){
+            "1" -> testU.arrayTest(askCount())
+            "2" -> testU.listTest(askCount())
+            "3" -> testU.heapTest(askCount())
+            "4" -> testU.bstTest(askCount())
+            "5" -> testU.avlTest(askCount())
+            "6" -> {
+                testU = initTests()
+                testU.randomize()
+            }
+        }
+    }while (opt != "0")
+}
+
+private fun askCount() : Int{
+    p("Ile razy wykonac?")
+    return readOption().toInt()
 }
 
 private fun handleList() {
@@ -173,7 +215,7 @@ private fun handleHeap(){
                 p("Podaj nadmiarową liczbę pól:")
                 val size = readOption().toInt()
                 if( file != null){
-                    structure = FileLoader.heapOf(file,size)
+                    structure = FileLoader.heapOf(file, size)
                     structure.printTree()
                 }
             }
@@ -211,10 +253,10 @@ private fun handleHeap(){
 private fun handleBST(){
     var opt: String
 
-    var structure = BST.generateRandom(10, IntRange(1,100))
+    var structure = BST()
 
     do{
-        subMenuBase("BST", "" +
+        subMenuBase("bst", "" +
                 "8. Dodaj i równoważ DSW \n" +
                 "9. Usuń i równoważ DSW\n" +
                 "10. Równoważ DSW\n")
@@ -242,7 +284,7 @@ private fun handleBST(){
             "4" ->{
                 p("Podaj wartość")
                 val key = readOption().toInt()
-                val found = if(structure.find(key) != null) " " else " nie "
+                val found = if(structure.find(key) != Nil) " " else " nie "
                 p("Wartość w zbiorze${found}istnieje")
             }
             "5" ->{
@@ -280,10 +322,10 @@ private fun handleBST(){
 private fun handleAVL(){
     var opt: String
 
-    var structure = AVLTree.generateRandom(10,IntRange(1,100))
+    var structure = AVLTree()
 
     do{
-        subMenuBase("BST", "")
+        subMenuBase("AVL", "")
         opt = readOption()
 
         when(opt){
@@ -342,9 +384,6 @@ private fun subMenuBase(name: String, additionalOptions: String) {
     )
 }
 
-private fun arrListAdditionalOpts() ="" +
-        "7. Usuń z pozycji\n"
-
 private fun readOption() : String{
     return readLine().toString().trim()
 }
@@ -367,14 +406,25 @@ private fun askForFile() : File? {
     return null
 }
 
-private fun printMenu(name: String){
-    print("$name\n" +
+private fun printMenu(){
+    print("=======Menu Główne=========\n" +
             "1. Tablica\n" +
             "2. Lista\n" +
             "3. Kopiec\n" +
-            "4. BST\n" +
+            "4. bst\n" +
             "5. Drzewo AVL\n" +
             "6. Testy\n" +
             "0. Wyjście\n" +
             "Podaj opcję: ")
 }
+
+private fun testsMenu() =
+        "1. Tablica\n" +
+        "2. Lista\n" +
+        "3. Kopiec\n" +
+        "4. bst\n" +
+        "5. Drzewo AVL\n" +
+        "6. Zmien zakresy\n"
+
+private fun arrListAdditionalOpts() ="" +
+        "7. Usuń z pozycji\n"

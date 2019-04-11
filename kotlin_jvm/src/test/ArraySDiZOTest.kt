@@ -1,7 +1,7 @@
 package sample.helloworld.test
 
 import org.junit.Test
-import sample.helloworld.structures.ArraySDiZO
+import structures.ArraySDiZO
 import kotlin.test.assertEquals
 import kotlin.test.fail
 

@@ -1,6 +1,6 @@
 package sample.helloworld
 
-import sample.helloworld.structures.ArraySDiZO
+import structures.ArraySDiZO
 
 fun main() {
     val myTable = ArraySDiZO()

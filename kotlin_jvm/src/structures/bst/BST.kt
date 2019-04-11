@@ -1,4 +1,4 @@
-package sample.helloworld.structures.BST
+package structures.bst
 
 import kotlin.math.floor
 import kotlin.math.log2
@@ -38,41 +38,44 @@ class BST {
 
     }
 
-    fun find(key: Int): AbstractNode? {
+    fun find(key: Int): AbstractNode {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractNode? {
-        val nodeDel = find(key) ?: return null
+    fun extract(key: Int): AbstractNode {
+        val x = find(key)
 
-        val y: AbstractNode
+        if(x is Nil) return Nil
+        else{
 
-        y = if (nodeDel.leftChild is Nil || nodeDel.rightChild is Nil) {
-            nodeDel
-        } else {
-            treeSuccessor(nodeDel)
+            val y = if (x.leftChild is Nil || x.rightChild is Nil) {
+                x
+            } else {
+                treeSuccessor(x)
+            }
+
+            val z = if (y.leftChild !is Nil) {
+                y.leftChild
+            } else {
+                y.rightChild
+            }
+
+            if (z !is Nil) z.parent = y.parent
+
+            if (y.parent is Nil) {
+                root = z
+            } else if (y == y.parent.leftChild) {
+                y.parent.leftChild = z
+            } else {
+                y.parent.rightChild = z
+            }
+
+            if (y != x)
+                x.value = y.value
+
+            return y
         }
 
-        val x = if (y.leftChild !is Nil) {
-            y.leftChild
-        } else {
-            y.rightChild
-        }
-
-        if (x !is Nil) x.parent = y.parent
-
-        if (y.parent is Nil) {
-            root = x
-        } else if (y == y.parent.leftChild) {
-            y.parent.leftChild = x
-        } else {
-            y.parent.rightChild = x
-        }
-
-        if (y != nodeDel)
-            nodeDel.value = y.value
-
-        return y
     }
 
     fun insertAndFix(key: Int) {
@@ -255,7 +258,7 @@ class BST {
         }
     }
 
-    private fun find(node: AbstractNode, key: Int): AbstractNode? {
+    private fun find(node: AbstractNode, key: Int): AbstractNode {
         var x = node
 
         while (x !is Nil && key != x.value) {
@@ -266,7 +269,7 @@ class BST {
             }
         }
 
-        return if(x==node) null else x
+        return x
 
     }
 
@@ -286,6 +289,16 @@ class BST {
                 tree.insert(Random.nextInt(range))
             }
 
+            return tree
+        }
+
+        fun generateRandomBalanced(count: Int, range: IntRange): BST {
+            val tree = BST()
+
+            for (i in 1..count) {
+                tree.insert(Random.nextInt(range))
+            }
+            tree.balanceDSW()
             return tree
         }
     }

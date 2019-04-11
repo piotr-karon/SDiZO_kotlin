@@ -130,6 +130,8 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
 
     fun deleteValue(value: Int): Boolean {
 
+        if(head is Nil) return false
+
         val it = frontIterator()
         var elem = head
 
@@ -137,12 +139,13 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
             elem = it.next()
         }
 
-        if (elem is Nil) return false
+        if (elem.value == value && elem.predecessor !is Nil && elem.successor !is Nil) {
+            elem.predecessor.successor = elem.successor
+            elem.successor.predecessor = elem.predecessor
+            return true
+        }
 
-        elem.predecessor.successor = elem.successor
-        elem.successor.predecessor = elem.predecessor
-
-        return true
+        return false
     }
 
     fun contains(value: Int): Boolean {

@@ -1,11 +1,12 @@
 package sample.helloworld.test
 
 import org.junit.Test
-import sample.helloworld.structures.BST.BST
-import sample.helloworld.structures.BST.Nil
-import sample.helloworld.structures.BST.Node
+import structures.bst.BST
+import structures.bst.Nil
+import structures.bst.Node
 import kotlin.random.Random
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class BSTTest {
 
@@ -33,7 +34,20 @@ class BSTTest {
             insert(8)
         }
 
-        assert(bst.find(2) !is Nil)
+        assertTrue(bst.find(2) !is Nil)
+    }
+
+    @Test
+    fun bstNotFindTest() {
+        val bst = BST()
+
+        with(bst) {
+            insert(5)
+            insert(2)
+            insert(8)
+        }
+
+        assertTrue(bst.find(22) is Nil)
     }
 
 
@@ -69,8 +83,27 @@ class BSTTest {
 
             printTree()
         }
+    }
 
+    @Test
+    fun bstExtractSingleTest(){
+        val bst = BST()
+        bst.root = Node(10, Nil, Nil, Nil)
+        assertTrue(bst.extract(10) !is Nil)
+    }
 
+    @Test
+    fun shouldNotExtractBecauseNotExists(){
+        val bst = BST()
+        bst.root = Node(10, Nil, Nil, Nil)
+        assertTrue(bst.extract(20) is Nil)
+    }
+
+    @Test
+    fun bstExtract2Test() {
+        val bst = BST.generateRandom(1000, IntRange(1,20000))
+        for(i in 0..10)
+            bst.extract(Random.nextInt(1,20000))
     }
 
     @Test

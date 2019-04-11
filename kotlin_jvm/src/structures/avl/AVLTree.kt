@@ -265,7 +265,6 @@ class AVLTree {
         nodeB.parent = nodeC
         nodeC.parent = par
 
-        // ##TO-DO## check conditions
         if (par is NilAVL) root = nodeC
         else if (par.rightChild == nodeA) par.rightChild = nodeC
         else par.leftChild = nodeC
@@ -312,31 +311,18 @@ class AVLTree {
         }
     }
 
-    private fun printBinaryTree(root: AbstractAVLNode, level: Int) {
-        if (root is NilAVL)
+    private fun printBinaryTree(node: AbstractAVLNode, level: Int) {
+        if (node is NilAVL)
             return
-        printBinaryTree(root.rightChild, level + 1)
+        printBinaryTree(node.rightChild, level + 1)
         if (level != 0) {
             for (i in 0 until level - 1)
                 print("|\t")
 
-            println("|---${root.key}:${root.bf}")
+            println("|---${node.key}")
         } else
-            println("${root.key}:${root.bf}")
-        printBinaryTree(root.leftChild, level + 1)
-    }
-
-    private fun backbone() {
-        var temp = root
-
-        while (temp !is NilAVL) {
-            temp = if (temp.leftChild !is NilAVL) {
-                rotateLL(temp)
-                temp.parent
-            } else {
-                temp.rightChild
-            }
-        }
+            println("${node.key}:${node.bf}")
+        printBinaryTree(node.leftChild, level + 1)
     }
 
     private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode? {
@@ -350,7 +336,7 @@ class AVLTree {
             }
         }
 
-        return if(x==AVLNode) null else x
+        return if(x !is NilAVL && x.key == key) x else null
 
     }
 
