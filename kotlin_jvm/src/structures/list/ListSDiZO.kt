@@ -36,29 +36,42 @@ class ListSDiZO() : IterableListSDiZO {
 
     fun addAt(value: Int, position: Int): Boolean {
 
-//        if (position == 0) addFirst(value)
-
-        val itr = frontIterator()
-        var i = 0
-        var element = head
-
-        while (itr.hasNext() && i < position) {
-            element = itr.next()
-            i--
-        }
-        if (element is Nil) return false
-
-        val newElem = ListElement(value, element.predecessor, element)
-        element.predecessor.successor = newElem
-        element.predecessor = newElem
-
+        size++
         return true
     }
 
     fun deleteAt(ind: Int): Boolean{
+        if(size == 0 || ind >= size || ind < 0) return false
 
-        return false
+        else if(size == 1){
+            head = Nil
+            tail = head
+            return true
+        }else if(ind == 0){
+            head = head.successor
+            head.predecessor = Nil
+        }else if(ind == size-1){
+            tail = tail.predecessor
+            tail.successor = Nil
+        }else{
+
+            var elem: ListAbstractElement = Nil
+            val itr = frontIterator()
+
+            for(i in 0..ind){
+                elem = itr.next()
+            }
+
+            if(elem is Nil) return false
+
+            elem.predecessor.successor = elem.successor
+            elem.successor.predecessor = elem.predecessor
+        }
+
+        size--
+        return true
     }
+
 
     fun deleteValue(value: Int): Boolean {
 
@@ -156,10 +169,11 @@ class ListSDiZO() : IterableListSDiZO {
         override fun previous(): ListAbstractElement {
             if(current is Nil) return current
 
-            val ret = current
-            current = prev
+            ret = current
+
             next = current
-            prev = if(prev.successor != Nil) prev.successor else Nil
+            current = prev
+            prev = if(prev !is Nil) prev.predecessor else Nil
 
             return ret
         }
@@ -185,11 +199,16 @@ class ListSDiZO() : IterableListSDiZO {
         val builder = StringBuilder("")
         val itr = backIterator()
 
-        while (itr.hasPrevious()) {
-            builder.append(" ${itr.previous().value}")
-        }
+       while(itr.hasPrevious())
+           builder.append(" ${itr.previous().value}")
 
         return builder.toString()
+    }
+
+    fun print(){
+        println(toString())
+        println(toReverseString())
+        println()
     }
 
     companion object {

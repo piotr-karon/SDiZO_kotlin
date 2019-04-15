@@ -99,5 +99,6 @@ class ListIteratorTest {
         assertEquals(frontItr.next(), elem3)
         assertEquals(frontItr.next(), elem4)
         assertEquals(frontItr.next(), Nil)
+        assertEquals(frontItr.next(), Nil)
     }
 }

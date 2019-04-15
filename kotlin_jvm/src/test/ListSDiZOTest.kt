@@ -6,7 +6,9 @@ import sample.helloworld.structures.FileLoader
 import sample.helloworld.structures.list.Nil
 import structures.list.ListSDiZO
 import java.io.File
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 
 class ListSDiZOTest {
@@ -52,8 +54,8 @@ class ListSDiZOTest {
             assertTrue(head != tail)
 
             assertTrue(head.predecessor is Nil)
-            assertTrue(head.successor == tail)
-            assertTrue(tail.predecessor == head)
+            assertEquals(head.successor, tail)
+            assertEquals(tail.predecessor, head)
             assertTrue(tail.successor is Nil)
 
             assertEquals(2, head.value)
@@ -167,8 +169,47 @@ class ListSDiZOTest {
         assertEquals(6, itr.next().value)
         assertEquals(8, itr.next().value)
         assertEquals(10, itr.next().value)
+        list.print()
 
 
+        list.deleteAt(2)
+        itr = list.frontIterator()
+        assertEquals(2, itr.next().value)
+        assertEquals(4, itr.next().value)
+        assertEquals(8, itr.next().value)
+        assertEquals(10, itr.next().value)
+        list.print()
+
+
+        list.deleteAt(3)
+        itr = list.frontIterator()
+        assertEquals(2, itr.next().value)
+        assertEquals(4, itr.next().value)
+        assertEquals(8, itr.next().value)
+        list.print()
+
+        list.deleteAt(0)
+        itr = list.frontIterator()
+        assertEquals(4, itr.next().value)
+        assertEquals(8, itr.next().value)
+        list.print()
+
+        list.deleteAt(0)
+        itr = list.frontIterator()
+        assertEquals(8, itr.next().value)
+        list.print()
+
+        list.deleteAt(0)
+        itr = list.frontIterator()
+        assertEquals(Nil, itr.next())
+        list.print()
+
+    }
+
+    @Test
+    fun toStringAndReverseTest(){
+        println(listSDiZO.toString())
+        println(listSDiZO.toReverseString())
     }
 
 
