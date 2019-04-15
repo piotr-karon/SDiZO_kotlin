@@ -15,7 +15,11 @@ data class ListElement(
     override var value: Int,
     override var predecessor: ListAbstractElement,
     override var successor: ListAbstractElement
-) : ListAbstractElement()
+) : ListAbstractElement(){
+    override fun toString(): String {
+        return "Elem value: $value"
+    }
+}
 
 object Nil : ListAbstractElement() {
     override var value: Int

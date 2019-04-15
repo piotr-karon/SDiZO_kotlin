@@ -10,7 +10,7 @@ import structures.list.ListSDiZO
 import java.io.File
 
 
-fun main2() {
+fun main() {
 
     var opt: String
 

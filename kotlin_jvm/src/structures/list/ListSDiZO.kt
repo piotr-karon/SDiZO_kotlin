@@ -6,54 +6,37 @@ import sample.helloworld.structures.list.Nil
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-/*
-* Konstruktor wymaga podania pierwszej wartości liczby.
-* To obostrzenie, choć niezbyt wygodne, pozwala na
-* zachowanie "null-safety" w późniejszych częściach programu.
-*/
 
-class ListSDiZO(value: Int) : IterableListSDiZO {
+class ListSDiZO() : IterableListSDiZO {
     var head: ListAbstractElement = Nil
+    var tail: ListAbstractElement = head
+    var size = 0
 
-    var tail: ListAbstractElement = Nil
-
-    init {
-        add(value)
+    constructor(num: Int) : this(){
+        add(num)
     }
 
     fun add(value: Int) {
-        when (tail is Nil) {
-            true -> {
-                head = ListElement(value, Nil, Nil)
-                tail = head
+        if (tail == head){
+            // Przypadek pustej listy
+            if(tail is Nil) {
+                    tail = ListElement(value, Nil, Nil)
+                    head = tail
+            }else{
+            // Lista jednoelementowa
+                tail = ListElement(value, head, Nil)
+                head.successor = tail
             }
-
-            false -> {
-                tail.successor = ListElement(value, tail, Nil)
-                this.tail = tail.successor
-            }
+        }else{
+            tail.successor = ListElement(value, tail, Nil)
+            tail = tail.successor
         }
-
-    }
-
-    fun addFirst(value: Int) {
-        when (head is Nil) {
-            true -> add(value)
-
-            false -> {
-                head.predecessor = ListElement(value, Nil, head)
-                this.head = head.predecessor
-            }
-        }
-    }
-
-    fun addLast(value: Int) {
-        add(value)
+        size++
     }
 
     fun addAt(value: Int, position: Int): Boolean {
 
-        if (position == 0) addFirst(value)
+//        if (position == 0) addFirst(value)
 
         val itr = frontIterator()
         var i = 0
@@ -72,80 +55,49 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         return true
     }
 
-    fun deleteFirst() {
-        if (head is Nil) return
+    fun deleteAt(ind: Int): Boolean{
 
-        // Przypadek listy jednoelementowej
-        if (head == tail) {
-            val nil = Nil
-            head = nil
-            tail = nil
-            return
-        } else {
-            head.successor.predecessor = Nil
-            this.head = head.successor
-        }
-    }
-
-    fun deleteLast() {
-        if (tail is Nil) return
-
-        // Przypadek listy jednoelementowej
-        if (head == tail) {
-            deleteFirst()
-        } else {
-            tail.predecessor.successor = Nil
-            this.tail = tail.predecessor
-        }
-    }
-
-    fun deleteAt(ind: Int){
-        if(head is Nil) return
-
-        if(ind == 0) {
-            deleteFirst()
-            return
-        }
-
-        val itr = frontIterator()
-        var i = 0
-        while (i < ind && itr.hasNext()){
-            itr.next()
-            i++
-        }
-
-        if(i>0){
-            val delElement = itr.next()
-            val predDel = delElement.predecessor
-            val succDel = delElement.successor
-
-            predDel.successor = succDel
-            if(succDel !is Nil) {
-                succDel.predecessor = predDel
-            }
-        }
-
-
+        return false
     }
 
     fun deleteValue(value: Int): Boolean {
 
-        if(head is Nil) return false
+        val toDel = find(value)
 
-        val it = frontIterator()
-        var elem = head
+        if(toDel is Nil) return false
 
-        while (it.hasNext() && elem.value != value) {
-            elem = it.next()
+        //Przypadek listy jednoelementowej
+        when {
+            head == tail -> {
+
+                head = Nil
+                tail = head
+
+            }
+            toDel == head -> {
+
+                head = toDel.successor
+                head.predecessor = Nil
+
+            }
+            toDel == tail -> {
+
+                tail = toDel.predecessor
+                tail.successor = Nil
+
+            }
+            else -> {
+
+                val pred = toDel.predecessor
+                val succ = toDel.successor
+
+                pred.successor = succ
+                succ.predecessor = pred
+            }
         }
+        size--
+        return true
 
-        if (elem.value == value && elem.predecessor !is Nil && elem.successor !is Nil) {
-            elem.predecessor.successor = elem.successor
-            elem.successor.predecessor = elem.predecessor
-            return true
-        }
-
-        return false
     }
 
     fun contains(value: Int): Boolean {
@@ -155,6 +107,16 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         }
 
         return false
+    }
+
+    fun find(value: Int): ListAbstractElement {
+        val itr = frontIterator()
+        while (itr.hasNext()) {
+            val next = itr.next()
+            if (next.value == value) return next
+        }
+
+        return Nil
     }
 
 
@@ -170,14 +132,19 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         var current: ListAbstractElement
     ) : IteratorListSDiZO {
 
+        var next = if(current !is Nil) current.successor else Nil
+        var ret = current
+        var prev = if(current !is Nil) current.predecessor else Nil
+
         override fun next(): ListAbstractElement {
-            val ret = current
-            when {
-                hasNext() -> {
-                    current = current.successor
-                }
-                else -> current = Nil
-            }
+
+            if(current is Nil) return current
+
+            ret = current
+
+            prev = current
+            current = next
+            next = if(next !is Nil) next.successor else Nil
 
             return ret
         }
@@ -187,13 +154,12 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
         }
 
         override fun previous(): ListAbstractElement {
+            if(current is Nil) return current
+
             val ret = current
-            when {
-                hasPrevious() -> {
-                    current = current.predecessor
-                }
-                else -> current = Nil
-            }
+            current = prev
+            next = current
+            prev = if(prev.successor != Nil) prev.successor else Nil
 
             return ret
         }
@@ -228,7 +194,7 @@ class ListSDiZO(value: Int) : IterableListSDiZO {
 
     companion object {
         fun generateRandom(count: Int, range: IntRange): ListSDiZO {
-            val list = ListSDiZO(Random.nextInt(range))
+            val list = ListSDiZO()
 
             for (i in 1 until count)
                 list.add(Random.nextInt(range))

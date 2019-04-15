@@ -10,6 +10,7 @@ import java.util.*
 
 class FileLoader {
 
+    // #TODO load unbalanced!!
     companion object {
 
         fun bstOf(file: File): BST {
@@ -19,8 +20,8 @@ class FileLoader {
             val size = scan.nextLine()
 
             while (scan.hasNextLine()) {
-                //  bst.insert(scan.nextLine().toInt())
-                bst.insertAndFix(scan.nextLine().toInt())
+                  bst.insert(scan.nextLine().toInt())
+               // bst.insertAndFix(scan.nextLine().toInt())
             }
 
             bst.balanceDSW()

@@ -24,6 +24,7 @@ class HeapSDiZO {
         size = array.size
     }
 
+    // #TODO
     fun heapify(ind: Int) {
         val left = left(ind)
         val right = right(ind)
