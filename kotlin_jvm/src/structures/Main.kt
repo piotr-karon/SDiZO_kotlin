@@ -287,7 +287,7 @@ private fun handleBST(){
             "2" ->{
                 p("Podaj wartość do usunięcia")
                 val ind = readOption().toInt()
-                structure.extract(ind)
+                structure.delete(ind)
             }
             "3" ->{
                 println("Podaj klucz:")
@@ -321,7 +321,7 @@ private fun handleBST(){
             "8" ->{
                 p("Podaj wartość do usunięcia")
                 val ind = readOption().toInt()
-                structure.extract(ind)
+                structure.delete(ind)
                 structure.balanceDSW()
             }
             "9" ->{

@@ -1,9 +1,11 @@
 package sample.helloworld.test
 
 import org.junit.Test
+import sample.helloworld.structures.FileLoader
 import structures.bst.BST
 import structures.bst.Nil
 import structures.bst.Node
+import java.io.File
 import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -79,7 +81,7 @@ class BSTTest {
             insert(3)
             insert(2)
 
-            bst.extract(6)
+            bst.delete(6)
 
             printTree()
         }
@@ -89,21 +91,21 @@ class BSTTest {
     fun bstExtractSingleTest(){
         val bst = BST()
         bst.root = Node(10, Nil, Nil, Nil)
-        assertTrue(bst.extract(10) !is Nil)
+        assertTrue(bst.delete(10) !is Nil)
     }
 
     @Test
     fun shouldNotExtractBecauseNotExists(){
         val bst = BST()
         bst.root = Node(10, Nil, Nil, Nil)
-        assertTrue(bst.extract(20) is Nil)
+        assertTrue(bst.delete(20) is Nil)
     }
 
     @Test
     fun bstExtract2Test() {
         val bst = BST.generateRandom(1000, IntRange(1,20000))
         for(i in 0..10)
-            bst.extract(Random.nextInt(1,20000))
+            bst.delete(Random.nextInt(1,20000))
     }
 
     @Test
@@ -168,5 +170,44 @@ class BSTTest {
             assertEquals(root.rightChild, node3)
             assertEquals(root.rightChild.leftChild, node2)
         }
+    }
+
+    @Test
+    fun loadTest(){
+        val bst = FileLoader.bstOf(File("bst1.txt"))
+
+        with(bst){
+            printTree()
+            println()
+            println()
+
+            insert(10)
+            printTree()
+            println("insert 10")
+            println()
+
+            insert(24)
+            printTree()
+            println()
+            println("insert 24")
+
+            insert(2)
+            printTree()
+            println("insert 2")
+            println()
+
+            delete(7)
+            printTree()
+            println("delete 7")
+            println()
+        }
+    }
+
+    @Test
+    fun bst2(){
+        val bst = FileLoader.bstOf(File("bst2.txt"))
+        bst.printTree()
+        bst.balanceDSW()
+        bst.printTree()
     }
 }

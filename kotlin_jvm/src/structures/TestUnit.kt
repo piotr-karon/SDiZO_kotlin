@@ -289,7 +289,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
     private fun bstDeleteTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("extract(random)")
+        result.add("delete(random)")
         result.add("$times")
 
         var time: Long = 0
@@ -302,7 +302,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 struct.insert(1)
                 for (i in 0 until count) {
                     try {
-                        struct.extract(numbers[i])
+                        struct.delete(numbers[i])
                     } catch (e: NoSuchElementException) {
                     }
                 }
@@ -355,7 +355,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
             time += measureTimeMillis {
                 for (i in 0 until count) {
                     try {
-                        struct.extract(numbers[i])
+                        struct.delete(numbers[i])
                         struct.balanceDSW()
                     } catch (e: NoSuchElementException) {
                         struct.balanceDSW()

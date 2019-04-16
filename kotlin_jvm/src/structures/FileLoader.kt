@@ -3,7 +3,6 @@ package sample.helloworld.structures
 import sample.helloworld.structures.heap.HeapSDiZO
 import structures.ArraySDiZO
 import structures.bst.BST
-import structures.heap.HeapSDiZOold
 import structures.avl.AVLTree
 import structures.list.ListSDiZO
 import java.io.File
@@ -22,10 +21,8 @@ class FileLoader {
 
             while (scan.hasNextLine()) {
                   bst.insert(scan.nextLine().toInt())
-               // bst.insertAndFix(scan.nextLine().toInt())
             }
 
-            bst.balanceDSW()
             return bst
         }
 

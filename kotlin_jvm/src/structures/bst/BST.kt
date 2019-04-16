@@ -42,7 +42,7 @@ class BST {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractNode {
+    fun delete(key: Int): AbstractNode {
         val x = find(key)
 
         if(x is Nil) return Nil
@@ -84,14 +84,14 @@ class BST {
     }
 
     fun deleteAndFix(key: Int) {
-        extract(key)
+        delete(key)
         balanceDSW()
     }
 
     fun treeMinimum(node: AbstractNode): AbstractNode {
         var node = node
 
-        while (node !is Nil)
+        while (node.leftChild !is Nil)
             node = node.leftChild
 
         return node
