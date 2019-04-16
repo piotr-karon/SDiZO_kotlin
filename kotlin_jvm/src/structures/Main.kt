@@ -1,8 +1,8 @@
 package structures
 
 import sample.helloworld.structures.FileLoader
+import sample.helloworld.structures.heap.HeapSDiZO
 import structures.bst.BST
-import structures.heap.HeapSDiZO
 import structures.avl.AVLTree
 import structures.bst.Nil
 import structures.list.ListSDiZO
@@ -209,7 +209,7 @@ private fun handleArray(){
 private fun handleHeap(){
     var opt: String
 
-    var structure = HeapSDiZO(0,100, IntRange(1,500))
+    var structure = HeapSDiZO(10)
 
     do{
         subMenuBase("Heap", "")
@@ -222,12 +222,14 @@ private fun handleHeap(){
                 p("Podaj nadmiarową liczbę pól:")
                 val size = readOption().toInt()
                 if( file != null){
-                    structure = FileLoader.heapOf(file, size)
+                    structure = FileLoader.heapOf(file)
                     structure.printTree()
                 }
             }
             "2" ->{
-                p("Możliwe usunięcie tylko elem max: ${structure.extractMax()}")
+                println("Podaj klucz:")
+                val key = readOption().toInt()
+                structure.delete(key)
             }
             "3" ->{
                 println("Podaj klucz:")
@@ -253,6 +255,10 @@ private fun handleHeap(){
                 structure.printTree()
             }
         }
+
+        println()
+        structure.printTree()
+        println()
 
     }while(opt != "0")
 }
@@ -322,6 +328,10 @@ private fun handleBST(){
                 structure.balanceDSW()
             }
         }
+
+        println()
+        structure.printTree()
+        println()
 
     }while(opt != "0")
 }

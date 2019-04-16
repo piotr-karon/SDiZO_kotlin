@@ -1,104 +1,156 @@
-package structures.heap
+package sample.helloworld.structures.heap
 
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class HeapSDiZO {
+class HeapSDiZO(private val maxsize: Int) {
+    private val heap: IntArray
+    private var size: Int = 0
 
-    var size = 0
-    var arr: Array<Int> = Array(size + 10) { 0 }
-
-    constructor(size: Int, additional: Int) {
-        arr = Array(size + additional) { 0 }
+    init {
+        this.size = 0
+        heap = IntArray(this.maxsize + 1)
     }
 
-    constructor(size: Int, additional: Int, range: IntRange) {
-        arr = Array(size + additional) { 0 }
+    private fun left(i: Int) = i * 2 + 1
+    private fun right(i: Int) = i * 2 + 2
+    private fun parent(i: Int) = (i - 1) / 2
 
-        for (i in 0..size)
-            arr[i] = Random.nextInt(range)
+    private fun isLeaf(pos: Int): Boolean {
+        return pos >= (size / 2) && pos <= size
     }
 
-    constructor(array: Array<Int>) {
-        this.arr = array
-        size = array.size
+    private fun swap(fpos: Int, spos: Int) {
+        val tmp: Int = heap[fpos]
+        heap[fpos] = heap[spos]
+        heap[spos] = tmp
     }
 
-    // #TODO
-    fun heapify(ind: Int) {
-        val left = left(ind)
-        val right = right(ind)
-        var largest = 0
+    private fun maxHeapify(pos: Int) {
+        if (isLeaf(pos))
+            return
 
-        largest = if (left < arr.size && arr[left] > arr[ind]) {
-            left
-        } else {
-            ind
+        if (heap[pos] < heap[left(pos)] || heap[pos] < heap[right(pos)]) {
+
+            if (heap[left(pos)] > heap[right(pos)]) {
+                swap(pos, left(pos))
+                maxHeapify(left(pos))
+            } else {
+                swap(pos, right(pos))
+                maxHeapify(right(pos))
+            }
+        }
+    }
+
+    // Inserts a new element to max heap
+    fun insert(element: Int) {
+        heap[++size] = element
+
+        // Traverse up and fix violated property
+        var current = size
+        while (heap[current] > heap[parent(current)]) {
+            swap(current, parent(current))
+            current = parent(current)
+        }
+    }
+
+    fun delete(key: Int){
+        val toDel = find(key)
+
+        if(toDel == size-1){
+            heap[--size] = 0
+            return
         }
 
-        if (right < arr.size && arr[right] > arr[largest]) {
-            largest = right
-        }
+        swap(toDel,--size)
 
-        if (largest != ind) {
-            swap(ind, largest)
-            heapify(largest)
+        var current = toDel
+        if( heap[toDel] > heap[parent(toDel)]){
+            while (heap[current] > heap[parent(current)]) {
+                swap(current, parent(current))
+                current = parent(current)
+            }
+        }else{
+            maxHeapify(current)
         }
 
     }
 
-    fun build() {
-        for (i in arr.size / 2 downTo 0)
-            heapify(i)
-    }
+    fun findFarthestRight(ind: Int) : Int{
 
-    fun insert(key: Int) {
-        var i = ++size
+        var elem = ind
 
-        while (i > 0 && arr[parent(i)] < key) {
-            arr[i] = arr[parent(i)]
-            i = parent(i)
+        while (!isLeaf(elem)){
+            elem = left(elem)
         }
 
-        arr[i] = key
+        elem = parent(elem)
+
+        return right(elem)
+
     }
 
+    // Remove an element from max heap
     fun extractMax(): Int {
-        val max = arr[0]
-
-        arr[0] = arr[arr.size - 1]
-
-        heapify(0)
-
-        return max
+        val popped = heap[1]
+        heap[1] = heap[size--]
+        maxHeapify(1)
+        return popped
     }
 
-    fun printTree() {
-        printTree(0, 0)
+    fun find(key: Int): Int{
+        for(i in 0 until size){
+            if(heap[i] == key) return i
+        }
+
+        return Integer.MAX_VALUE
     }
 
     fun contains(key: Int): Boolean{
-        return arr.contains(key)
-    }
+        for(i in 0 until size){
+            if(heap[i] == key) return true
+        }
 
-    override fun toString(): String {
-        val builder = StringBuilder()
-        arr.forEach { builder.append(" $it") }
-        return builder.toString()
+        return false
     }
 
     companion object {
 
+        @JvmStatic
+        fun main(arg: Array<String>) {
+            println("The Max heap is ")
+            val maxHeap = HeapSDiZO(15)
+
+            with(maxHeap) {
+                insert(7)
+                insert(5)
+                insert(9)
+                insert(6)
+                insert(7)
+                insert(8)
+                insert(10)
+                insert(1)
+                insert(11)
+
+                printTree(0, 0)
+            }
+        }
+
         fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
-            val heap = HeapSDiZO(0, count)
+            val heap = HeapSDiZO(count+10)
 
             for (i in 1 until count)
                 heap.insert(Random.nextInt(range))
 
             return heap
         }
-
     }
+
+
+    fun printTree() {
+        printTree(0, 0)
+    }
+
     private fun printTree(ind: Int, level: Int) {
         if (ind >= size)
             return
@@ -108,19 +160,10 @@ class HeapSDiZO {
             for (i in 0 until level - 1)
                 print("|\t")
 
-            println("|---" + arr[ind])
+            println("|---" + heap[ind])
         } else
-            println(arr[ind])
+            println(heap[ind])
         printTree(left(ind), level + 1)
     }
-
-    private fun swap(ind1: Int, ind2: Int) {
-        val l1 = arr[ind1]
-        arr[ind1] = arr[ind2]
-        arr[ind2] = l1
-    }
-    private fun left(i: Int) = i * 2 + 1
-    private fun right(i: Int) = i * 2 + 2
-    private fun parent(i: Int) = (i - 1) / 2
 
 }

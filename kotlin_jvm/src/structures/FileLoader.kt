@@ -1,8 +1,9 @@
 package sample.helloworld.structures
 
+import sample.helloworld.structures.heap.HeapSDiZO
 import structures.ArraySDiZO
 import structures.bst.BST
-import structures.heap.HeapSDiZO
+import structures.heap.HeapSDiZOold
 import structures.avl.AVLTree
 import structures.list.ListSDiZO
 import java.io.File
@@ -69,11 +70,11 @@ class FileLoader {
             return list
         }
 
-        fun heapOf(file: File, additional: Int): HeapSDiZO {
+        fun heapOf(file: File): HeapSDiZO {
             val scan = Scanner(file)
             val size = scan.nextLine().toInt()
 
-            val heap = HeapSDiZO(0, size + additional)
+            val heap = HeapSDiZO(size+10)
 
             while (scan.hasNext()) {
                 heap.insert(scan.nextLine().toInt())

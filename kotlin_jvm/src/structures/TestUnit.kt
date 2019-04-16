@@ -2,7 +2,7 @@ package structures
 
 import structures.avl.AVLTree
 import structures.bst.BST
-import structures.heap.HeapSDiZO
+import structures.heap.HeapSDiZOold
 import structures.list.ListSDiZO
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -404,7 +404,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         var time: Long = 0
 
         for (j in 1..times) {
-            val struct = HeapSDiZO(0, count+100)
+            val struct = HeapSDiZOold(0, count+100)
 
             time += measureTimeMillis {
                 for (i in 0 until count)
@@ -429,7 +429,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         var time: Long = 0
 
         for (j in 1..times) {
-            val struct = HeapSDiZO.generateRandom(count, range)
+            val struct = HeapSDiZOold.generateRandom(count, range)
 
             time += measureTimeMillis {
                 for (i in 0 until count)
@@ -450,10 +450,10 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         result.add("$times")
 
         var time: Long = 0
-        var struct: HeapSDiZO
+        var struct: HeapSDiZOold
 
         for (j in 1..times) {
-            struct = HeapSDiZO.generateRandom(count, range) //# WTF?!
+            struct = HeapSDiZOold.generateRandom(count, range) //# WTF?!
 
             time += measureTimeMillis {
                 struct.extractMax()
