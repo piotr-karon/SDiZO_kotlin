@@ -90,14 +90,66 @@ class AVLTree {
 
     }
 
-    fun find(key: Int): AbstractAVLNode? {
+    fun find(key: Int): AbstractAVLNode {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractAVLNode? {
-        val x = find(key)
+    fun delete(key: Int){
+        var x = find(key)
+        if(x !is NilAVL){
+            delete(x)
+        }
+    }
 
-        // #TO-DO
+    fun delete(toDel: AbstractAVLNode): AbstractAVLNode {
+        if(toDel is NilAVL) return toDel
+
+        var x = toDel
+//        var y : AbstractAVLNode
+//
+//        var nest = false
+//
+//        if (x.leftChild is NilAVL || x.rightChild is NilAVL) {
+//
+//            if (x.leftChild !is NilAVL) {
+//                y = x.leftChild
+//                x.leftChild = NilAVL
+//            }else{
+//                y = x.rightChild
+//                x.rightChild = NilAVL
+//            }
+//
+//            x.bf = 0
+//            nest = true
+//
+//        }else{
+//            y = delete(predecessor(x))
+//            nest = false
+//        }
+//
+//        if(y is NilAVL){ //K08
+//            //k15
+//            if(x.parent is NilAVL){
+//                root = y
+//            }
+//
+//        }else{
+//            y.parent = x.parent
+//            y.leftChild = x.leftChild
+//
+//            if(y.leftChild !is NilAVL){
+//                y.leftChild.parent = y
+//            }
+//
+//            y.rightChild = x.rightChild
+//
+//            if(y.rightChild !is NilAVL) y.rightChild.parent = y
+//
+//            y.bf = x.bf
+//
+//            if(x.parent is NilAVL) root = y
+//        }
+
 
         return x
     }
@@ -321,11 +373,11 @@ class AVLTree {
 
             println("|---${node.key}")
         } else
-            println("${node.key}:${node.bf}")
+            println("${node.key}")
         printBinaryTree(node.leftChild, level + 1)
     }
 
-    private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode? {
+    private fun find(AVLNode: AbstractAVLNode, key: Int): AbstractAVLNode {
         var x = AVLNode
 
         while (x !is NilAVL && key != x.key) {
@@ -336,7 +388,7 @@ class AVLTree {
             }
         }
 
-        return if(x !is NilAVL && x.key == key) x else null
+        return if (x !is NilAVL && x.key == key) x else NilAVL
 
     }
 

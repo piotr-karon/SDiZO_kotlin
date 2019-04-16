@@ -13,6 +13,46 @@ import kotlin.test.assertTrue
 class BSTTest {
 
     @Test
+    fun testowanieZ2(){
+        val bst = FileLoader.bstOf(File("bst1.txt"))
+
+        with(bst){
+            printTree()
+            println()
+            println()
+
+            insert(10)
+            printTree()
+            println("insert 10")
+            println()
+
+            insert(24)
+            printTree()
+            println()
+            println("insert 24")
+
+            insert(2)
+            printTree()
+            println("insert 2")
+            println()
+
+            delete(7)
+            printTree()
+            println("delete 7")
+            println()
+        }
+    }
+
+    @Test
+    fun bst2(){
+        val bst = FileLoader.bstOf(File("bst2.txt"))
+        bst.printTree()
+        bst.balanceDSW()
+        bst.printTree()
+    }
+
+
+    @Test
     fun bstTest() {
         val bst = BST()
 
@@ -51,7 +91,6 @@ class BSTTest {
 
         assertTrue(bst.find(22) is Nil)
     }
-
 
     @Test
     fun bstRotateTest() {
@@ -134,6 +173,7 @@ class BSTTest {
 
     }
 
+
     @Test
     fun test2DSW() {
         val bst = BST()
@@ -148,66 +188,35 @@ class BSTTest {
 
     }
 
-    @Test
-    fun rotateLeftTest() {
-        val bst = BST()
-
-        val node1 = Node(1, Nil, Nil, Nil)
-        val node2 = Node(2, node1, Nil, Nil)
-        val node3 = Node(3, node2, Nil, Nil)
-
-        node1.rightChild = node2
-        node2.rightChild = node3
-        bst.root = node1
-
-        bst.printTree()
-        println("\n--------\n")
-        bst.rotateLeft(node2)
-        bst.printTree()
-
-        with(bst) {
-            assertEquals(root, node1)
-            assertEquals(root.rightChild, node3)
-            assertEquals(root.rightChild.leftChild, node2)
-        }
-    }
 
     @Test
-    fun loadTest(){
+    fun predecessorTest(){
         val bst = FileLoader.bstOf(File("bst1.txt"))
 
-        with(bst){
-            printTree()
-            println()
-            println()
+        print(bst.inOrder())
 
-            insert(10)
-            printTree()
-            println("insert 10")
-            println()
-
-            insert(24)
-            printTree()
-            println()
-            println("insert 24")
-
-            insert(2)
-            printTree()
-            println("insert 2")
-            println()
-
-            delete(7)
-            printTree()
-            println("delete 7")
-            println()
-        }
-    }
-
-    @Test
-    fun bst2(){
-        val bst = FileLoader.bstOf(File("bst2.txt"))
-        bst.printTree()
-        bst.balanceDSW()
-        bst.printTree()
     }
 }
+//    @Test
+//    fun rotateLeftTest() {
+//        val bst = BST()
+//
+//        val node1 = Node(1, Nil, Nil, Nil)
+//        val node2 = Node(2, node1, Nil, Nil)
+//        val node3 = Node(3, node2, Nil, Nil)
+//
+//        node1.rightChild = node2
+//        node2.rightChild = node3
+//        bst.root = node1
+//
+//        bst.printTree()
+//        println("\n--------\n")
+//        bst.rotateLeft(node2)
+//        bst.printTree()
+//
+//        with(bst) {
+//            assertEquals(root, node1)
+//            assertEquals(root.rightChild, node3)
+//            assertEquals(root.rightChild.leftChild, node2)
+//        }
+//    }

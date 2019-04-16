@@ -2,15 +2,14 @@ package sample.helloworld.structures
 
 import sample.helloworld.structures.heap.HeapSDiZO
 import structures.ArraySDiZO
-import structures.bst.BST
 import structures.avl.AVLTree
+import structures.bst.BST
 import structures.list.ListSDiZO
 import java.io.File
 import java.util.*
 
 class FileLoader {
 
-    // #TODO load unbalanced!!
     companion object {
 
         fun bstOf(file: File): BST {
@@ -70,12 +69,20 @@ class FileLoader {
         fun heapOf(file: File): HeapSDiZO {
             val scan = Scanner(file)
             val size = scan.nextLine().toInt()
-
+            val arr = IntArray(size){0}
             val heap = HeapSDiZO(size+10)
 
-            while (scan.hasNext()) {
+            while (scan.hasNextLine()) {
                 heap.insert(scan.nextLine().toInt())
             }
+//            var i = 0
+//            while(scan.hasNextLine()){
+//                arr[i++] = scan.nextLine().toInt()
+//            }
+//
+//            heap.heap = arr
+//            heap.size = size
+//            heap.heapify(0)
 
             return heap
         }

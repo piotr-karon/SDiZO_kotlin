@@ -35,6 +35,38 @@ class ListSDiZO() : IterableListSDiZO {
     }
 
     fun addAt(value: Int, position: Int): Boolean {
+        var elem = ListElement(value, Nil, Nil)
+
+        when {
+            position > size -> return false
+
+            position == size -> {
+                add(value)
+                return true
+            }
+
+            position == 0 -> {
+                elem.successor = head
+                head.predecessor = elem
+                head = elem
+            }
+
+            else -> {
+                val itr = frontIterator()
+                var found : ListAbstractElement = Nil
+
+                for(i in 0 .. position)
+                    found = itr.next()
+
+                found.predecessor.successor = elem
+
+                elem.predecessor = found.predecessor
+                elem.successor = found
+
+                found.predecessor = elem
+
+            }
+        }
 
         size++
         return true
@@ -46,6 +78,7 @@ class ListSDiZO() : IterableListSDiZO {
         else if(size == 1){
             head = Nil
             tail = head
+            size--
             return true
         }else if(ind == 0){
             head = head.successor
@@ -71,7 +104,6 @@ class ListSDiZO() : IterableListSDiZO {
         size--
         return true
     }
-
 
     fun deleteValue(value: Int): Boolean {
 

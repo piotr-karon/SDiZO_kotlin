@@ -20,7 +20,7 @@ class HeapSDiZOTest{
 
     @Test
     fun loadTest(){
-        val heap = FileLoader.heapOf(File("heap1.txt"))
+        //val heap = FileLoader.heapOf(File("heap1.txt"))
 
         heap.printTree()
     }
@@ -50,25 +50,28 @@ class HeapSDiZOTest{
     @Test
     fun testowanieZ1(){
         with(heap){
+            printTree()
+            println()
+
             delete(11)
             printTree()
-            println("Del 11")
+            println("Del 11\n")
 
             delete(1)
             printTree()
-            println("Del 1")
+            println("Del 1\n")
 
             delete(9)
             printTree()
-            println("Del 9")
+            println("Del 9\n")
 
             insert(11)
             printTree()
-            println("Add 11")
+            println("Add 11\n")
 
             insert(12)
             printTree()
-            println("Add 12")
+            println("Add 12\n")
         }
     }
 
@@ -78,15 +81,17 @@ class HeapSDiZOTest{
 
         with(heap){
             printTree()
-            println()
+            println("--------------------------------")
 
             delete(7)
             printTree()
-            println()
+            println("--------------------------------")
 
             delete(33)
             printTree()
-            println()
+            println("--------------------------------")
         }
     }
+
+
 }

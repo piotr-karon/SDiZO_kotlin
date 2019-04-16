@@ -1,8 +1,8 @@
 package structures
 
+import sample.helloworld.structures.heap.HeapSDiZO
 import structures.avl.AVLTree
 import structures.bst.BST
-import structures.heap.HeapSDiZOold
 import structures.list.ListSDiZO
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -84,21 +84,21 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
     }
 
-    private fun sumUp(list: MutableList<String>) {
+    fun sumUp(list: MutableList<String>) {
         sumUp(list[0], list[1], list[2])
     }
 
-    private fun sumUp(name: String, num: String, avg: String) {
+    fun sumUp(name: String, num: String, avg: String) {
         print(
             "Operacja: $name wykonana $num razy dla ${this.count} elementów\n" +
                     "Średni czas: $avg ms\n"
         )
     }
 
-    private fun arrayAddTest(times: Int): MutableList<String> {
+    fun arrayAddTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("add()")
+        result.add("Array,add")
         result.add("$times")
 
         var time: Long = 0
@@ -114,16 +114,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun arrayFindTest(times: Int): MutableList<String> {
+    fun arrayFindTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("contains()")
+        result.add("Array,contains()")
         result.add("$times")
 
         var time: Long = 0
@@ -135,18 +137,20 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 for (i in 0 until count)
                     arr.contains(numbers[i])
             }
-            result.add("$time")
+            
         }
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
         return result
     }
 
-    private fun arrayDeleteTest(times: Int): MutableList<String> {
+    fun arrayDeleteTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("delete()")
+        result.add("Array,delete()")
         result.add("$times")
 
         var time: Long = 0
@@ -161,16 +165,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun listAddTest(times: Int): MutableList<String> {
+    fun listAddTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("add()")
+        result.add("List,add()")
         result.add("$times")
 
         var time: Long = 0
@@ -186,16 +192,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun listFindTest(times: Int): MutableList<String> {
+    fun listFindTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("contains()")
+        result.add("List,contains()")
         result.add("$times")
 
         var time: Long = 0
@@ -207,18 +215,20 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 for (i in 0 until count)
                     list.contains(numbers[i])
             }
-            result.add("$time")
+            
         }
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
         return result
     }
 
-    private fun listDeleteTest(times: Int): MutableList<String> {
+    fun listDeleteTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("deleteValue(random)")
+        result.add("List,deleteValue")
         result.add("$times")
 
         var time: Long = 0
@@ -233,16 +243,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun bstAddTest(times: Int): MutableList<String> {
+    fun bstAddTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("insert()")
+        result.add("Bst,insert()")
         result.add("$times")
 
         var time: Long = 0
@@ -258,16 +270,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun bstFindTest(times: Int): MutableList<String> {
+    fun bstFindTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("find()")
+        result.add("Bst,contains()")
         result.add("$times")
 
         var time: Long = 0
@@ -278,18 +292,20 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 for (i in 0 until count)
                     struct.find(numbers[i])
             }
-            result.add("$time")
+            
         }
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
         return result
     }
 
-    private fun bstDeleteTest(times: Int): MutableList<String> {
+    fun bstDeleteTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("delete(random)")
+        result.add("Bst,delete(random)")
         result.add("$times")
 
         var time: Long = 0
@@ -310,16 +326,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun bstAddFixTest(times: Int): MutableList<String> {
+    fun bstAddFixTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("insertAndFix()")
+        result.add("Bst,insertAndFix()")
         result.add("$times")
 
         var time: Long = 0
@@ -328,23 +346,28 @@ class TestUnit(private val count: Int, private val range: IntRange) {
             val struct = BST()
 
             time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.insertAndFix(numbers[i])
+                for (i in 0 until count){
+                    struct.insert(numbers[i])
+                    if(i%50 == 0) struct.balanceDSW()
+                }
+
             }
 
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun bstDeleteFixTest(times: Int): MutableList<String> {
+    fun bstDeleteFixTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("extractAndFix(random)")
+        result.add("Bst,extractAndFix(random)")
         result.add("$times")
 
         var time: Long = 0
@@ -356,7 +379,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 for (i in 0 until count) {
                     try {
                         struct.delete(numbers[i])
-                        struct.balanceDSW()
+                        if(i%50 == 0) struct.balanceDSW()
                     } catch (e: NoSuchElementException) {
                         struct.balanceDSW()
                     }
@@ -365,16 +388,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun bstBalanceTest(times: Int): MutableList<String> {
+    fun bstBalanceTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("balance()")
+        result.add("Bst,balance()")
         result.add("$times")
 
         var time: Long = 0
@@ -389,22 +414,24 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun heapAddTest(times: Int): MutableList<String> {
+    fun heapAddTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("insert()")
+        result.add("Heap,insert()")
         result.add("$times")
 
         var time: Long = 0
 
         for (j in 1..times) {
-            val struct = HeapSDiZOold(0, count+100)
+            val struct = HeapSDiZO(count+1)
 
             time += measureTimeMillis {
                 for (i in 0 until count)
@@ -414,46 +441,77 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun heapFindTest(times: Int): MutableList<String> {
+    fun heapDeleteTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("find()")
+        result.add("Heap,delete()")
         result.add("$times")
 
         var time: Long = 0
 
         for (j in 1..times) {
-            val struct = HeapSDiZOold.generateRandom(count, range)
+            val struct = HeapSDiZO.generateRandom(count, range)
+
+            time += measureTimeMillis {
+                for (i in 0 until count)
+                    struct.delete(numbers[i])
+            }
+
+        }
+
+        val avg = time / times
+        //result.add(avg.toString())
+        result.add(time.toString())
+
+        result.add(this.count.toString())
+
+        return result
+    }
+
+    fun heapFindTest(times: Int): MutableList<String> {
+
+        val result = mutableListOf<String>()
+        result.add("Heap,contains()")
+        result.add("$times")
+
+        var time: Long = 0
+
+        for (j in 1..times) {
+            val struct = HeapSDiZO.generateRandom(count, range)
 
             time += measureTimeMillis {
                 for (i in 0 until count)
                     struct.contains(numbers[i])
             }
-            result.add("$time")
+            
         }
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
         return result
     }
 
-    private fun heapExtractMaxTest(times: Int): MutableList<String> {
+    fun heapExtractMaxTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("extractMax()")
+        result.add("Heap,extractMax()")
         result.add("$times")
 
         var time: Long = 0
-        var struct: HeapSDiZOold
+        var struct: HeapSDiZO
 
         for (j in 1..times) {
-            struct = HeapSDiZOold.generateRandom(count, range) //# WTF?!
+            struct = HeapSDiZO.generateRandom(count, range) //# WTF?!
 
             time += measureTimeMillis {
                 struct.extractMax()
@@ -467,16 +525,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun avlAddTest(times: Int): MutableList<String> {
+    fun avlAddTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("insert()")
+        result.add("Avl,insert()")
         result.add("$times")
 
         var time: Long = 0
@@ -492,16 +552,18 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         }
 
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
 
         return result
     }
 
-    private fun avlFindTest(times: Int): MutableList<String> {
+    fun avlFindTest(times: Int): MutableList<String> {
 
         val result = mutableListOf<String>()
-        result.add("find()")
+        result.add("Avl,contains()")
         result.add("$times")
 
         var time: Long = 0
@@ -513,10 +575,12 @@ class TestUnit(private val count: Int, private val range: IntRange) {
                 for (i in 0 until count)
                     struct.find(numbers[i])
             }
-            result.add("$time")
+            
         }
         val avg = time / times
-        result.add(avg.toString())
+        //result.add(avg.toString())
+        result.add(time.toString())
+
         result.add(this.count.toString())
         return result
     }

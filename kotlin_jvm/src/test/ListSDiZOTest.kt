@@ -204,6 +204,19 @@ class ListSDiZOTest {
         assertEquals(Nil, itr.next())
         list.print()
 
+        with(list){
+            list.addAt(2,0)
+            print()
+            list.addAt(6,1)
+            print()
+            list.addAt(8,2)
+            print()
+            addAt(4,1)
+            print()
+            addAt(0,0)
+            print()
+        }
+
     }
 
     @Test
