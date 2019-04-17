@@ -1,4 +1,4 @@
-package sample.helloworld.test
+package test
 
 import structures.avl.AVLNodeAVL
 import structures.avl.AVLTree

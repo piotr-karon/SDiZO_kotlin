@@ -1,14 +1,56 @@
-package sample.helloworld.test
+package test
 
 import structures.bst.BST
 import structures.bst.Nil
 import structures.bst.Node
 import kotlin.random.Random
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class BSTTest {
+
+    @Test
+    fun testowanieZ2(){
+      //  val bst = FileLoader.bstOf(File("bst1.txt"))
+        val bst = BST.generateRandomBalanced(100, IntRange(1,200))
+        with(bst){
+            printTree()
+            println()
+            println()
+
+            insert(10)
+            printTree()
+            println("insert 10")
+            println()
+
+            insert(24)
+            printTree()
+            println()
+            println("insert 24")
+
+            insert(2)
+            printTree()
+            println("insert 2")
+            println()
+
+            delete(7)
+            printTree()
+            println("delete 7")
+            println()
+        }
+    }
+
+    @Ignore
+    @Test
+    fun bst2(){
+//        val bst = FileLoader.bstOf(File("bst2.txt"))
+//        bst.printTree()
+//        bst.balanceDSW()
+//        bst.printTree()
+    }
+
 
     @Test
     fun bstTest() {
@@ -50,7 +92,6 @@ class BSTTest {
         assertTrue(bst.find(22) is Nil)
     }
 
-
     @Test
     fun bstRotateTest() {
         val bst = BST()
@@ -79,7 +120,7 @@ class BSTTest {
             insert(3)
             insert(2)
 
-            bst.extract(6)
+            bst.delete(6)
 
             printTree()
         }
@@ -89,21 +130,21 @@ class BSTTest {
     fun bstExtractSingleTest(){
         val bst = BST()
         bst.root = Node(10, Nil, Nil, Nil)
-        assertTrue(bst.extract(10) !is Nil)
+        assertTrue(bst.delete(10) !is Nil)
     }
 
     @Test
     fun shouldNotExtractBecauseNotExists(){
         val bst = BST()
         bst.root = Node(10, Nil, Nil, Nil)
-        assertTrue(bst.extract(20) is Nil)
+        assertTrue(bst.delete(20) is Nil)
     }
 
     @Test
     fun bstExtract2Test() {
         val bst = BST.generateRandom(1000, IntRange(1,20000))
         for(i in 0..10)
-            bst.extract(Random.nextInt(1,20000))
+            bst.delete(Random.nextInt(1,20000))
     }
 
     @Test
@@ -132,6 +173,7 @@ class BSTTest {
 
     }
 
+
     @Test
     fun test2DSW() {
         val bst = BST()
@@ -146,27 +188,35 @@ class BSTTest {
 
     }
 
-    @Test
-    fun rotateLeftTest() {
-        val bst = BST()
 
-        val node1 = Node(1, Nil, Nil, Nil)
-        val node2 = Node(2, node1, Nil, Nil)
-        val node3 = Node(3, node2, Nil, Nil)
-
-        node1.rightChild = node2
-        node2.rightChild = node3
-        bst.root = node1
-
-        bst.printTree()
-        println("\n--------\n")
-        bst.rotateLeft(node2)
-        bst.printTree()
-
-        with(bst) {
-            assertEquals(root, node1)
-            assertEquals(root.rightChild, node3)
-            assertEquals(root.rightChild.leftChild, node2)
-        }
-    }
+//    @Test
+//    fun predecessorTest(){
+//        val bst = FileLoader.bstOf(File("bst1.txt"))
+//
+//        print(bst.inOrder())
+//
+//    }
 }
+//    @Test
+//    fun rotateLeftTest() {
+//        val bst = BST()
+//
+//        val node1 = Node(1, Nil, Nil, Nil)
+//        val node2 = Node(2, node1, Nil, Nil)
+//        val node3 = Node(3, node2, Nil, Nil)
+//
+//        node1.rightChild = node2
+//        node2.rightChild = node3
+//        bst.root = node1
+//
+//        bst.printTree()
+//        println("\n--------\n")
+//        bst.rotateLeft(node2)
+//        bst.printTree()
+//
+//        with(bst) {
+//            assertEquals(root, node1)
+//            assertEquals(root.rightChild, node3)
+//            assertEquals(root.rightChild.leftChild, node2)
+//        }
+//    }

@@ -1,4 +1,4 @@
-package sample.helloworld.test
+package test
 
 import structures.ArraySDiZO
 import kotlin.test.Test

@@ -1,16 +1,16 @@
-package sample.helloworld.structures
-
-import structures.ArraySDiZO
-import structures.bst.BST
-import structures.heap.HeapSDiZO
-import structures.avl.AVLTree
-import structures.list.ListSDiZO
-
-
-class FileLoader {
-
-    companion object {
-
+//package structures
+//
+//import structures.avl.AVLTree
+//import structures.bst.BST
+//import structures.heap.HeapSDiZO
+//import structures.list.ListSDiZO
+//import java.io.File
+//import java.util.*
+//
+//class FileLoader {
+//
+//    companion object {
+//
 //        fun bstOf(file: File): BST {
 //            val bst = BST()
 //            val scan = Scanner(file)
@@ -18,11 +18,9 @@ class FileLoader {
 //            val size = scan.nextLine()
 //
 //            while (scan.hasNextLine()) {
-//                //  bst.insert(scan.nextLine().toInt())
-//                bst.insertAndFix(scan.nextLine().toInt())
+//                  bst.insert(scan.nextLine().toInt())
 //            }
 //
-//            bst.balanceDSW()
 //            return bst
 //        }
 //
@@ -67,15 +65,23 @@ class FileLoader {
 //            return list
 //        }
 //
-//        fun heapOf(file: File, additional: Int): HeapSDiZO {
+//        fun heapOf(file: File): HeapSDiZO {
 //            val scan = Scanner(file)
 //            val size = scan.nextLine().toInt()
+//            val arr = IntArray(size){0}
+//            val heap = HeapSDiZO(size+10)
 //
-//            val heap = HeapSDiZO(0, size + additional)
-//
-//            while (scan.hasNext()) {
+//            while (scan.hasNextLine()) {
 //                heap.insert(scan.nextLine().toInt())
 //            }
+////            var i = 0
+////            while(scan.hasNextLine()){
+////                arr[i++] = scan.nextLine().toInt()
+////            }
+////
+////            heap.heap = arr
+////            heap.size = size
+////            heap.heapify(0)
 //
 //            return heap
 //        }
@@ -93,6 +99,6 @@ class FileLoader {
 //
 //            return intArr
 //        }
-    }
-
-}
+//    }
+//
+//}

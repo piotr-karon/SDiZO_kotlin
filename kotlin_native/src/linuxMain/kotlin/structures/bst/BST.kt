@@ -42,7 +42,7 @@ class BST {
         return find(root, key)
     }
 
-    fun extract(key: Int): AbstractNode {
+    fun delete(key: Int): AbstractNode {
         val x = find(key)
 
         if(x is Nil) return Nil
@@ -78,46 +78,50 @@ class BST {
 
     }
 
+    fun deletePredecessor(key: Int): AbstractNode {
+        val x = find(key)
+
+        if(x is Nil) return Nil
+        else{
+
+            val y = if (x.leftChild is Nil || x.rightChild is Nil) {
+                x
+            } else {
+                treePredecessor(x)
+            }
+
+            val z = if (y.leftChild !is Nil) {
+                y.leftChild
+            } else {
+                y.rightChild
+            }
+
+            if (z !is Nil) z.parent = y.parent
+
+            if (y.parent is Nil) {
+                root = z
+            } else if (y == y.parent.leftChild) {
+                y.parent.leftChild = z
+            } else {
+                y.parent.rightChild = z
+            }
+
+            if (y != x)
+                x.value = y.value
+
+            return y
+        }
+
+    }
+
     fun insertAndFix(key: Int) {
         insert(key)
         balanceDSW()
     }
 
     fun deleteAndFix(key: Int) {
-        extract(key)
+        delete(key)
         balanceDSW()
-    }
-
-    fun treeMinimum(node: AbstractNode): AbstractNode {
-        var node = node
-
-        while (node !is Nil)
-            node = node.leftChild
-
-        return node
-    }
-
-    fun treeMaximum(): AbstractNode {
-        var node = root
-
-        while (node !is Nil)
-            node = node.rightChild
-
-        return node
-    }
-
-    fun treeSuccessor(node: AbstractNode): AbstractNode {
-        var node = node
-        if (node.rightChild !is Nil)
-            return treeMinimum(node.rightChild)
-
-        var y = node.parent
-
-        while (y !is Nil && node == y.rightChild) {
-            node = y
-            y = y.parent
-        }
-        return y
     }
 
     fun balanceDSW() {
@@ -151,7 +155,7 @@ class BST {
         printBinaryTree(root, 0)
     }
 
-    fun rotateLeft(nodeA: AbstractNode) {
+    private fun rotateLeft(nodeA: AbstractNode) {
         if (nodeA is Nil || nodeA.rightChild is Nil) return
 
         val nodeB = nodeA.rightChild
@@ -173,7 +177,7 @@ class BST {
 
     }
 
-    fun rotateRight(nodeA: AbstractNode) {
+    private fun rotateRight(nodeA: AbstractNode) {
         if (nodeA is Nil || nodeA.leftChild is Nil) return
 
         //nodeA as AVLNodeAVL
@@ -213,6 +217,53 @@ class BST {
         val ret = mutableListOf<Int>()
         preOrder(root, ret)
         return ret
+    }
+
+    private fun treeMinimum(node: AbstractNode): AbstractNode {
+        var node = node
+
+        while (node.leftChild !is Nil)
+            node = node.leftChild
+
+        return node
+    }
+
+    private fun treeMaximum(node: AbstractNode): AbstractNode {
+        var node = node
+
+        while (node.rightChild !is Nil)
+            node = node.rightChild
+
+        return node
+    }
+
+    private fun treeSuccessor(node: AbstractNode): AbstractNode {
+        var node = node
+        if (node.rightChild !is Nil)
+            return treeMinimum(node.rightChild)
+
+        var y = node.parent
+
+        while (y !is Nil && node == y.rightChild) {
+            node = y
+            y = y.parent
+        }
+        return y
+    }
+
+    private fun treePredecessor(node: AbstractNode): AbstractNode {
+        var node = node
+        if(node.leftChild !is Nil)
+            return treeMaximum(node.leftChild)
+
+        var y = node.parent
+
+        while (y !is Nil && node == y.leftChild) {
+            node = y
+            y = y.parent
+        }
+        return y
+
     }
 
     private fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>) {

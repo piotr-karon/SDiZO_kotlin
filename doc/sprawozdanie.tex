@@ -141,7 +141,7 @@ coordinates{
 };
 \legend{AVL,BST,kopiec,lista,tablica}
 
-\addplot[color=blue, mark=*]
+\addplot[color=blue, mark=x]
 coordinates{
 (	10	,	0	)
 (	100	,	0	)
@@ -153,7 +153,7 @@ coordinates{
 
 };
 
-\addplot[color=green, mark=*]
+\addplot[color=green, mark=+]
 coordinates{
 
 	(	10	,	0	)
@@ -167,7 +167,7 @@ coordinates{
 };
 \legend{kopiec}
 
-\addplot[color=yellow, mark=*]
+\addplot[color=yellow, mark=|]
 coordinates{
 (	10	,	0	)
 (	100	,	0	)
@@ -181,7 +181,7 @@ coordinates{
 };
 \legend{lista}
 
-\addplot[color=brown, mark=*]
+\addplot[color=brown, mark=star]
 coordinates{
 	(	10	,	0	)
 	(	100	,	0	)
@@ -223,7 +223,7 @@ coordinates{
 };
 \legend{AVL}
 
-\addplot[color=blue, mark=*]
+\addplot[color=blue, mark=x]
 coordinates{
 	(	10	,	0	)
 	(	100	,	0	)
@@ -236,7 +236,7 @@ coordinates{
 };
 \legend{BST}
 
-\addplot[color=green, mark=*]
+\addplot[color=green, mark=pentagon]
 coordinates{
 	(	10	,	0	)
 	(	100	,	0	)
@@ -250,7 +250,7 @@ coordinates{
 };
 \legend{kopiec}
 
-\addplot[color=yellow, mark=*]
+\addplot[color=yellow, mark=triangle]
 coordinates{
 	(	10	,	0	)
 	(	100	,	1	)
@@ -264,7 +264,7 @@ coordinates{
 };
 \legend{lista}
 
-\addplot[color=brown, mark=*]
+\addplot[color=brown, mark=star]
 coordinates{
 	(	10	,	0	)
 	(	100	,	1	)
@@ -306,7 +306,7 @@ coordinates{
 };
 \legend{BST}
 
-\addplot[color=green, mark=*]
+\addplot[color=green, mark=x]
 coordinates{
 	(	10	,	0	)
 	(	100	,	0	)
@@ -320,7 +320,7 @@ coordinates{
 };
 \legend{kopiec}
 
-\addplot[color=yellow, mark=*]
+\addplot[color=yellow, mark=pentagon]
 coordinates{
 	
 (	10	,	0	)
@@ -334,7 +334,7 @@ coordinates{
 };
 \legend{lista}
 
-\addplot[color=brown, mark=*]
+\addplot[color=brown, mark=triangle]
 coordinates{
 	(	10	,	0	)
 	(	100	,	1	)
@@ -375,7 +375,7 @@ coordinates{
 	
 };
 
-\addplot[color=blue, mark=*]
+\addplot[color=blue, mark=pentagon]
 coordinates{
 	(	10	,	0	)
 	(	100	,	5	)
@@ -388,7 +388,7 @@ coordinates{
 };
 \legend{BST}
 
-\addplot[color=green, mark=*]
+\addplot[color=green, mark=triangle]
 coordinates{
 	(	10	,	0	)
 	(	100	,	10	)
@@ -406,7 +406,7 @@ coordinates{
 
 \end{tikzpicture}
 
-\newpage
+
 \subsection{Tabele}
 
 \begin{table}[h!]
@@ -478,7 +478,6 @@ coordinates{
 
 Zaimplementowane algorytmy nie s± optymalne. W wiêkszo¶ci jednak za³o¿ona z³o¿ono¶æ obliczeniowa sprawdzi³a siê. Najbardziej obci±¿aj±ce by³y operacje na drzewie BST z wykorzystaniem algorytmu DSW. Równowa¿enie drzewa po ka¿dym wstawieniu wêz³a nie jest dobrym pomys³em. Mo¿na to robiæ co kilka, kilkana¶cie wstawieñ -- takie niezrównowa¿enie nie wp³ynie bardziej na z³o¿ono¶æ w przypadku innych operacji.
 
-Trudno¶æ sprawi³a implementacja listy. Trzeba byæ bardzo uwa¿nym aby nie odwo³aæ siê do \emph{nulla}.
 
 \newpage
 %##############################################################
