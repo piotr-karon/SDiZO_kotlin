@@ -1,9 +1,9 @@
-package sample.helloworld.test
+package test
 
 import org.junit.Test
-import sample.helloworld.structures.list.ListElement
-import sample.helloworld.structures.list.Nil
+import structures.list.ListElement
 import structures.list.ListSDiZO
+import structures.list.Nil
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
 class ListIteratorTest {
 
     @Test
-    fun givenEmptyListFrontIteratorShouldReturnNil(){
+    fun givenEmptyListFrontIteratorShouldReturnNil() {
         val list = ListSDiZO()
 
         val frontItr = list.frontIterator()
@@ -24,7 +24,7 @@ class ListIteratorTest {
     }
 
     @Test
-    fun givenEmptyListBackIteratorShouldReturnNil(){
+    fun givenEmptyListBackIteratorShouldReturnNil() {
         val list = ListSDiZO()
 
         val backItr = list.backIterator()
@@ -36,9 +36,9 @@ class ListIteratorTest {
     }
 
     @Test
-    fun givenListWithOneFrontIteratorElementShouldNotReturnNil(){
+    fun givenListWithOneFrontIteratorElementShouldNotReturnNil() {
         val list = ListSDiZO()
-        val elem = ListElement(0,Nil,Nil)
+        val elem = ListElement(0, Nil, Nil)
         list.head = elem
         list.tail = elem
 
@@ -59,7 +59,7 @@ class ListIteratorTest {
 
 
     @Test
-    fun givenListWithTwoElementsShouldReturnThem(){
+    fun givenListWithTwoElementsShouldReturnThem() {
         val list = ListSDiZO()
         val elem1 = ListElement(0, Nil, Nil)
         val elem2 = ListElement(0, Nil, Nil)
@@ -75,7 +75,7 @@ class ListIteratorTest {
     }
 
     @Test
-    fun givenListWithManyElementsShouldReturnThem(){
+    fun givenListWithManyElementsShouldReturnThem() {
         val list = ListSDiZO()
         val elem1 = ListElement(0, Nil, Nil)
         val elem2 = ListElement(1, Nil, Nil)

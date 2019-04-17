@@ -1,10 +1,10 @@
-package sample.helloworld.test
+package test
 
 import org.junit.Before
 import org.junit.Test
-import sample.helloworld.structures.FileLoader
-import sample.helloworld.structures.list.Nil
+import structures.FileLoader
 import structures.list.ListSDiZO
+import structures.list.Nil
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

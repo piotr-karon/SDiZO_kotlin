@@ -1,33 +1,29 @@
 package structures.list
 
-import sample.helloworld.structures.list.ListAbstractElement
-import sample.helloworld.structures.list.ListElement
-import sample.helloworld.structures.list.Nil
 import kotlin.random.Random
 import kotlin.random.nextInt
-
 
 class ListSDiZO() : IterableListSDiZO {
     var head: ListAbstractElement = Nil
     var tail: ListAbstractElement = head
     var size = 0
 
-    constructor(num: Int) : this(){
+    constructor(num: Int) : this() {
         add(num)
     }
 
     fun add(value: Int) {
-        if (tail == head){
+        if (tail == head) {
             // Przypadek pustej listy
-            if(tail is Nil) {
-                    tail = ListElement(value, Nil, Nil)
-                    head = tail
-            }else{
-            // Lista jednoelementowa
+            if (tail is Nil) {
+                tail = ListElement(value, Nil, Nil)
+                head = tail
+            } else {
+                // Lista jednoelementowa
                 tail = ListElement(value, head, Nil)
                 head.successor = tail
             }
-        }else{
+        } else {
             tail.successor = ListElement(value, tail, Nil)
             tail = tail.successor
         }
@@ -53,9 +49,9 @@ class ListSDiZO() : IterableListSDiZO {
 
             else -> {
                 val itr = frontIterator()
-                var found : ListAbstractElement = Nil
+                var found: ListAbstractElement = Nil
 
-                for(i in 0 .. position)
+                for (i in 0..position)
                     found = itr.next()
 
                 found.predecessor.successor = elem
@@ -72,30 +68,29 @@ class ListSDiZO() : IterableListSDiZO {
         return true
     }
 
-    fun deleteAt(ind: Int): Boolean{
-        if(size == 0 || ind >= size || ind < 0) return false
-
-        else if(size == 1){
+    fun deleteAt(ind: Int): Boolean {
+        if (size == 0 || ind >= size || ind < 0) return false
+        else if (size == 1) {
             head = Nil
             tail = head
             size--
             return true
-        }else if(ind == 0){
+        } else if (ind == 0) {
             head = head.successor
             head.predecessor = Nil
-        }else if(ind == size-1){
+        } else if (ind == size - 1) {
             tail = tail.predecessor
             tail.successor = Nil
-        }else{
+        } else {
 
             var elem: ListAbstractElement = Nil
             val itr = frontIterator()
 
-            for(i in 0..ind){
+            for (i in 0..ind) {
                 elem = itr.next()
             }
 
-            if(elem is Nil) return false
+            if (elem is Nil) return false
 
             elem.predecessor.successor = elem.successor
             elem.successor.predecessor = elem.predecessor
@@ -109,7 +104,7 @@ class ListSDiZO() : IterableListSDiZO {
 
         val toDel = find(value)
 
-        if(toDel is Nil) return false
+        if (toDel is Nil) return false
 
         //Przypadek listy jednoelementowej
         when {
@@ -177,19 +172,19 @@ class ListSDiZO() : IterableListSDiZO {
         var current: ListAbstractElement
     ) : IteratorListSDiZO {
 
-        var next = if(current !is Nil) current.successor else Nil
+        var next = if (current !is Nil) current.successor else Nil
         var ret = current
-        var prev = if(current !is Nil) current.predecessor else Nil
+        var prev = if (current !is Nil) current.predecessor else Nil
 
         override fun next(): ListAbstractElement {
 
-            if(current is Nil) return current
+            if (current is Nil) return current
 
             ret = current
 
             prev = current
             current = next
-            next = if(next !is Nil) next.successor else Nil
+            next = if (next !is Nil) next.successor else Nil
 
             return ret
         }
@@ -199,13 +194,13 @@ class ListSDiZO() : IterableListSDiZO {
         }
 
         override fun previous(): ListAbstractElement {
-            if(current is Nil) return current
+            if (current is Nil) return current
 
             ret = current
 
             next = current
             current = prev
-            prev = if(prev !is Nil) prev.predecessor else Nil
+            prev = if (prev !is Nil) prev.predecessor else Nil
 
             return ret
         }
@@ -231,13 +226,13 @@ class ListSDiZO() : IterableListSDiZO {
         val builder = StringBuilder("")
         val itr = backIterator()
 
-       while(itr.hasPrevious())
-           builder.append(" ${itr.previous().value}")
+        while (itr.hasPrevious())
+            builder.append(" ${itr.previous().value}")
 
         return builder.toString()
     }
 
-    fun print(){
+    fun print() {
         println(toString())
         println(toReverseString())
         println()
@@ -253,4 +248,66 @@ class ListSDiZO() : IterableListSDiZO {
 
         }
     }
+}
+
+sealed class ListAbstractElement {
+
+    abstract var value: Int
+
+    abstract var predecessor: ListAbstractElement
+
+    abstract var successor: ListAbstractElement
+
+}
+
+data class ListElement(
+    override var value: Int,
+    override var predecessor: ListAbstractElement,
+    override var successor: ListAbstractElement
+) : ListAbstractElement() {
+    override fun toString(): String {
+        return "Elem value: $value"
+    }
+}
+
+object Nil : ListAbstractElement() {
+    override var value: Int
+        get() {
+            throw NoSuchElementException(" no key. End of list.")
+        }
+        set(x) {
+            throw NoSuchElementException(" Cannot do this on NIL")
+        }
+    override var predecessor: ListAbstractElement
+        get() {
+            throw NoSuchElementException(" no predecessor. End of list.")
+        }
+        set(x) {
+            throw NoSuchElementException(" Cannot do this on NIL")
+        }
+    override var successor: ListAbstractElement
+        get() {
+            throw NoSuchElementException(" no successor. End of list.")
+        }
+        set(x) {
+            throw NoSuchElementException(" Cannot do this on NIL")
+        }
+
+}
+
+interface IterableListSDiZO {
+
+    fun frontIterator(): IteratorListSDiZO
+
+    fun backIterator(): IteratorListSDiZO
+
+}
+
+interface IteratorListSDiZO {
+
+    fun next(): ListAbstractElement
+    fun hasNext(): Boolean
+    fun previous(): ListAbstractElement
+    fun hasPrevious(): Boolean
+
 }

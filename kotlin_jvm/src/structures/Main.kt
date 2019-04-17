@@ -1,11 +1,10 @@
 package structures
 
-import sample.helloworld.structures.FileLoader
-import sample.helloworld.structures.heap.HeapSDiZO
 import structures.avl.AVLTree
 import structures.avl.NilAVL
 import structures.bst.BST
 import structures.bst.Nil
+import structures.heap.HeapSDiZO
 import structures.list.ListSDiZO
 import java.io.File
 

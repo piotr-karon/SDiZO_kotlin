@@ -1,4 +1,4 @@
-package sample.helloworld.test
+package test
 
 import org.junit.Test
 import structures.TestUnit

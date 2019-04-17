@@ -1,7 +1,7 @@
-package sample.helloworld.test
+package test
 
 import org.junit.Test
-import sample.helloworld.structures.FileLoader
+import structures.FileLoader
 import structures.bst.BST
 import structures.bst.Nil
 import structures.bst.Node

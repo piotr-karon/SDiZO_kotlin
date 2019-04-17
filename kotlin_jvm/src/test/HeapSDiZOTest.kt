@@ -1,9 +1,9 @@
-package sample.helloworld.test
+package test
 
 import org.junit.Before
 import org.junit.Test
-import sample.helloworld.structures.FileLoader
-import sample.helloworld.structures.heap.HeapSDiZO
+import structures.FileLoader
+import structures.heap.HeapSDiZO
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals

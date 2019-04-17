@@ -1,9 +1,8 @@
-package sample.helloworld.structures
+package structures
 
-import sample.helloworld.structures.heap.HeapSDiZO
-import structures.ArraySDiZO
 import structures.avl.AVLTree
 import structures.bst.BST
+import structures.heap.HeapSDiZO
 import structures.list.ListSDiZO
 import java.io.File
 import java.util.*

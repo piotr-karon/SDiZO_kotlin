@@ -1,4 +1,4 @@
-package sample.helloworld.structures.heap
+package structures.heap
 
 import kotlin.random.Random
 import kotlin.random.nextInt
