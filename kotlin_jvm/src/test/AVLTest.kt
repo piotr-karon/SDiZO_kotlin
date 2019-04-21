@@ -38,7 +38,7 @@ class AVLTest {
 //package test
 //
 //import org.junit.Test
-//import structures.avl.AVLNodeAVL
+//import structures.avl.AVLNode
 //import structures.avl.AVLTree
 //import structures.avl.AbstractAVLNode
 //import structures.avl.NilAVL
@@ -125,9 +125,9 @@ class AVLTest {
 //    fun rrTest() {
 //        val tree = AVLTree()
 //
-//        val node1 = AVLNodeAVL(1, -2, NilAVL, NilAVL, NilAVL)
-//        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
-//        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
+//        val node1 = AVLNode(1, -2, NilAVL, NilAVL, NilAVL)
+//        val node2 = AVLNode(2, -1, node1, NilAVL, NilAVL)
+//        val node3 = AVLNode(3, 0, node2, NilAVL, NilAVL)
 //
 //        node1.rightChild = node2
 //        node2.rightChild = node3
@@ -143,9 +143,9 @@ class AVLTest {
 //            assertEquals(root.rightChild, node3)
 //            assertEquals(root.leftChild, node1)
 //
-//            assertEquals(0, root.bf)
-//            assertEquals(0, root.rightChild.bf)
-//            assertEquals(0, root.leftChild.bf)
+//            assertEquals(0, root.balance)
+//            assertEquals(0, root.rightChild.balance)
+//            assertEquals(0, root.leftChild.balance)
 //        }
 //
 //    }
@@ -154,9 +154,9 @@ class AVLTest {
 //    fun llTest() {
 //        val tree = AVLTree()
 //
-//        val node1 = AVLNodeAVL(1, 2, NilAVL, NilAVL, NilAVL)
-//        val node2 = AVLNodeAVL(2, 1, node1, NilAVL, NilAVL)
-//        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
+//        val node1 = AVLNode(1, 2, NilAVL, NilAVL, NilAVL)
+//        val node2 = AVLNode(2, 1, node1, NilAVL, NilAVL)
+//        val node3 = AVLNode(3, 0, node2, NilAVL, NilAVL)
 //
 //        node1.leftChild = node2
 //        node2.leftChild = node3
@@ -172,9 +172,9 @@ class AVLTest {
 //            assertEquals(root.rightChild, node1)
 //            assertEquals(root.leftChild, node3)
 //
-//            assertEquals(0, root.bf)
-//            assertEquals(0, root.rightChild.bf)
-//            assertEquals(0, root.leftChild.bf)
+//            assertEquals(0, root.balance)
+//            assertEquals(0, root.rightChild.balance)
+//            assertEquals(0, root.leftChild.balance)
 //        }
 //
 //    }
@@ -183,9 +183,9 @@ class AVLTest {
 //    fun rlTest() {
 //        val tree = AVLTree()
 //
-//        val node1 = AVLNodeAVL(1, -2, NilAVL, NilAVL, NilAVL)
-//        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
-//        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
+//        val node1 = AVLNode(1, -2, NilAVL, NilAVL, NilAVL)
+//        val node2 = AVLNode(2, -1, node1, NilAVL, NilAVL)
+//        val node3 = AVLNode(3, 0, node2, NilAVL, NilAVL)
 //
 //        node1.rightChild = node2
 //        node2.leftChild = node3
@@ -201,9 +201,9 @@ class AVLTest {
 //            assertEquals(root.rightChild, node2)
 //            assertEquals(root.leftChild, node1)
 //
-//            assertEquals(0, root.bf)
-//            assertEquals(0, root.rightChild.bf)
-//            assertEquals(0, root.leftChild.bf)
+//            assertEquals(0, root.balance)
+//            assertEquals(0, root.rightChild.balance)
+//            assertEquals(0, root.leftChild.balance)
 //        }
 //    }
 //
@@ -211,9 +211,9 @@ class AVLTest {
 //    fun lrTest() {
 //        val tree = AVLTree()
 //
-//        val node1 = AVLNodeAVL(1, -2, NilAVL, NilAVL, NilAVL)
-//        val node2 = AVLNodeAVL(2, -1, node1, NilAVL, NilAVL)
-//        val node3 = AVLNodeAVL(3, 0, node2, NilAVL, NilAVL)
+//        val node1 = AVLNode(1, -2, NilAVL, NilAVL, NilAVL)
+//        val node2 = AVLNode(2, -1, node1, NilAVL, NilAVL)
+//        val node3 = AVLNode(3, 0, node2, NilAVL, NilAVL)
 //
 //        node1.leftChild = node2
 //        node2.rightChild = node3
@@ -229,9 +229,9 @@ class AVLTest {
 //            assertEquals(root.rightChild, node1)
 //            assertEquals(root.leftChild, node2)
 //
-//            assertEquals(0, root.bf)
-//            assertEquals(0, root.rightChild.bf)
-//            assertEquals(0, root.leftChild.bf)
+//            assertEquals(0, root.balance)
+//            assertEquals(0, root.rightChild.balance)
+//            assertEquals(0, root.leftChild.balance)
 //        }
 //    }
 //
@@ -239,9 +239,9 @@ class AVLTest {
 //    fun rlBalanceFactorTest() {
 //        val tree = AVLTree()
 //
-//        val node1 = AVLNodeAVL(1, -2, NilAVL, NilAVL, NilAVL)
-//        val node2 = AVLNodeAVL(2, 1, node1, NilAVL, NilAVL)
-//        val node3 = AVLNodeAVL(3, 1, node2, NilAVL, NilAVL)
+//        val node1 = AVLNode(1, -2, NilAVL, NilAVL, NilAVL)
+//        val node2 = AVLNode(2, 1, node1, NilAVL, NilAVL)
+//        val node3 = AVLNode(3, 1, node2, NilAVL, NilAVL)
 //
 //        node1.rightChild = node2
 //        node2.leftChild = node3
@@ -258,9 +258,9 @@ class AVLTest {
 //            assertEquals(root.rightChild, node2)
 //            assertEquals(root.leftChild, node1)
 //
-//            assertEquals(0, root.bf)
-//            assertEquals(-1, root.rightChild.bf)
-//            assertEquals(0, root.leftChild.bf)
+//            assertEquals(0, root.balance)
+//            assertEquals(-1, root.rightChild.balance)
+//            assertEquals(0, root.leftChild.balance)
 //        }
 //    }
 //

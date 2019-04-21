@@ -185,7 +185,7 @@ class BST {
     private fun rotateRight(nodeA: AbstractNode) {
         if (nodeA is Nil || nodeA.leftChild is Nil) return
 
-        //nodeA as AVLNodeAVL
+        //nodeA as AVLNode
 
         val nodeB = nodeA.leftChild
         val parentA = nodeA.parent
