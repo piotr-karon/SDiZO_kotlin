@@ -138,7 +138,7 @@ class HeapSDiZO(private val maxsize: Int) {
     companion object {
 
         fun generateRandom(count: Int, range: IntRange): HeapSDiZO {
-            val heap = HeapSDiZO(count+10)
+            val heap = HeapSDiZO(count*2)
 
             for (i in 1 until count)
                 heap.insert(Random.nextInt(range))

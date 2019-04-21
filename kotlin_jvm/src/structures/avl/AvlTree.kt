@@ -1,5 +1,6 @@
 package structures.avl
 
+import structures.bst.Nil
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -94,62 +95,117 @@ class AVLTree {
         return find(root, key)
     }
 
-    fun delete(key: Int){
-        var x = find(key)
-        if(x !is NilAVL){
+    fun delete(key: Int): AbstractAVLNode{
+        val x = find(key)
+        return if(x !is NilAVL){
             delete(x)
+        }else{
+            x
         }
     }
 
     fun delete(toDel: AbstractAVLNode): AbstractAVLNode {
-        if(toDel is NilAVL) return toDel
+        val x = toDel
+        var t : AbstractAVLNode
+        var y : AbstractAVLNode
+        var z : AbstractAVLNode
+        val nest: Boolean
 
-        var x = toDel
-//        var y : AbstractAVLNode
-//
-//        var nest = false
-//
-//        if (x.leftChild is NilAVL || x.rightChild is NilAVL) {
-//
-//            if (x.leftChild !is NilAVL) {
-//                y = x.leftChild
-//                x.leftChild = NilAVL
-//            }else{
-//                y = x.rightChild
-//                x.rightChild = NilAVL
-//            }
-//
-//            x.bf = 0
-//            nest = true
-//
-//        }else{
-//            y = delete(predecessor(x))
-//            nest = false
-//        }
-//
-//        if(y is NilAVL){ //K08
-//            //k15
-//            if(x.parent is NilAVL){
-//                root = y
-//            }
-//
-//        }else{
-//            y.parent = x.parent
-//            y.leftChild = x.leftChild
-//
-//            if(y.leftChild !is NilAVL){
-//                y.leftChild.parent = y
-//            }
-//
-//            y.rightChild = x.rightChild
-//
-//            if(y.rightChild !is NilAVL) y.rightChild.parent = y
-//
-//            y.bf = x.bf
-//
-//            if(x.parent is NilAVL) root = y
-//        }
+        //K01
+        if(x.leftChild is NilAVL|| x.rightChild is NilAVL){
 
+            //K05
+            if(x.leftChild !is NilAVL){
+                y = x.leftChild
+                x.leftChild = NilAVL
+            }else{
+                y = x.rightChild
+                x.rightChild = NilAVL
+            }
+
+            x.bf = 0
+            nest = true
+
+        }else{
+            y = delete(predecessor(x))
+            nest = false
+        }
+
+        //K08
+        if(y !is NilAVL){
+
+            y.parent = x.parent
+            y.leftChild = x.leftChild
+
+            if(y !is NilAVL) y.leftChild.parent = y
+
+            y.rightChild = x.rightChild
+
+            if(y.rightChild !is NilAVL) y.rightChild.parent = y
+
+            y.bf = x.bf
+
+        }
+
+        //K15
+        if(x.parent is NilAVL){
+            if(x.parent.leftChild == x) x.parent.leftChild = y
+            else x.parent.rightChild = y
+        }else{
+            root = y
+        }
+
+        if(!nest) return x
+
+        z = y
+        y = x.parent
+
+        //K22
+        while (y !is NilAVL){
+            //K23
+            if(y.bf != 0){
+
+                //K26
+                if( (y.bf != 1 || y.leftChild != z) && (y.bf != -1 || y.rightChild != z)){
+
+                    //K31
+                    t = if(y.leftChild == z) y.rightChild else y.leftChild
+
+                    //K32
+                    if(t.bf != 0){
+                        if(y.bf == 1) rotateLL(y)
+                        else rotateRR(y)
+                        return x
+                    }else{
+                        //K35
+                        if(y.bf != t.bf){
+                            //K40
+                            if(y.bf == 1) rotateLR(y)
+                            else rotateRL(y)
+                            z = y.parent
+                            y = z.parent
+                        }else{
+                            if(y.bf == 1) rotateLL(y)
+                            else rotateRR(y)
+                            z = t
+                            y = t.parent
+                            continue
+                        }
+                    }
+
+                }else{
+                    y.bf = 0
+                    z = y
+                    y = y.parent
+                    continue
+                }
+            }else{
+                //K24
+                if(y.leftChild == z) y.bf = -1
+                return x
+            }
+
+        }
 
         return x
     }
@@ -450,4 +506,178 @@ object NilAVL : AbstractAVLNode() {
     override var rightChild: AbstractAVLNode
         get() = throw NoSuchElementException("NilAVL")
         set(value) {}
+}
+
+class AvlTree {
+    var root: Node? = null
+
+    class Node(var key: Int, var parent: Node?) {
+        var balance: Int = 0
+        var leftChild : Node? = null
+        var rightChild: Node? = null
+    }
+
+    fun insert(key: Int): Boolean {
+        if (root == null)
+            root = Node(key, null)
+        else {
+            var n: Node? = root
+            var parent: Node
+            while (true) {
+                if (n!!.key == key) return false
+                parent = n
+                val goLeft = n.key > key
+                n = if (goLeft) n.leftChild else n.rightChild
+                if (n == null) {
+                    if (goLeft)
+                        parent.leftChild  = Node(key, parent)
+                    else
+                        parent.rightChild = Node(key, parent)
+                    rebalance(parent)
+                    break
+                }
+            }
+        }
+        return true
+    }
+
+    fun delete(delKey: Int) {
+        if (root == null) return
+        var n:       Node? = root
+        var parent:  Node? = root
+        var delNode: Node? = null
+        var child:   Node? = root
+        while (child != null) {
+            parent = n
+            n = child
+            child = if (delKey >= n.key) n.rightChild else n.leftChild
+            if (delKey == n.key) delNode = n
+        }
+        if (delNode != null) {
+            delNode.key = n!!.key
+            child = if (n.leftChild != null) n.leftChild else n.rightChild
+            if (root!!.key == delKey)
+                root = child
+            else {
+                if (parent!!.leftChild == n)
+                    parent.leftChild = child
+                else
+                    parent.rightChild = child
+                rebalance(parent)
+            }
+        }
+    }
+
+    private fun rebalance(n: Node) {
+        setBalance(n)
+        var nn = n
+        if (nn.balance == -2)
+            nn = if (height(nn.leftChild!!.leftChild) >= height(nn.leftChild!!.rightChild))
+                rotateRight(nn)
+            else
+                rotateLeftThenRight(nn)
+        else if (nn.balance == 2)
+            nn = if (height(nn.rightChild!!.rightChild) >= height(nn.rightChild!!.leftChild))
+                rotateLeft(nn)
+            else
+                rotateRightThenLeft(nn)
+        if (nn.parent != null) rebalance(nn.parent!!)
+        else root = nn
+    }
+
+    private fun rotateLeft(a: Node): Node {
+        val b: Node? = a.rightChild
+        b!!.parent = a.parent
+        a.rightChild = b.leftChild
+        if (a.rightChild != null) a.rightChild!!.parent = a
+        b.leftChild = a
+        a.parent = b
+        if (b.parent != null) {
+            if (b.parent!!.rightChild == a)
+                b.parent!!.rightChild = b
+            else
+                b.parent!!.leftChild = b
+        }
+        setBalance(a, b)
+        return b
+    }
+
+    private fun rotateRight(a: Node): Node {
+        val b: Node? = a.leftChild
+        b!!.parent = a.parent
+        a.leftChild = b.rightChild
+        if (a.leftChild != null) a.leftChild!!.parent = a
+        b.rightChild = a
+        a.parent = b
+        if (b.parent != null) {
+            if (b.parent!!.rightChild == a)
+                b.parent!!.rightChild = b
+            else
+                b.parent!!.leftChild = b
+        }
+        setBalance(a, b)
+        return b
+    }
+
+    private fun rotateLeftThenRight(n: Node): Node {
+        n.leftChild = rotateLeft(n.leftChild!!)
+        return rotateRight(n)
+    }
+
+    private fun rotateRightThenLeft(n: Node): Node {
+        n.rightChild = rotateRight(n.rightChild!!)
+        return rotateLeft(n)
+    }
+
+    private fun height(n: Node?): Int {
+        if (n == null) return -1
+        return 1 + Math.max(height(n.leftChild), height(n.rightChild))
+    }
+
+    private fun setBalance(vararg nodes: Node) {
+        for (n in nodes) n.balance = height(n.rightChild) - height(n.leftChild)
+    }
+
+    fun printKey() {
+        printKey(root)
+        println()
+    }
+
+    private fun printKey(n: Node?) {
+        if (n != null) {
+            printKey(n.leftChild)
+            print("${n.key} ")
+            printKey(n.rightChild)
+        }
+    }
+
+    fun printBalance() {
+        printBalance(root)
+        println()
+    }
+
+    private fun printBalance(n: Node?) {
+        if (n != null) {
+            printBalance(n.leftChild)
+            print("${n.balance} ")
+            printBalance(n.rightChild)
+        }
+    }
+
+    fun printTree(){
+        printBinaryTree(root,0)
+    }
+
+    private fun printBinaryTree(node: Node?, level: Int) {
+        if( node == null ) return
+        printBinaryTree(node.rightChild, level + 1)
+        if (level != 0) {
+            for (i in 0 until level - 1)
+                print("|\t")
+
+            println("|---${node.key}")
+        } else
+            println("${node.key}")
+        printBinaryTree(node.leftChild, level + 1)
+    }
 }

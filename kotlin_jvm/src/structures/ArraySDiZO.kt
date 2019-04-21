@@ -4,10 +4,15 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 
-class ArraySDiZO {
+class ArraySDiZO() {
 
     private var elementData: Array<Int?> = emptyArray()
     private var size = 0
+
+    constructor(array: Array<Int?>) : this() {
+        this.elementData = array
+        size = array.size
+    }
 
 
     fun add(element: Int) {
@@ -135,13 +140,12 @@ class ArraySDiZO {
 
     companion object {
         fun generateRandom(count: Int, range: IntRange): ArraySDiZO {
-            val arr = ArraySDiZO()
+            val array = Array<Int?>(count) { Random.nextInt(range) }
 
-            for (i in 1..count)
-                arr.add(Random.nextInt(range))
-            return arr
+            return ArraySDiZO(array)
 
         }
+
 
     }
 

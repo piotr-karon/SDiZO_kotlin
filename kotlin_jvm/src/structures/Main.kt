@@ -14,45 +14,28 @@ class Main {
         @JvmStatic
         fun main(args: Array<String>) {
 
-            val file = File("wynikiNew.txt")
-            file.createNewFile()
             val range = IntRange(1, 1000000)
-            val counts = intArrayOf(10, 100, 500, 1000, 2000, 3000, 5000, 7000, 10000, 13000, 20000, 30000, 50000)
-            val times = 20
+            val counts = intArrayOf(10, 100, 500, 1000, 2000, 3000, 5000, 7000, 10000, 13000, 20000, 30000, 50000, 70_000, 100_000, 200_000, 300_000, 500_000, 800_000, 1_000_000)
+            val times = 10
 
-            counts.forEach { file.appendText(TestUnit(it, range).arrayAddTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).arrayDeleteTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).arrayFindTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).listAddTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).listDeleteTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).listFindTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).heapAddTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).heapDeleteTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).heapFindTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).bstAddTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).bstDeleteTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).bstFindTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).avlAddTest(times).toString() + "\n") }
-            counts.forEach { file.appendText(TestUnit(it, range).avlFindTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).arrayAddTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).listAddTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).heapAddTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).bstAddTest(times).toString() + "\n") }
+//            counts.forEach { print(TestUnit(it, range).avlAddTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).arrayDeleteTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).listDeleteTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).heapDeleteTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).bstDeleteTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).arrayFindTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).listFindTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).heapFindTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).bstFindTest(times).toString() + "\n") }
+ //           counts.forEach { print(TestUnit(it, range).avlFindTest(times).toString() + "\n") }
 
-                counts.forEach {
-                  try {
-                      file.appendText(TestUnit(it, range).bstAddFixTest(times).toString() + "\n")
-                  }catch (e: StackOverflowError){
-
-                  }
-                }
-
-            counts.forEach {
-                try{
-                    file.appendText(TestUnit(it, range).bstDeleteFixTest(times).toString() + "\n")
-                }catch (e: StackOverflowError){}
-            }
-            counts.forEach {
-                try{
-                    file.appendText(TestUnit(it, range).bstBalanceTest(times).toString() + "\n")
-                }catch (e: StackOverflowError){}
-            }
+            counts.forEach { print(TestUnit(it, range).bstAddFixTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).bstDeleteFixTest(times).toString() + "\n") }
+            counts.forEach { print(TestUnit(it, range).bstBalanceTest(times).toString() + "\n") }
 
 
         }

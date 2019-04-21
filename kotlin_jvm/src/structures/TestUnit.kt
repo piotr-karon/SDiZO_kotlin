@@ -6,7 +6,7 @@ import structures.heap.HeapSDiZO
 import structures.list.ListSDiZO
 import kotlin.random.Random
 import kotlin.random.nextInt
-import kotlin.system.measureTimeMillis
+import kotlin.system.measureNanoTime
 
 class TestUnit(private val count: Int, private val range: IntRange) {
 
@@ -29,7 +29,7 @@ class TestUnit(private val count: Int, private val range: IntRange) {
     fun heapTest(num: Int) {
         val l1 = heapAddTest(num)
         val l2 = heapFindTest(num)
-        val l3 = heapExtractMaxTest(num)
+        val l3 = heapDeleteTest(num)
 
         println("=====Kopiec wyniki====")
         sumUp(l1)
@@ -97,26 +97,21 @@ class TestUnit(private val count: Int, private val range: IntRange) {
 
     fun arrayAddTest(times: Int): MutableList<String> {
 
+        var time: Long = 0
+        val rand = ArraySDiZO.generateRandom(count, range)
+        var arr: ArraySDiZO
+
+        for (j in 1..times) {
+            arr = rand
+            time += measureNanoTime {
+                arr.add(numbers[1])
+            }
+        }
+
         val result = mutableListOf<String>()
         result.add("Array,add")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val arr = ArraySDiZO()
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    arr.add(numbers[i])
-            }
-
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
@@ -124,77 +119,63 @@ class TestUnit(private val count: Int, private val range: IntRange) {
 
     fun arrayFindTest(times: Int): MutableList<String> {
 
+        var time: Long = 0
+        val rand = ArraySDiZO.generateRandom(count, range)
+        var arr: ArraySDiZO
+
+        for (j in 1..times) {
+            arr = rand
+            time += measureNanoTime {
+                arr.contains(numbers[1])
+            }
+
+        }
+
         val result = mutableListOf<String>()
         result.add("Array,contains()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val arr = ArraySDiZO.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    arr.contains(numbers[i])
-            }
-            
-        }
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
         return result
     }
 
     fun arrayDeleteTest(times: Int): MutableList<String> {
+        var time: Long = 0
+        val rand = ArraySDiZO.generateRandom(count, range)
+        var arr: ArraySDiZO
+
+        for (j in 1..times) {
+            arr = rand
+            time += measureNanoTime {
+                arr.delete(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Array,delete()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val arr = ArraySDiZO.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    arr.delete(numbers[i])
-            }
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
     }
 
     fun listAddTest(times: Int): MutableList<String> {
-
-        val result = mutableListOf<String>()
-        result.add("List,add()")
-        result.add("$times")
-
         var time: Long = 0
+        val rand = ListSDiZO.generateRandom(count, range)
+        var list: ListSDiZO
 
         for (j in 1..times) {
-            val list = ListSDiZO(0)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    list.add(numbers[i])
+            list = rand
+            time += measureNanoTime {
+                list.add(numbers[1])
             }
 
         }
-
-        val avg = time / times
-        //result.add(avg.toString())
+        val result = mutableListOf<String>()
+        result.add("List,add()")
+        result.add("$times")
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
@@ -208,14 +189,15 @@ class TestUnit(private val count: Int, private val range: IntRange) {
 
         var time: Long = 0
 
-        for (j in 1..times) {
-            val list = ListSDiZO.generateRandom(count, range)
+        val rand = ListSDiZO.generateRandom(count, range)
+        var list: ListSDiZO
 
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    list.contains(numbers[i])
+        for (j in 1..times) {
+            list = rand
+            time += measureNanoTime {
+                list.contains(numbers[1])
             }
-            
+
         }
         val avg = time / times
         //result.add(avg.toString())
@@ -233,12 +215,17 @@ class TestUnit(private val count: Int, private val range: IntRange) {
 
         var time: Long = 0
 
-        for (j in 1..times) {
-            val arr = ListSDiZO.generateRandom(count, range)
+        val rand = ListSDiZO.generateRandom(count, range)
+        var list: ListSDiZO
 
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    arr.deleteValue(numbers[i])
+        for (j in 1..times) {
+            list = rand
+            time += measureNanoTime {
+                try {
+                    list.deleteValue(numbers[1])
+                } catch (e: NoSuchElementException) {
+
+                }
             }
         }
 
@@ -258,13 +245,12 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         result.add("$times")
 
         var time: Long = 0
-
+        val rand = BST.generateRandomBalanced(count, range)
+        var struct: BST
         for (j in 1..times) {
-            val struct = BST()
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.insert(numbers[i])
+            struct = BST.generateRandomBalanced(count, range)
+            time += measureNanoTime {
+                struct.insert(numbers[1])
             }
 
         }
@@ -285,14 +271,14 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         result.add("$times")
 
         var time: Long = 0
-
+        val rand = BST.generateRandomBalanced(count, range)
+        var struct: BST
         for (j in 1..times) {
-            val struct = BST.generateRandom(count, range)
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.find(numbers[i])
+            struct = rand
+            time += measureNanoTime {
+                struct.find(numbers[1])
             }
-            
+
         }
         val avg = time / times
         //result.add(avg.toString())
@@ -309,19 +295,13 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         result.add("$times")
 
         var time: Long = 0
+
+        val rand = BST.generateRandomBalanced(count, range)
         var struct: BST
-
         for (j in 1..times) {
-            struct = BST.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                struct.insert(1)
-                for (i in 0 until count) {
-                    try {
-                        struct.delete(numbers[i])
-                    } catch (e: NoSuchElementException) {
-                    }
-                }
+            struct = rand
+            time += measureNanoTime {
+                struct.delete(numbers[1])
             }
         }
 
@@ -342,18 +322,17 @@ class TestUnit(private val count: Int, private val range: IntRange) {
 
         var time: Long = 0
 
+        val rand = BST.generateRandom(count, range)
+        var struct: BST
         for (j in 1..times) {
-            val struct = BST()
-
-            time += measureTimeMillis {
-                for (i in 0 until count){
-                    struct.insert(numbers[i])
-                    if(i%50 == 0) struct.balanceDSW()
-                }
-
+            struct = rand
+            time += measureNanoTime {
+                struct.insert(numbers[1])
+                if (j % 10 == 0) struct.balanceDSW()
             }
 
         }
+
 
         val avg = time / times
         //result.add(avg.toString())
@@ -371,19 +350,13 @@ class TestUnit(private val count: Int, private val range: IntRange) {
         result.add("$times")
 
         var time: Long = 0
+        val rand = BST.generateRandom(count, range)
         var struct: BST
         for (j in 1..times) {
-            struct = BST.generateRandomBalanced(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count) {
-                    try {
-                        struct.delete(numbers[i])
-                        if(i%50 == 0) struct.balanceDSW()
-                    } catch (e: NoSuchElementException) {
-                        struct.balanceDSW()
-                    }
-                }
+            struct = rand
+            time += measureNanoTime {
+                struct.delete(numbers[1])
+                if (j % 10 == 0) struct.balanceDSW()
             }
         }
 
@@ -397,190 +370,123 @@ class TestUnit(private val count: Int, private val range: IntRange) {
     }
 
     fun bstBalanceTest(times: Int): MutableList<String> {
+        var time: Long = 0
+        val rand = BST.generateRandom(count, range)
+        var struct: BST
+        for (j in 1..times) {
+            struct = rand
+            time += measureNanoTime {
+                struct.balanceDSW()
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Bst,balance()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = BST.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.balanceDSW()
-            }
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
     }
 
     fun heapAddTest(times: Int): MutableList<String> {
+        var time: Long = 0
+        var struct: HeapSDiZO
+
+        for (j in 1..times) {
+            struct = HeapSDiZO.generateRandom(count , range)
+            time += measureNanoTime {
+                struct.insert(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Heap,insert()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = HeapSDiZO(count+1)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.insert(numbers[i])
-            }
-
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
     }
 
     fun heapDeleteTest(times: Int): MutableList<String> {
+        var time: Long = 0
+        val rand = HeapSDiZO.generateRandom(count, range)
+        var struct: HeapSDiZO
+
+        for (j in 1..times) {
+            struct = rand
+            time += measureNanoTime {
+                struct.delete(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Heap,delete()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = HeapSDiZO.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.delete(numbers[i])
-            }
-
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
     }
 
     fun heapFindTest(times: Int): MutableList<String> {
+        var time: Long = 0
+        val rand = HeapSDiZO.generateRandom(count, range)
+        var struct: HeapSDiZO
+        for (j in 1..times) {
+            struct = rand
+            time += measureNanoTime {
+                struct.contains(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Heap,contains()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = HeapSDiZO.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.contains(numbers[i])
-            }
-            
-        }
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
 
         result.add(this.count.toString())
-        return result
-    }
-
-    fun heapExtractMaxTest(times: Int): MutableList<String> {
-
-        val result = mutableListOf<String>()
-        result.add("Heap,extractMax()")
-        result.add("$times")
-
-        var time: Long = 0
-        var struct: HeapSDiZO
-
-        for (j in 1..times) {
-            struct = HeapSDiZO.generateRandom(count, range) //# WTF?!
-
-            time += measureTimeMillis {
-                struct.extractMax()
-                for (i in 0 until count) {
-                    try {
-                        struct.extractMax()
-                    } catch (e: NoSuchElementException) {
-                    }
-                }
-            }
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
-        result.add(time.toString())
-
-        result.add(this.count.toString())
-
         return result
     }
 
     fun avlAddTest(times: Int): MutableList<String> {
+        var time: Long = 0
+
+        var struct: AVLTree
+        for (j in 1..times) {
+            struct = AVLTree.generateRandom(count, range)
+            time += measureNanoTime {
+                struct.insert(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Avl,insert()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = AVLTree()
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.insert(numbers[i])
-            }
-
-        }
-
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
 
         return result
     }
 
     fun avlFindTest(times: Int): MutableList<String> {
+        var time: Long = 0
+
+        val rand = AVLTree.generateRandom(count, range)
+        var struct: AVLTree
+
+        for (j in 1..times) {
+            struct = rand
+            time += measureNanoTime {
+                struct.find(numbers[1])
+            }
+        }
 
         val result = mutableListOf<String>()
         result.add("Avl,contains()")
         result.add("$times")
-
-        var time: Long = 0
-
-        for (j in 1..times) {
-            val struct = AVLTree.generateRandom(count, range)
-
-            time += measureTimeMillis {
-                for (i in 0 until count)
-                    struct.find(numbers[i])
-            }
-            
-        }
-        val avg = time / times
-        //result.add(avg.toString())
         result.add(time.toString())
-
         result.add(this.count.toString())
         return result
     }

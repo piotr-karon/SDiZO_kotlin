@@ -8,6 +8,7 @@ import kotlin.random.nextInt
 class BST {
 
     var root: AbstractNode = Nil
+    var size: Int = 0
 
     fun insert(key: Int) {
 
@@ -36,6 +37,7 @@ class BST {
             }
         }
 
+        this.size++
     }
 
     fun find(key: Int): AbstractNode {
@@ -73,6 +75,7 @@ class BST {
             if (y != x)
                 x.value = y.value
 
+            this.size--
             return y
         }
 
@@ -109,6 +112,7 @@ class BST {
             if (y != x)
                 x.value = y.value
 
+            this.size--
             return y
         }
 
@@ -127,7 +131,8 @@ class BST {
     fun balanceDSW() {
         backbone()
 
-        val count = inOrder().size
+        val count = this.size
+        //val count = inOrder().size
         //   var s = count + 1 - log2(count + 1.0)
         var p = root
 
