@@ -173,6 +173,12 @@ class BSTTest {
 
     }
 
+    @Test
+    fun stackOFTest(){
+        val bst = BST.generateRandom(1000000, IntRange(0, 100000000))
+        bst.balanceDSW()
+    }
+
 
     @Test
     fun test2DSW() {

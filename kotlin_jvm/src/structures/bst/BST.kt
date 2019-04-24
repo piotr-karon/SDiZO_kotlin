@@ -271,7 +271,7 @@ class BST {
 
     }
 
-    private fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>) {
+    private tailrec fun inOrderNodesFrom(node: AbstractNode, list: MutableList<Node>) {
         if (node !is Nil) {
             inOrderNodesFrom(node.leftChild, list)
             list.add(node as Node)
@@ -287,7 +287,7 @@ class BST {
         }
     }
 
-    private fun printBinaryTree(root: AbstractNode, level: Int) {
+    private tailrec fun printBinaryTree(root: AbstractNode, level: Int) {
         if (root is Nil)
             return
         printBinaryTree(root.rightChild, level + 1)
@@ -329,7 +329,7 @@ class BST {
 
     }
 
-    private fun inOrder(node: AbstractNode, list: MutableList<Int>) {
+    private tailrec fun inOrder(node: AbstractNode, list: MutableList<Int>) {
         if (node !is Nil) {
             inOrder(node.leftChild, list)
             list.add(node.value)

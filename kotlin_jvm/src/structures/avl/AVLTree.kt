@@ -1,6 +1,9 @@
 package structures.avl
 
-class AvlTree {
+import kotlin.random.Random
+import kotlin.random.nextInt
+
+class AVLTree {
 
     var root: AbstractAVLNode = NilAVL
 
@@ -57,23 +60,35 @@ class AvlTree {
         }
     }
 
+    fun find(key: Int): AbstractAVLNode{
+        var node = root
+        while(node !is NilAVL && key != node.key){
+            node = if(key > node.key) node.rightChild
+                    else node.leftChild
+        }
+
+        return node
+    }
+
     private fun rebalance(n: AbstractAVLNode) {
         if (n is NilAVL) return
 
-        setBalance(n)
-        var nn = n
-        if (nn.balance == -2)
-            nn = if (height(nn.leftChild.leftChild) >= height(nn.leftChild.rightChild))
-                rotateRight(nn)
+        updateBalance(n)
+        var node = n
+        if (node.balance == -2)
+            node = if (height(node.leftChild.leftChild) >= height(node.leftChild.rightChild))
+                rotateRight(node)
             else
-                rotateLeftThenRight(nn)
-        else if (nn.balance == 2)
-            nn = if (height(nn.rightChild.rightChild) >= height(nn.rightChild.leftChild))
-                rotateLeft(nn)
+                rotateLeftThenRight(node)
+
+        else if (node.balance == 2)
+            node = if (height(node.rightChild.rightChild) >= height(node.rightChild.leftChild))
+                rotateLeft(node)
             else
-                rotateRightThenLeft(nn)
-        if (nn.parent !is NilAVL) rebalance(nn.parent)
-        else root = nn
+                rotateRightThenLeft(node)
+
+        if (node.parent !is NilAVL) rebalance(node.parent)
+        else root = node
     }
 
     private fun rotateLeft(a: AbstractAVLNode): AbstractAVLNode {
@@ -94,7 +109,7 @@ class AvlTree {
             else
                 b.parent.leftChild = b
         }
-        setBalance(a, b)
+        updateBalance(a, b)
         return b
     }
 
@@ -106,7 +121,7 @@ class AvlTree {
 
         b.parent = a.parent
         a.leftChild = b.rightChild
-        if (a.leftChild !is NilAVL) a.leftChild!!.parent = a
+        if (a.leftChild !is NilAVL) a.leftChild.parent = a
         b.rightChild = a
         a.parent = b
         if (b.parent !is NilAVL) {
@@ -115,7 +130,7 @@ class AvlTree {
             else
                 b.parent.leftChild = b
         }
-        setBalance(a, b)
+        updateBalance(a, b)
         return b
     }
 
@@ -136,7 +151,7 @@ class AvlTree {
         return 1 + Math.max(height(n.leftChild), height(n.rightChild))
     }
 
-    private fun setBalance(vararg nodes: AbstractAVLNode) {
+    private fun updateBalance(vararg nodes: AbstractAVLNode) {
         for (n in nodes) {
             if (n !is NilAVL) n.balance = height(n.rightChild) - height(n.leftChild)
         }
@@ -185,6 +200,14 @@ class AvlTree {
         printBinaryTree(node.leftChild, level + 1)
     }
 
+    companion object{
+        fun generateRandom(size : Int, range : IntRange) : AVLTree{
+            val tree = AVLTree()
+            for(i in 1..size)
+                tree.insert(Random.nextInt(range))
+            return tree
+        }
+    }
 }
 
 sealed class AbstractAVLNode {
