@@ -1,0 +1,38 @@
+//noinspection GroovyAssignabilityCheck
+plugins {
+    id 'kotlin-multiplatform' version '1.3.21'
+}
+repositories {
+    mavenCentral()
+    jcenter()
+}
+kotlin {
+
+    linuxX64("linux") {
+        compilations.main {
+            outputKinds("executable")
+            entryPoint 'structures.main'
+        }
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    sourceSets {
+        linuxMain {
+
+        }
+        linuxTest {
+        }
+    }
+}
+
+task runProgram {
+    def buildType = 'RELEASE' // Change to 'DEBUG' to run application with debug symbols.
+    dependsOn kotlin.targets.linux.compilations.main.linkTaskName('EXECUTABLE', buildType)
+    doLast {
+        def programFile = kotlin.targets.linux.compilations.main.getBinary('EXECUTABLE', buildType)
+        exec {
+            executable programFile
+            args ''
+        }
+    }
+}

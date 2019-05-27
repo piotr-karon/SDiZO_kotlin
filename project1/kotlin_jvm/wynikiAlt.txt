@@ -1,0 +1,427 @@
+=======Menu Główne=========
+1. Tablica
+2. Lista
+3. Kopiec
+4. bst
+5. Drzewo AVL
+6. Testy
+0. Wyjście
+Podaj opcję: BST
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Dodaj i równoważ DSW 
+8. Usuń i równoważ DSW
+9. Równoważ DSW
+10. Usuń z poprzednikiem
+0. Powrót do menu 
+Podaj opcję: Podaj ścieżkę pliku:
+ 
+----------------
+ 
+|	|---40
+|---30
+|	|	|---28
+|	|---25
+|	|	|---23
+20
+|---15
+
+ 
+----------------
+ 
+|	|---40
+|---30
+|	|	|---28
+|	|---25
+|	|	|---23
+20
+|---15
+
+BST
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Dodaj i równoważ DSW 
+8. Usuń i równoważ DSW
+9. Równoważ DSW
+10. Usuń z poprzednikiem
+0. Powrót do menu 
+Podaj opcję: 
+ 
+----------------
+ 
+|	|---40
+|---30
+|	|---28
+25
+|	|---23
+|---20
+|	|---15
+
+BST
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Dodaj i równoważ DSW 
+8. Usuń i równoważ DSW
+9. Równoważ DSW
+10. Usuń z poprzednikiem
+0. Powrót do menu 
+Podaj opcję: 
+ 
+----------------
+ 
+|	|---40
+|---30
+|	|---28
+25
+|	|---23
+|---20
+|	|---15
+
+=======Menu Główne=========
+1. Tablica
+2. Lista
+3. Kopiec
+4. bst
+5. Drzewo AVL
+6. Testy
+0. Wyjście
+Podaj opcję: AVL
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+0. Powrót do menu 
+Podaj opcję: 
+
+=======Menu Główne=========
+1. Tablica
+2. Lista
+3. Kopiec
+4. bst
+5. Drzewo AVL
+6. Testy
+0. Wyjście
+Podaj opcję: HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj ścieżkę pliku:
+|	|---8
+|---9
+|	|---7
+11
+|	|---6
+|---10
+|	|	|---5
+|	|---7
+|	|	|---1
+
+|	|---8
+|---9
+|	|---7
+11
+|	|---6
+|---10
+|	|	|---5
+|	|---7
+|	|	|---1
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|---8
+|---9
+|	|---7
+10
+|	|---6
+|---7
+|	|---5
+|	|	|---1
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|---8
+|---9
+|	|---7
+10
+|	|---6
+|---7
+|	|---5
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|---8
+|	|---7
+10
+|	|---6
+|---7
+|	|---5
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|---8
+|---10
+|	|---7
+11
+|	|---6
+|---7
+|	|---5
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|---8
+|---10
+|	|---7
+12
+|	|---6
+|---11
+|	|---7
+|	|	|---5
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj ścieżkę pliku:
+Podaj ścieżkę pliku:
+|	|	|---6
+|	|---8
+|	|	|---5
+|---10
+|	|	|---4
+|	|---7
+|	|	|---3
+50
+|	|	|---27
+|	|---32
+|	|	|---29
+|---47
+|	|	|---30
+|	|---33
+|	|	|	|---28
+|	|	|---31
+|	|	|	|---29
+
+|	|	|---6
+|	|---8
+|	|	|---5
+|---10
+|	|	|---4
+|	|---7
+|	|	|---3
+50
+|	|	|---27
+|	|---32
+|	|	|---29
+|---47
+|	|	|---30
+|	|---33
+|	|	|	|---28
+|	|	|---31
+|	|	|	|---29
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|	|---6
+|	|---8
+|	|	|---5
+|---28
+|	|	|---4
+|	|---10
+|	|	|---3
+50
+|	|	|---27
+|	|---32
+|	|	|---29
+|---47
+|	|	|---30
+|	|---33
+|	|	|---31
+|	|	|	|---29
+
+HEAP
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+7. Usuń z poprzednikiem0. Powrót do menu 
+Podaj opcję: 
+|	|	|---6
+|	|---8
+|	|	|---5
+|---28
+|	|	|---4
+|	|---10
+|	|	|---3
+50
+|	|	|---27
+|	|---32
+|	|	|---29
+|---47
+|	|	|---30
+|	|---33
+|	|	|---31
+|	|	|	|---29
+
+=======Menu Główne=========
+1. Tablica
+2. Lista
+3. Kopiec
+4. bst
+5. Drzewo AVL
+6. Testy
+0. Wyjście
+Podaj opcję: AVL
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+0. Powrót do menu 
+Podaj opcję: Podaj ścieżkę pliku:
+|	|---28
+|---26
+|	|---20
+18
+|	|	|---14
+|	|---12
+|	|	|---8
+|---7
+|	|	|---5
+|	|---4
+
+|	|---28
+|---26
+|	|---20
+18
+|	|	|---14
+|	|---12
+|	|	|---8
+|---7
+|	|	|---5
+|	|---4
+
+AVL
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+0. Powrót do menu 
+Podaj opcję: Podaj klucz:
+
+|	|	|---28
+|	|---26
+|	|	|---20
+|---18
+|	|---14
+|	|	|---13
+12
+|	|---8
+|---7
+|	|	|---5
+|	|---4
+
+AVL
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+0. Powrót do menu 
+Podaj opcję: Podaj wartość do usunięcia
+
+|	|	|---28
+|	|---26
+|	|	|---20
+|---18
+|	|---14
+|	|	|---13
+12
+|	|---7
+|---5
+|	|---4
+
+AVL
+1. Wczytaj z pliku 
+2. Usuń 
+3. Dodaj 
+4. Znajdź 
+5. Generuj losowo 
+6. Wyświetl 
+0. Powrót do menu 
+Podaj opcję: 
