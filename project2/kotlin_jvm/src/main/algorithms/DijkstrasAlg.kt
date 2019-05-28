@@ -11,26 +11,16 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
 
     private var isAppended = Array(graph.V){false}
 
-    private var S = mutableListOf<VertCost>()
-
-    private fun clear(){
-        costArray = Array(graph.V){VertCost(it,Int.MAX_VALUE)}
-        costQueue = Queue(costArray)
-        predecessors = Array(graph.V){-1}
-        isAppended = Array(graph.V){false}
-        S = mutableListOf()
-    }
-
     fun shortestPathAdjList(){
         clear()
 
         costQueue.setCost(startPoint, 0)
+        costArray[startPoint].cost = 0
 
         for(i in 0 until graph.V){
             val u = costQueue.pop()
             if(u.name < 0) break // Queue specific -> -1 element may occur
 
-            S.add(u)
             isAppended[u.name] = true
 
             for(vert in graph.adjList[u.name]){
@@ -38,12 +28,16 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
 
                 val wIndex = costQueue.find(vert.name) // TODO another array for holding vert's position in queue
 
-                val otherCost = u.cost + vert.costTo
+                if(wIndex != null){
+                    val otherCost = u.cost + vert.costTo
 
-                if(costQueue[wIndex!!].cost > otherCost){
-                    costQueue.setCostInd(wIndex, otherCost)
-                    predecessors[costQueue[wIndex].name] = u.name
+                    if(costQueue[wIndex].cost > otherCost){
+                        predecessors[costQueue[wIndex].name] = u.name
+                        costQueue.setCostInd(wIndex, otherCost)
+                        costArray[vert.name].cost = otherCost
+                    }
                 }
+
             }
         }
     }
@@ -52,31 +46,56 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
         clear()
 
         costQueue.setCost(startPoint, 0)
+        costArray[startPoint].cost = 0
 
         for(i in 0 until graph.V){
             val u = costQueue.pop()
             if(u.name < 0) break // Queue specific -> -1 element may occur
 
-            S.add(u)
             isAppended[u.name] = true
 
-            var count = -1
+            for((x,vert) in graph.adjMatrix[u.name].withIndex()){
+                if(vert == Int.MAX_VALUE || vert < 0 || isAppended[x] ) continue
 
-            for(vert in graph.adjMatrix[u.name]){
-                count++
-                if(count== u.name || vert  !in (Int.MIN_VALUE + 10)..(Int.MAX_VALUE-10) || isAppended[vert]) continue
+                val wIndex = costQueue.find(x) // TODO another array for holding vert's position in queue
 
-                val wIndex = costQueue.find(count) // TODO another array for holding vert's position in queue
+                if(wIndex != null){
+                    val otherCost = u.cost + vert
 
-                val otherCost = u.cost + vert
-
-                if(costQueue[wIndex!!].cost > otherCost){
-                    costQueue[wIndex].cost = otherCost
-                    predecessors[costQueue[wIndex].name] = u.name
+                    if(costQueue[wIndex].cost > otherCost){
+                        predecessors[costQueue[wIndex].name] = u.name
+                        costQueue.setCostInd(wIndex, otherCost)
+                        costArray[x].cost = otherCost
+                    }
                 }
+
             }
-            count = -1
+
         }
+    }
+
+    fun getPaths(): Array<MutableList<String>>{
+        val result = Array(graph.V){mutableListOf<String>()}
+
+        for(i in predecessors.indices){
+
+            var ind: Int = i
+
+            do {
+                ind = predecessors[ind]
+                if(ind > -1) result[i].add("$ind")
+            }while (ind > -1)
+            result[i].add("cost:${costArray[i].cost}")
+        }
+
+        return result
+    }
+
+    private fun clear(){
+        costArray = Array(graph.V){VertCost(it,Int.MAX_VALUE)}
+        costQueue = Queue(costArray)
+        predecessors = Array(graph.V){-1}
+        isAppended = Array(graph.V){false}
     }
 
     private class VertCost(var name: Int = -1, var cost:Int = Int.MAX_VALUE): Comparable<VertCost>{
@@ -189,18 +208,14 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
             return null
         }
 
-        fun setCost(vert: Int, cost: Int){
-            setCostInd(find(vert), cost)
-        }
-
         fun setCostInd(vertCostInd: Int?, cost: Int){
             if(vertCostInd != null){
                 heap[vertCostInd].cost = cost
 
                 var current = vertCostInd
 
-                if( heap[vertCostInd].cost < heap[parent(vertCostInd)].cost){
-                    while (heap[current!!].cost < heap[parent(current)].cost) {
+                if(heap[vertCostInd] < heap[parent(vertCostInd)]){
+                    while (heap[current!!] < heap[parent(current)]) {
                         swap(current, parent(current))
                         current = parent(current)
                     }
@@ -208,6 +223,10 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
                     heapify(current)
                 }
             }
+        }
+
+        fun setCost(vert: Int, cost: Int){
+            setCostInd(find(vert), cost)
         }
 
         fun contains(key: VertCost): Boolean{

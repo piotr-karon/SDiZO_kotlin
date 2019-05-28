@@ -21,12 +21,17 @@ class Main {
 //            gp2.print()
 //            gp3.print()
 
-            val graf1 = GraphLoader.loadFile("./dane_testowe/dane_droga.txt")
-            val dij = DijkstrasAlg(graf1, 1)
+            val graf1 = GraphLoader.loadFile("./dane_testowe/usfca.txt")
+            // poprawne -1,0,0,1,2,3,1,5
+            println(graf1.adjList)
+           // val gp4 = GraphPrinter(graf1).print()
+            val dij = DijkstrasAlg(graf1, 0)
             dij.shortestPathAdjList()
             println(Utils.arrayToString(dij.predecessors))
+            println(Utils.arrayToStringLines(dij.getPaths()))
             dij.shortestPathAdjMatrix()
             println(Utils.arrayToString(dij.predecessors))
+            println(Utils.arrayToStringLines(dij.getPaths()))
 
             val graf22= GraphLoader.loadFile("./dane_testowe/dane_droga_BF.txt")
             val dij22 = DijkstrasAlg(graf22, graf22.startVert)

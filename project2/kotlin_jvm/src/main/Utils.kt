@@ -19,10 +19,20 @@ object Utils {
         return vertSet.count()
     }
 
-    fun arrayToString(array: Array<Int>): String {
+    fun arrayToString(array: Array<out Any>): String {
         var string = "["
         for (any in array) {
             string += "$any,"
+        }
+        string = string.dropLast(1) + "]"
+
+        return string
+    }
+
+    fun arrayToStringLines(array: Array<out Any>): String {
+        var string = "["
+        for (any in array) {
+            string += "$any\n"
         }
         string = string.dropLast(1) + "]"
 

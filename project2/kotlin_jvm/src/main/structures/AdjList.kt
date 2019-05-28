@@ -60,7 +60,7 @@ class AdjListVertex(val name: Int, val costTo: Int){
     }
 
     override fun toString(): String {
-        return "$name:$costTo)"
+        return "($name:$costTo)"
     }
 
 }
