@@ -7,6 +7,10 @@ object GraphLoader {
 
     fun loadFile(path: String): Graph{
         val file = File(path)
+        return loadFile(file)
+    }
+
+    fun loadFile(file: File): Graph{
         val scan = Scanner(file)
 
         val firstLine = scan.nextLine()

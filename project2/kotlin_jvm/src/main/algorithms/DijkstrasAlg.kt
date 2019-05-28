@@ -12,6 +12,7 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
     private var isAppended = Array(graph.V){false}
 
     fun shortestPathAdjList(){
+        if(startPoint>= graph.V) return
         clear()
 
         costQueue.setCost(startPoint, 0)
@@ -43,6 +44,7 @@ class DijkstrasAlg(private val graph: Graph, private val startPoint: Int){
     }
 
     fun shortestPathAdjMatrix(){
+        if(startPoint>= graph.V) return
         clear()
 
         costQueue.setCost(startPoint, 0)
