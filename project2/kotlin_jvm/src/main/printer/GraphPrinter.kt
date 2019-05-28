@@ -54,8 +54,8 @@ private class Edge(private var nodeFrom: ColorNode, private var nodeTo: ColorNod
         g.color = Color.BLACK
         g.drawLine(this.nodeFrom.x, this.nodeFrom.y, this.nodeTo.x, this.nodeTo.y)
 //        val frc = (g as Graphics2D).fontRenderContext
-//        val bounds = font.getStringBounds(this.weight.toString(), frc)
-//        g.drawString(this.weight.toString(), this.x - bounds.width.toInt() / 2, this.y + bounds.height.toInt() / 4)
+//        val bounds = font.getStringBounds(this.costTo.toString(), frc)
+//        g.drawString(this.costTo.toString(), this.x - bounds.width.toInt() / 2, this.y + bounds.height.toInt() / 4)
     }
 
     override fun toString(): String {

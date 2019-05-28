@@ -40,7 +40,7 @@ class AdjList (edges: Collection<Edge>, maxVerticeNumber: Int)  {
     }
 }
 
-class AdjListVertex(val name: Int, val weight: Int){
+class AdjListVertex(val name: Int, val costTo: Int){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -48,19 +48,19 @@ class AdjListVertex(val name: Int, val weight: Int){
         other as AdjListVertex
 
         if (name != other.name) return false
-        if (weight != other.weight) return false
+        if (costTo != other.costTo) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = name
-        result = 31 * result + weight
+        result = 31 * result + costTo
         return result
     }
 
     override fun toString(): String {
-        return "$name:$weight)"
+        return "$name:$costTo)"
     }
 
 }

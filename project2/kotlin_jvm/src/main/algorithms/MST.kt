@@ -108,7 +108,7 @@ class MST {
 
             for(i in 1 until graph.V){
                 for(e in adjList[vert]){
-                    if(!visited[e.name]) queue.push(Edge(vert,e.name, e.weight))
+                    if(!visited[e.name]) queue.push(Edge(vert,e.name, e.costTo))
                 }
 
                 var minEdge : Edge
