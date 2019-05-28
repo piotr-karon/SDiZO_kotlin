@@ -15,6 +15,9 @@ class Main {
             val gp2 = GraphPrinter(kruskalMst)
             val gp3 = GraphPrinter(kruskalMst2)
 
+            println(graf1.weight())
+            println(kruskalMst.weight())
+            println(kruskalMst2.weight())
             gp1.print()
             gp2.print()
             gp3.print()

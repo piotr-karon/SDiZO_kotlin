@@ -17,8 +17,8 @@ object GraphLoader {
 
         val edgesList = mutableListOf<Edge>()
 
-        val startVert = if(split.size > 2) split[2].toInt() else -1
-        val endVert = if(split.size > 3) split[3].toInt() else -1
+        val startVert = if(split.size > 2) split[2].toInt() else 0
+        val endVert = if(split.size > 3) split[3].toInt() else vertCount-1
 
         while (scan.hasNextLine()){
             val line = scan.nextLine()

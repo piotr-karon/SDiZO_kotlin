@@ -6,14 +6,14 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class Graph() {
+class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
     var V: Int = 0
         private set
     var E: Int = 0
         private set
 
-    var startVert: Int = -1
-    var endVert: Int = -1
+    var startVert: Int = 0
+    var endVert: Int = V-1
 
     var edgesArray: Array<Edge> = arrayOf(Edge())
         private set
@@ -22,21 +22,28 @@ class Graph() {
     var adjList = AdjList(mutableListOf())
         private set
 
-    constructor(edges: Collection<Edge>) : this(edges,Utils.getVerticesCount(edges),edges.size )
-
-    constructor(edges: Collection<Edge>, v: Int, e:Int) : this() {
+    init {
         V = v
         E = e
-
         edgesArray = edges.toTypedArray()
         adjMatrix = AdjMatrix(edges)
         adjList = AdjList(edges)
     }
 
+    constructor(edges: Collection<Edge>) : this(edges,Utils.getVerticesCount(edges),edges.size )
+
+
+
     fun addEdge(edge: Edge) {
         edgesArray.plus(edge)
         adjMatrix = AdjMatrix(edgesArray.asList())
         adjList = AdjList(edgesArray.asList())
+    }
+
+    fun weight() : Int{
+        var weight = 0
+        edges.forEach{ weight+= if(it.weight != Int.MAX_VALUE) it.weight else 0}
+        return weight
     }
 
     override fun toString(): String {
@@ -45,13 +52,13 @@ class Graph() {
 
     companion object{
         // AdjListVertex indexing starts at 0
-        fun randomMST(noOfVertices: Int) : MutableList<Edge>{
+        private fun randomMST(noOfVertices: Int) : MutableList<Edge>{
             val edges = mutableListOf<Edge>()
             val range = IntRange(0, noOfVertices-1)
             for(i in 0 until noOfVertices){
                 var dest : Int
                 do { dest = rand(range)} while (i == dest)
-                edges.add(Edge(i,dest, weight = -1))
+                edges.add(Edge(i,dest, weight = 0))
             }
             return edges
         }
