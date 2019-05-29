@@ -50,7 +50,7 @@ import java.io.File
 
 class Main {
 
-    private var graph: Graph = Graph.randomGraph(10,0.99)
+    private var graph: Graph = Graph.randomGraph(8,0.99)
     private var isGenerated = false
 
     companion object {
@@ -110,6 +110,7 @@ class Main {
 
         graph = GraphLoader.loadFile(file!!)
         isGenerated = false
+        printGraph()
     }
     private fun generateGraph(){
         val vertCount = askCount("Podaj liczbę wierzchołków: ")
@@ -117,6 +118,7 @@ class Main {
 
         graph = Graph.randomGraph(vertCount, density.toDouble() / 100.0)
         isGenerated = true
+        printGraph()
     }
     private fun printGraph(){
         println("###### Lista sąsiedztwa #####")

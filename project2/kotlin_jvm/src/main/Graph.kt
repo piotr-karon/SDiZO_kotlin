@@ -13,7 +13,7 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
         private set
 
     var startVert: Int = 0
-    var endVert: Int = V-1
+    var endVert: Int
 
     var edgesArray: Array<Edge> = arrayOf(Edge())
         private set
@@ -25,6 +25,7 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
     init {
         V = v
         E = e
+        endVert = V-1
         edgesArray = edges.toTypedArray()
         adjMatrix = AdjMatrix(edges)
         adjList = AdjList(edges)
@@ -46,6 +47,7 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
         return weight
     }
 
+
     override fun toString(): String {
         return adjList.toString()
     }
@@ -64,18 +66,32 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
         }
 
         fun randomGraph(noOfVertices: Int, density: Double) : Graph{
+            if(density<=0 || density > 1) return randomGraph(noOfVertices, 0.5)
+
             val edges = randomMST(noOfVertices)
+
+            val edgesSet = hashSetOf<Edge>()
+            edgesSet.addAll(edges)
+
             val maxNoOfEdges = noOfVertices * (noOfVertices - 1) / 2
             val iterations = (maxNoOfEdges * density).roundToInt() //- edges.size
             val range = IntRange(0, noOfVertices)
             for(i in 0 until iterations){
-                val src = rand(range)
-                var dest : Int
-                do { dest = rand(range)} while (src == dest)
-                edges.add(Edge(src,dest,rand(range)))
+                do{
+                    val src = rand(range)
+                    var dest : Int
+                    do { dest = rand(range)} while (src == dest)
+                   // edges.add(Edge(src,dest,rand(range)))
+                }while(edgesSet.add(Edge(src,dest,rand(range))))
+
             }
-            return Graph(edges)
+            return Graph(edgesSet)
         }
+
+        fun randomGraph(noOfVertices: Int, density: Int) : Graph {
+            return randomGraph(noOfVertices, density / 100.0)
+        }
+
 
         private fun rand(range: IntRange) = Random.nextInt(range)
     }

@@ -25,8 +25,13 @@ class AdjMatrix(edges: Collection<Edge>,private var maxVerticeNumber: Int) {
 
     override fun toString(): String {
         val builder = StringBuilder()
-        for(edgesRow in adjMatrix)
-            builder.append(Utils.arrayToString(edgesRow) + "\n")
+        for(edgesRow in adjMatrix){
+            for (element in edgesRow){
+                if (element == Int.MAX_VALUE) builder.append(" - ")
+                else builder.append(" $element ")
+            }
+            builder.append("\n")
+        }
 
         return builder.toString()
     }

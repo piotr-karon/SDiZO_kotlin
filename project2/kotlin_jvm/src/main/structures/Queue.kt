@@ -7,10 +7,11 @@ class Queue {
     private var heap: Array<Edge>
     var size: Int = 0
         private set
-    private var maxsize: Int = 10
+    private var maxsize: Int = 10000
 
     constructor(maxsize: Int){
         this.size = 0
+        this.maxsize = maxsize
         heap = Array(maxsize) { Edge() }
     }
 

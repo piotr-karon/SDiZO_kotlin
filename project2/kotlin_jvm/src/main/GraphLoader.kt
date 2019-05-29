@@ -39,4 +39,19 @@ object GraphLoader {
         return graph
     }
 
+    fun saveFile(graph: Graph, name: String){
+        val file = File(name)
+        file.createNewFile()
+
+        val fileWriter = file.printWriter()
+
+        fileWriter.println(" ${graph.E} ${graph.V}")
+
+        for(e in graph.edgesArray)
+            fileWriter.println(" ${e.src} ${e.dest} ${e.weight}")
+
+        fileWriter.close()
+
+    }
+
 }

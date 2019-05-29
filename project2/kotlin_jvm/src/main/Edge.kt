@@ -1,5 +1,6 @@
 package main
 
+//Assume undirected
 class Edge (
     var src: Int = 0,
     var dest: Int = 0,
@@ -16,17 +17,19 @@ class Edge (
 
         other as Edge
 
-        if (src != other.src) return false
+/*        if (src != other.src) return false
         if (dest != other.dest) return false
-        if (weight != other.weight) return false
+        if (weight != other.weight) return false*/
 
-        return true
+
+        return (src == other.src && dest == other.dest) || (src == other.dest && dest == other.src)
     }
 
     override fun hashCode(): Int {
-        var result = src
-        result = 31 * result + dest
-        result = 31 * result + weight
+        var result = src * dest
+//        result = 31 * result + dest
+//        result = 31 * result + weight
+        result*=31
         return result
     }
 

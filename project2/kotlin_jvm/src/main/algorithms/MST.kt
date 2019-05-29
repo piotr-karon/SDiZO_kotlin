@@ -69,7 +69,7 @@ class MST {
         }
 
         fun primUsingAdjMatrix(graph: Graph) : Graph {
-            val queue = Queue(graph.V)
+            val queue = Queue(graph.E)
             val visited = Array(graph.V){false}
             val edges = mutableListOf<Edge>()
             val adjMatrix = graph.adjMatrix
@@ -98,7 +98,7 @@ class MST {
         }
 
         fun primUsingAdjList(graph: Graph) : Graph {
-            val queue = Queue(graph.V)
+            val queue = Queue(graph.E)
             val visited = Array(graph.V){false}
             val edges = mutableListOf<Edge>()
             val adjList = graph.adjList
