@@ -3,6 +3,7 @@ package test
 import main.Graph
 import main.GraphLoader
 import org.junit.Test
+import kotlin.system.measureTimeMillis
 
 class GraphTest{
 
@@ -23,5 +24,13 @@ class GraphTest{
     fun saveGraph(){
         val graph = Graph.randomGraph(10, 0.6)
         GraphLoader.saveFile(graph, "./gen/g1.txt")
+    }
+
+    @Test
+    fun loaderOverloadTest(){
+        val t = measureTimeMillis {
+            val graph = GraphLoader.loadFile("./gen/2000/75_0.txt")
+        }
+        print(t)
     }
 }

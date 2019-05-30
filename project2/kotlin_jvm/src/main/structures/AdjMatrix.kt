@@ -5,7 +5,7 @@ import main.Edge
 class AdjMatrix(edges: Collection<Edge>, maxVerticeNumber: Int) {
 
     private var vertexNumber : Int = maxVerticeNumber + 1
-    private var adjMatrix : Array<Array<Int>> = Array(vertexNumber){Array(vertexNumber){ Int.MAX_VALUE}}
+    private var adjMatrix : Array<IntArray> = Array(vertexNumber){IntArray(vertexNumber){ Int.MAX_VALUE}}
     var size: Int = 0
         private set
     init {
@@ -17,7 +17,7 @@ class AdjMatrix(edges: Collection<Edge>, maxVerticeNumber: Int) {
     }
 
 
-    operator fun get(i: Int) : Array<Int>{
+    operator fun get(i: Int) : IntArray{
         return adjMatrix[i];
     }
 
