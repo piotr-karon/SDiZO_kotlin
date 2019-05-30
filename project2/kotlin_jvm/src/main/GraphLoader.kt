@@ -13,7 +13,7 @@ object GraphLoader {
     fun loadFile(file: File): Graph{
         val scan = Scanner(file)
 
-        val firstLine = scan.nextLine()
+        val firstLine = scan.nextLine().trim()
         val split = firstLine.split(" ")
 
         val edgeCount = split[0].toInt()
@@ -25,8 +25,8 @@ object GraphLoader {
         val endVert = if(split.size > 3) split[3].toInt() else vertCount-1
 
         while (scan.hasNextLine()){
-            val line = scan.nextLine()
-            if(line.isNullOrBlank() || line.isEmpty()) continue
+            val line = scan.nextLine().trim()
+            if(line.isBlank() || line.isEmpty()) continue
 
             val cut = line.split( " ")
             edgesList.add(Edge(cut[0].toInt(), cut[1].toInt(), cut[2].toInt()))
@@ -45,10 +45,10 @@ object GraphLoader {
 
         val fileWriter = file.printWriter()
 
-        fileWriter.println(" ${graph.E} ${graph.V}")
+        fileWriter.println("${graph.E} ${graph.V}")
 
         for(e in graph.edgesArray)
-            fileWriter.println(" ${e.src} ${e.dest} ${e.weight}")
+            fileWriter.println("${e.src} ${e.dest} ${e.weight}")
 
         fileWriter.close()
 

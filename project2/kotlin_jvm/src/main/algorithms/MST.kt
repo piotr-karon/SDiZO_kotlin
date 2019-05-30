@@ -9,6 +9,10 @@ class MST {
     companion object {
 
         fun kruskalUsingQueue(graph: Graph): Graph {
+            return Graph(kruskalUsingQueueList(graph))
+        }
+
+        fun kruskalUsingQueueList(graph: Graph): Collection<Edge> {
             val V = graph.V
             val edgesQueue = Queue(graph.edgesArray)
             val result = MutableList(V) { Edge() }
@@ -31,10 +35,15 @@ class MST {
                 }
             }
 
-            return Graph(result)
+            return result
         }
 
         fun kruskalUsingAdjMatrix(graph: Graph) : Graph {
+
+            return Graph(kruskalUsingAdjMatrixList(graph))
+        }
+
+        fun kruskalUsingAdjMatrixList(graph: Graph) : Collection<Edge> {
             val V = graph.V
             val result = mutableListOf<Edge>()
 
@@ -65,10 +74,16 @@ class MST {
                 edgeCount++
             }
 
-            return Graph(result)
+            return result
         }
 
         fun primUsingAdjMatrix(graph: Graph) : Graph {
+
+
+            return Graph(primUsingAdjMatrixList(graph))
+        }
+
+        fun primUsingAdjMatrixList(graph: Graph) : Collection<Edge> {
             val queue = Queue(graph.E)
             val visited = Array(graph.V){false}
             val edges = mutableListOf<Edge>()
@@ -94,10 +109,16 @@ class MST {
                 vert = minEdge.dest
             }
 
-            return Graph(edges)
+            return edges
         }
 
         fun primUsingAdjList(graph: Graph) : Graph {
+
+
+            return Graph(primUsingAdjListList(graph))
+        }
+
+        fun primUsingAdjListList(graph: Graph) : Collection<Edge> {
             val queue = Queue(graph.E)
             val visited = Array(graph.V){false}
             val edges = mutableListOf<Edge>()
@@ -121,7 +142,7 @@ class MST {
                 vert = minEdge.dest
             }
 
-            return Graph(edges)
+            return edges
         }
     }
 }

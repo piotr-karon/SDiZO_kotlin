@@ -11,3 +11,4 @@ build/
 *.toc
 
 gen/
+META-INF/

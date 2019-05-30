@@ -18,7 +18,7 @@ class AdjMatrixAndListTest {
 
         val edges = listOf(e1,e2,e3,e4,e5,e6)
 
-        val matrix = AdjMatrix(edges)
+        val matrix = AdjMatrix(edges,4)
         println(matrix.toString())
     }
 

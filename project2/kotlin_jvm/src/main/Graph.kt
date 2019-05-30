@@ -17,9 +17,10 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
 
     var edgesArray: Array<Edge> = arrayOf(Edge())
         private set
-    var adjMatrix: AdjMatrix = AdjMatrix(mutableListOf())
+    var adjMatrix: AdjMatrix
         private set
-    var adjList = AdjList(mutableListOf())
+
+    var adjList: AdjList
         private set
 
     init {
@@ -27,19 +28,11 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
         E = e
         endVert = V-1
         edgesArray = edges.toTypedArray()
-        adjMatrix = AdjMatrix(edges)
-        adjList = AdjList(edges)
+        adjList = AdjList(edges, V)
+        adjMatrix = AdjMatrix(edges,V)
     }
 
     constructor(edges: Collection<Edge>) : this(edges,Utils.getVerticesCount(edges),edges.size )
-
-
-
-    fun addEdge(edge: Edge) {
-        edgesArray.plus(edge)
-        adjMatrix = AdjMatrix(edgesArray.asList())
-        adjList = AdjList(edgesArray.asList())
-    }
 
     fun weight() : Int{
         var weight = 0
@@ -53,6 +46,7 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
     }
 
     companion object{
+
         // AdjListVertex indexing starts at 0
         private fun randomMST(noOfVertices: Int) : MutableList<Edge>{
             val edges = mutableListOf<Edge>()
@@ -76,16 +70,38 @@ class Graph(private var edges: Collection<Edge>, v: Int, e:Int) {
             val maxNoOfEdges = noOfVertices * (noOfVertices - 1) / 2
             val iterations = (maxNoOfEdges * density).roundToInt() //- edges.size
             val range = IntRange(0, noOfVertices)
+
+            var src : Int
+            var dest: Int
+
             for(i in 0 until iterations){
                 do{
-                    val src = rand(range)
-                    var dest : Int
-                    do { dest = rand(range)} while (src == dest)
-                   // edges.add(Edge(src,dest,rand(range)))
-                }while(edgesSet.add(Edge(src,dest,rand(range))))
+                    src = rand(range)
+                    do {
+                        dest = rand(range)}
+                    while (src == dest)
+
+                }while(! edgesSet.add(Edge(src,dest,rand(IntRange(1,99)))) )
 
             }
-            return Graph(edgesSet)
+            return Graph(edgesSet, noOfVertices, edgesSet.size)
+        }
+
+        fun randomGraphManyVerts(noOfVertices: Int, density: Double):Graph{
+            val edges = hashSetOf<Edge>()
+            edges.addAll(randomMST(noOfVertices))
+
+            val max = noOfVertices
+            for(i in 0 until max){
+                for(x in i+1 until max){
+                    val random = Random.nextDouble(0.0,1.0)
+                    if(random < density){
+                        edges.add(Edge(i,x, rand(IntRange(1,noOfVertices))))
+                    }
+                }
+            }
+
+            return Graph(edges, noOfVertices, edges.size )
         }
 
         fun randomGraph(noOfVertices: Int, density: Int) : Graph {

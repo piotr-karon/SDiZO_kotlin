@@ -8,13 +8,14 @@ class GraphTest{
 
     @Test
     fun randomGenTest(){
-        val graph = Graph.randomGraph(5,0.5)
-        println(graph.adjList)
+        val graph = Graph.randomGraph(50,1.0)
+       // GraphPrinter(graph).print()
+        println(graph.adjMatrix)
     }
 
     @Test
     fun randomGenManyVertsTest(){
-        val graph = Graph.randomGraph(1000,0.1)
+        val graph = Graph.randomGraph(1000, 0.99)
         print(graph.adjMatrix)
     }
 

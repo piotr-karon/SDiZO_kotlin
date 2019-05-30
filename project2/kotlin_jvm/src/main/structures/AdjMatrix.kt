@@ -1,9 +1,8 @@
 package main.structures
 
 import main.Edge
-import main.Utils
 
-class AdjMatrix(edges: Collection<Edge>,private var maxVerticeNumber: Int) {
+class AdjMatrix(edges: Collection<Edge>, maxVerticeNumber: Int) {
 
     private var vertexNumber : Int = maxVerticeNumber + 1
     private var adjMatrix : Array<Array<Int>> = Array(vertexNumber){Array(vertexNumber){ Int.MAX_VALUE}}
@@ -17,10 +16,21 @@ class AdjMatrix(edges: Collection<Edge>,private var maxVerticeNumber: Int) {
         size = adjMatrix.size
     }
 
-    constructor(edges: Collection<Edge>) : this(edges, Utils.getVerticesMaxNumber(edges))
 
     operator fun get(i: Int) : Array<Int>{
         return adjMatrix[i];
+    }
+
+    fun toEdgesCollection(): Collection<Edge>{
+        val edges = hashSetOf<Edge>()
+
+        for((i, row) in adjMatrix.withIndex()){
+            for(x in (i+1) until row.size){
+                if(x != Int.MAX_VALUE && x > 0)
+                    edges.add(Edge(i,x, row[x]))
+            }
+        }
+        return edges
     }
 
     override fun toString(): String {

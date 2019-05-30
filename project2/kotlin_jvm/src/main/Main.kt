@@ -1,3 +1,4 @@
+
 import main.Graph
 import main.GraphLoader
 import main.Utils
@@ -57,51 +58,34 @@ class Main {
         @JvmStatic
         fun main(args: Array<String>) {
 
-/*
-            val range = IntRange(1, 1000000)
-            val counts = intArrayOf(10, 100, 500, 1000, 2000, 3000, 5000, 7000, 10000, 13000, 20000, 30000, 50000, 70_000, 100_000, 200_000, 300_000, 500_000, 800_000, 1_000_000)
-            val times = 10
-
-            counts.forEach { print(TestUnit(it, range).arrayAddTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).listAddTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).heapAddTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).bstAddTest(times).toString() + "\n") }
-//            counts.forEach { print(TestUnit(it, range).avlAddTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).arrayDeleteTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).listDeleteTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).heapDeleteTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).bstDeleteTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).arrayFindTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).listFindTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).heapFindTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).bstFindTest(times).toString() + "\n") }
- //           counts.forEach { print(TestUnit(it, range).avlFindTest(times).toString() + "\n") }
-
-            counts.forEach { print(TestUnit(it, range).bstAddFixTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).bstDeleteFixTest(times).toString() + "\n") }
-            counts.forEach { print(TestUnit(it, range).bstBalanceTest(times).toString() + "\n") }
-*/
+            TestUnit.runTests(args[0].toInt())
 
             val main = Main()
-            with(main) {
-                var opt: String
+            //main.menu()
 
-                do {
-                    printMenu()
-                    opt = readOption()
-                    when (opt) {
-                        "1" -> loadGraph()
-                        "2" -> generateGraph()
-                        "3" -> printGraph()
-                        "4" -> prim()
-                        "5" -> kruskal()
-                        "6" -> dijkstra()
-                        "7" -> bellman()
-                    }
 
-                } while (opt != "0")
-            }
         }
+    }
+
+    fun menu(){
+
+            var opt: String
+
+            do {
+                printMenu()
+                opt = readOption()
+                when (opt) {
+                    "1" -> loadGraph()
+                    "2" -> generateGraph()
+                    "3" -> printGraph()
+                    "4" -> prim()
+                    "5" -> kruskal()
+                    "6" -> dijkstra()
+                    "7" -> bellman()
+                }
+
+            } while (opt != "0")
+
     }
 
     private fun loadGraph(){
