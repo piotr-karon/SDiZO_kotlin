@@ -25,11 +25,12 @@ class BellmanFordAlg(private val graph: Graph, private val startPoint: Int) {
                 val neighbors = graph.adjList[x]
 
                 for(y in neighbors){
-                    if(d[y.name] <= d[x] + y.costTo) continue
+                    if(d[x] != Int.MAX_VALUE && d[y.name] > (d[x] + y.costTo)) {
 
-                    test = false
-                    d[y.name] = d[x] + y.costTo
-                    p[y.name] = x
+                        test = false
+                        d[y.name] = d[x] + y.costTo
+                        p[y.name] = x
+                    }
                 }
             }
             if(test) return true
@@ -39,7 +40,7 @@ class BellmanFordAlg(private val graph: Graph, private val startPoint: Int) {
             val neighbors = graph.adjList[x]
 
             for(y in neighbors){
-                if (d[y.name] > d[x] + y.costTo)
+                if (d[x] != Int.MAX_VALUE && d[y.name] > (d[x] + y.costTo))
                     return false
             }
         }
@@ -53,18 +54,19 @@ class BellmanFordAlg(private val graph: Graph, private val startPoint: Int) {
 
         d[startPoint] = 0
 
-        for(i in 1 until graph.V){
+        for(i in 0 until graph.V){
             test = true
 
             for(x in 0 until graph.V){
-                val neighbors = graph.adjList[x]
+                val neighbors = graph.adjMatrix[x]
 
-                for(y in neighbors){
-                    if(d[y.name] <= d[x] + y.costTo) continue
+                for((vert,cost) in neighbors.withIndex()){
+                    if(d[vert] != Int.MAX_VALUE && d[x] != Int.MAX_VALUE && d[vert] > d[x] + cost) {
 
-                    test = false
-                    d[y.name] = d[x] + y.costTo
-                    p[y.name] = x
+                        test = false
+                        d[vert] = d[x] + cost
+                        p[vert] = x
+                    }
                 }
             }
             if(test) return true
@@ -73,9 +75,10 @@ class BellmanFordAlg(private val graph: Graph, private val startPoint: Int) {
         for(x in 0 until graph.V){
             val neighbors = graph.adjMatrix[x]
 
-            for(y in neighbors){
-                if (d[y] > d[x] + neighbors[y])
-                    return false
+            for((vert,cost) in neighbors.withIndex()){
+                if(d[vert] > d[x] + cost) {
+                    return false;
+                }
             }
         }
 

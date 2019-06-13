@@ -17,7 +17,7 @@ class AdjList (edges: Collection<Edge>, maxVerticeNumber: Int)  {
 
             if(dest != src) {
                 if (adjVertDest !in matrices[src]) matrices[src].add(adjVertDest)
-                if (adjVertSrc !in matrices[dest]) matrices[dest].add(adjVertSrc)
+               // if (adjVertSrc !in matrices[dest]) matrices[dest].add(adjVertSrc)
             }
         }
     }

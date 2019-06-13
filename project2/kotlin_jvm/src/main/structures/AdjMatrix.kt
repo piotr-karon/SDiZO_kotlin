@@ -11,7 +11,7 @@ class AdjMatrix(edges: Collection<Edge>, maxVerticeNumber: Int) {
     init {
         for (edge in edges){
             adjMatrix[edge.src][edge.dest] = edge.weight
-            adjMatrix[edge.dest][edge.src] = edge.weight
+            //adjMatrix[edge.dest][edge.src] = edge.weight
         }
         size = adjMatrix.size
     }

@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 class Main {
 
-    private var graph: Graph = Graph.randomGraph(8, 0.99)
+    private var graph: Graph = GraphLoader.loadFile("./dane_testowe/dane_droga_BF.txt")
     private var isGenerated = false
 
     companion object {
@@ -20,6 +20,7 @@ class Main {
             main.menu()
         }
     }
+    // TODO BELLMAN dane_BF!!
 
     fun menu() {
 
@@ -74,9 +75,10 @@ class Main {
 
         println("###### Prim z użciem listy sąsiedztwa #####")
         println(list.adjList)
+        println("Waga: ${list.weight()}")
         println("\n###### Prim z użyciem macierzy sąsiedztwa #####")
         println(matrix.adjList)
-        print("\n")
+        println("Waga: ${matrix.weight()}")
     }
 
     private fun kruskal() {
@@ -85,9 +87,10 @@ class Main {
 
         println("###### Kruskal z użciem listy sąsiedztwa #####")
         println(list.adjList)
+        println("Waga: ${list.weight()}")
         println("\n###### Kruskal z użyciem macierzy sąsiedztwa #####")
         println(matrix.adjList)
-        print("\n")
+        println("Waga: ${matrix.weight()}")
     }
 
     private fun dijkstra() {
@@ -106,6 +109,7 @@ class Main {
         println("\n###### Dijkstra z użyciem macierzy sąsiedztwa #####")
         println(Utils.arrayToStringLines(dij.getPaths()))
         println()
+
     }
 
     private fun bellman() {
@@ -149,10 +153,10 @@ class Main {
 
     private fun askForFile(): File? {
         do {
-            println("Podaj ścieżkę pliku:")
+            println("Podaj nazwę pliku:")
             val path = readLine()?.trim()
 
-            val file = File(path)
+            val file = File("./dane_testowe/$path")
 
             if (file.exists()) return file
         } while (path != "0")
